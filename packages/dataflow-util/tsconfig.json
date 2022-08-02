@@ -1,0 +1,36 @@
+{
+    "include": [
+        ".eslintrc.js",
+        "index.ts",
+        "lib/**/*",
+        "test/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "compilerOptions": {
+        "target": "ESNext",
+        "outDir": "./build",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "declaration": true,
+        "strict": true,
+        "sourceMap": false,
+        "inlineSources": false,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "experimentalDecorators": true,
+        "types": [
+            "node",
+            "mocha",
+            "chai"
+        ]
+    },
+    "typedocOptions": {
+        "out": "docs",
+        "entryPoints": [
+            "index.ts"
+        ],
+        "excludePrivate": true
+    }
+}
