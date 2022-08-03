@@ -1,6 +1,6 @@
 {
   "name": "dataflow-core",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A framework for streaming data",
   "main": "build/index.js",
   "types": "build/index.d.ts",
