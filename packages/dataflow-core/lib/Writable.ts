@@ -166,7 +166,7 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
                     await Promise.all(readerPromises);
                     return;
                 default:
-                    throw new TypeError(`unknown DataflowMultiInput mode: ${mode}`);
+                    throw new TypeError(`unknown mode: ${mode}`);
                 }
             };
 
