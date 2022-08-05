@@ -2,6 +2,9 @@
   "name": "dataflow-core",
   "version": "0.9.1",
   "description": "A framework for streaming data",
+  "engines": {
+    "node": ">=18"
+  },
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
