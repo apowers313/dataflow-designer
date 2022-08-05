@@ -17,7 +17,6 @@ export interface ComponentOpts {
 export abstract class Component {
     readonly isReadable: boolean = false;
     readonly isWritable: boolean = false;
-    readonly sym = DataflowSymbol;
     initialized = false;
     name = "<undefined>";
     log = {
@@ -36,6 +35,11 @@ export abstract class Component {
     constructor(opts: ComponentOpts = {}) {
         this.name = opts.name ?? this.name;
         this.log = opts.log ?? this.log;
+        Object.defineProperty(this, DataflowSymbol, {
+            configurable: false,
+            enumerable: false,
+            value: true,
+        });
     }
 
     /**

@@ -1,4 +1,6 @@
 export {Chunk, ChunkCollection, DataChunk, ErrorChunk, MetadataChunk} from "./lib/Chunk";
+export {Component} from "./lib/Component";
+export {isSource, isSink, isThrough, isComponent} from "./lib/types";
 export {Source, SourceMethods} from "./lib/Source";
 export {Through, ThroughMethods} from "./lib/Through";
 export {Sink} from "./lib/Sink";
