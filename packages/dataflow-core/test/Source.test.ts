@@ -161,6 +161,8 @@ describe("Source", function() {
             assert.strictEqual(sinkSpy4.callCount, 11);
         });
 
+        it("can be called from multiple sources");
+
         it("errors if no channels piped");
     });
 
