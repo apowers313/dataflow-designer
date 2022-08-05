@@ -2,10 +2,16 @@
   "name": "template",
   "version": "0.1.0",
   "description": "PUT A DESCRIPTION HERE",
-  "main": "dist/index.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "test": "ts-mocha test/**/*.test.ts",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "build": "tsc",
+    "prepublish": "npm build"
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
