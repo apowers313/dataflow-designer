@@ -1,1 +1,1 @@
-A framework for streaming data. Work in progress.
+Work in progress. Do not use.
