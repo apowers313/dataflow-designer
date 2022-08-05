@@ -11,7 +11,7 @@
     "test": "ts-mocha test/**/*.test.ts",
     "docs": "typedoc",
     "build": "tsc",
-    "prepublish": "npm build"
+    "prepare": "npm run build"
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
