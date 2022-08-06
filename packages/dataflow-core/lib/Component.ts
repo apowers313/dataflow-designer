@@ -1,3 +1,5 @@
+import {DeferredPromise, walkStream} from "./utils";
+
 export const DataflowSymbol = Symbol();
 
 export interface ComponentOpts {
@@ -18,6 +20,8 @@ export abstract class Component {
     readonly isReadable: boolean = false;
     readonly isWritable: boolean = false;
     initialized = false;
+    initDone: Promise<unknown>;
+    resolveInit: () => void;
     name = "<undefined>";
     log = {
         error: console.error,
@@ -35,6 +39,9 @@ export abstract class Component {
     constructor(opts: ComponentOpts = {}) {
         this.name = opts.name ?? this.name;
         this.log = opts.log ?? this.log;
+        const dp = new DeferredPromise<void>();
+        this.initDone = dp.promise;
+        this.resolveInit = dp.resolve;
         Object.defineProperty(this, DataflowSymbol, {
             configurable: false,
             enumerable: false,
@@ -47,6 +54,21 @@ export abstract class Component {
      */
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     async init(): Promise<void> {
+        console.log("Component.init()");
         this.initialized = true;
+        this.resolveInit();
+    }
+
+    /**
+     * Waits for a dataflow to finish sending all data
+     */
+    async complete(): Promise<void> {
+        const initPromises: Array<Promise<void>> = [];
+        walkStream(this, (c) => {
+            const p = c.init();
+            initPromises.push(p);
+        });
+
+        await Promise.all(initPromises);
     }
 }

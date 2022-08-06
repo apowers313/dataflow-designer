@@ -2,7 +2,6 @@ import {Chunk, ChunkCollection, MetadataChunk} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
 import {ReadMethods, Readable, ReadableOpts} from "./Readable";
 import {DataflowStart} from "./Metadata";
-import {walkStream} from "./utils";
 
 type FinishedFn = () => Promise<void>
 export type SourcePullFn = (methods: SourceMethods) => Promise<void>
@@ -38,6 +37,7 @@ export class Source extends Readable(Component) {
                 await this.#sourcePull({
                     ... methods,
                     finished: async(): Promise<void> => {
+                        console.log("readableController close()");
                         this.readableController!.close();
                     },
                 });
@@ -55,29 +55,20 @@ export class Source extends Readable(Component) {
     }
 
     /**
-     * Waits for a dataflow to finish sending all data
-     */
-    async complete(): Promise<void> {
-        const initPromises: Array<Promise<void>> = [];
-        walkStream(this, (c) => {
-            const p = c.init();
-            initPromises.push(p);
-        });
-
-        await Promise.all(initPromises);
-    }
-
-    /**
      * Initializes the Source. Typically called by .complete()
      */
     async init(): Promise<void> {
+        console.log("Source.init");
+        console.log("broadcasting start");
         if (this.sendStartMetadata) {
             const mds = Chunk.create({type: "metadata"}) as MetadataChunk;
             mds.metadata.add(new DataflowStart(this.name));
             const cc = ChunkCollection.broadcast(mds, this.numChannels);
+            console.log("num dests", this.numDests);
             this.readableController.enqueue(cc);
         }
 
+        console.log("Source.init super()");
         await super.init();
     }
 }

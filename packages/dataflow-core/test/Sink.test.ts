@@ -1,5 +1,5 @@
-import {Chunk, ChunkCollection, Sink} from "../index";
-import {TestSource, push} from "./helpers/helpers";
+import {Chunk, ChunkCollection, Sink, Through} from "../index";
+import {TestSource, push, through} from "./helpers/helpers";
 import {assert} from "chai";
 import {spy} from "sinon";
 
@@ -125,5 +125,78 @@ describe("Sink", function() {
             assert.isTrue(chunk12.metadata.has("dataflow", "end"));
         });
         it("catches errors");
+    });
+
+    describe("complete", function() {
+        it("handles simplest of pipes", async function() {
+            const src = new TestSource();
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src.channels[0].pipe(sink);
+            await sink.complete();
+
+            assert.strictEqual(sinkSpy.callCount, 11);
+        });
+
+        it("handles multi source", async function() {
+            const src1 = new TestSource({includeId: true});
+            const src2 = new TestSource({includeId: true});
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src1.channels[0].pipe(sink);
+            src2.channels[0].pipe(sink);
+            await sink.complete();
+
+            sinkSpy.args.forEach((a) => console.log("arg0", a[0]));
+            assert.strictEqual(sinkSpy.callCount, 22);
+        });
+
+        it("handles multi source with delays", async function() {
+            const src1 = new TestSource({delay: 3, countBy: 3, sendNum: 11});
+            const src2 = new TestSource({delay: 2, countBy: 2, sendNum: 11});
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src1.channels[0].pipe(sink);
+            src2.channels[0].pipe(sink);
+            await sink.complete();
+
+            sinkSpy.args.forEach((a) => console.log("arg0", a[0]));
+            assert.strictEqual(sinkSpy.callCount, 22);
+        });
+
+        it("handles simple tee", async function() {
+            const src = new TestSource();
+            const sink1 = new Sink({push, name: "sink1"});
+            const sink2 = new Sink({push, name: "sink2"});
+            const sink3 = new Sink({push, name: "sink3"});
+            src.channels[0].pipe([sink1, sink2, sink3]);
+            await sink1.complete();
+        });
+
+        it("iterates a complex tree", async function() {
+            const src = new TestSource();
+            const thru1 = new Through({through, name: "thru1"});
+            const thru2 = new Through({through, name: "thru2"});
+            const thru3 = new Through({through, name: "thru3"});
+            const sinkSpy1 = spy();
+            const sink1 = new Sink({push: sinkSpy1, name: "sink1"});
+            const sinkSpy2 = spy();
+            const sink2 = new Sink({push: sinkSpy2, name: "sink2"});
+            const sinkSpy3 = spy();
+            const sink3 = new Sink({push: sinkSpy3, name: "sink3"});
+            const sinkSpy4 = spy();
+            const sink4 = new Sink({push: sinkSpy4, name: "sink4"});
+            src.channels[0].pipe([sink1, thru1, thru2]);
+            thru1.channels[0].pipe(sink2);
+            thru2.channels[0].pipe([thru3, sink3]);
+            thru3.channels[0].pipe(sink4);
+            await sink4.complete();
+
+            // TODO: test results
+            assert.strictEqual(sinkSpy1.callCount, 11);
+            assert.strictEqual(sinkSpy2.callCount, 11);
+            assert.strictEqual(sinkSpy3.callCount, 11);
+            assert.strictEqual(sinkSpy4.callCount, 11);
+        });
     });
 });

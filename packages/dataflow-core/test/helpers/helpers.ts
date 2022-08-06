@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import {Chunk, MetadataType, Source, SourceMethods, ThroughMethods} from "../../index";
+import {Chunk, DataChunk, MetadataType, Source, SourceMethods, ThroughMethods} from "../../index";
 
 export async function through(chunk: Chunk, methods: ThroughMethods): Promise<void> {
     await methods.send(0, chunk);
@@ -19,13 +19,17 @@ export interface TestSourceOpts {
     countBy?: number;
     delay?: number;
     sendNum?: number;
+    includeId?: boolean;
 }
 
+let cnt = 0;
 export class TestSource extends Source {
     countBy: number;
     delay: number;
     sendNum: number;
     count: number;
+    id: number;
+    includeId: boolean;
 
     constructor(opt: TestSourceOpts = {}) {
         super({
@@ -35,6 +39,8 @@ export class TestSource extends Source {
             name: "test-source",
         });
 
+        this.id = cnt++;
+        this.includeId = opt.includeId ?? false;
         this.countBy = opt.countBy ?? 1;
         this.delay = opt.delay ?? 0;
         this.sendNum = opt.sendNum ?? 10;
@@ -55,7 +61,11 @@ export class TestSource extends Source {
             return;
         }
 
-        const next = Chunk.create({type: "data", data: {count: this.count}});
+        const next = Chunk.create({type: "data", data: {count: this.count}}) as DataChunk;
+        if (this.includeId) {
+            next.data.id = this.id;
+        }
+
         this.count += this.countBy;
         await methods.send(0, next);
     }
