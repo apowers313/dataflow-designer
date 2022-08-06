@@ -196,5 +196,18 @@ describe("Sink", function() {
             assert.strictEqual(sinkSpy3.callCount, 11);
             assert.strictEqual(sinkSpy4.callCount, 11);
         });
+
+        it("can be called multiple times", async function() {
+            const src = new TestSource();
+            const thru = new Through({through});
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src.channels[0].pipe(thru);
+            thru.channels[0].pipe(sink);
+            await sink.complete();
+            await sink.complete();
+
+            assert.strictEqual(sinkSpy.callCount, 11);
+        });
     });
 });

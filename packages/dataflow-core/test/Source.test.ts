@@ -32,7 +32,7 @@ describe("Source", function() {
                 },
                 sendStartMetadata: false,
             });
-            src.initDone = Promise.resolve();
+            src.started = Promise.resolve();
             src.channels[0].pipe(new Sink({push: spy()}));
             assert.strictEqual(src.channels[0].outputs.length, 1);
             const chunk = await src.channels[0].outputs[0].read();
@@ -51,7 +51,7 @@ describe("Source", function() {
                 },
                 sendStartMetadata: false,
             });
-            src.initDone = Promise.resolve();
+            src.started = Promise.resolve();
             src.channels[0].pipe([new Sink({push: spy()}), new Sink({push: spy()})]);
             assert.strictEqual(src.channels[0].outputs.length, 2);
             const p1 = src.channels[0].outputs[0].read();
@@ -79,7 +79,7 @@ describe("Source", function() {
                 numChannels: 3,
                 sendStartMetadata: false,
             });
-            src.initDone = Promise.resolve();
+            src.started = Promise.resolve();
             src.channels[0].pipe(new Sink({push: spy()}));
             src.channels[1].pipe(new Sink({push: spy()}));
             src.channels[2].pipe(new Sink({push: spy()}));
@@ -134,6 +134,18 @@ describe("Source", function() {
             const sinkSpy = spy();
             const sink = new Sink({push: sinkSpy, name: "sink1"});
             src.channels[0].pipe(sink);
+            await src.complete();
+
+            assert.strictEqual(sinkSpy.callCount, 11);
+        });
+
+        it("handles through", async function() {
+            const src = new TestSource();
+            const thru = new Through({through});
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src.channels[0].pipe(thru);
+            thru.channels[0].pipe(sink);
             await src.complete();
 
             assert.strictEqual(sinkSpy.callCount, 11);
@@ -208,6 +220,19 @@ describe("Source", function() {
         it("can be called from multiple sources");
 
         it("errors if no channels piped");
+
+        it("can be called multiple times", async function() {
+            const src = new TestSource();
+            const thru = new Through({through});
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src.channels[0].pipe(thru);
+            thru.channels[0].pipe(sink);
+            await src.complete();
+            await src.complete();
+
+            assert.strictEqual(sinkSpy.callCount, 11);
+        });
     });
 
     describe("route", function() {

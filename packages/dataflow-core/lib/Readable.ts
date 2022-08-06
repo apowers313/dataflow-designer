@@ -229,7 +229,7 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
          * @param cc - The ChunkCollection to send
          */
         async sendMulti(cc: ChunkCollection): Promise<void> {
-            await this.initDone;
+            await this.started;
             cc.forEach((chunk, chNum) => {
                 if (this.channels[chNum].numDests === 0) {
                     // throw an error if trying to send data on a channel with no destinations

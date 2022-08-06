@@ -20,7 +20,8 @@ export abstract class Component {
     readonly isReadable: boolean = false;
     readonly isWritable: boolean = false;
     initialized = false;
-    initDone: Promise<unknown>;
+    started: Promise<unknown>;
+    finished?: Promise<void>
     resolveInit: () => void;
     name = "<undefined>";
     log = {
@@ -40,7 +41,7 @@ export abstract class Component {
         this.name = opts.name ?? this.name;
         this.log = opts.log ?? this.log;
         const dp = new DeferredPromise<void>();
-        this.initDone = dp.promise;
+        this.started = dp.promise;
         this.resolveInit = dp.resolve;
         Object.defineProperty(this, DataflowSymbol, {
             configurable: false,

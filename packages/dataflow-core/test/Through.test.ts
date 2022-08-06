@@ -397,5 +397,58 @@ describe("Through", function() {
             assert.isTrue(chunk4.isMetadata());
             assert.isTrue(chunk4.metadata.has("dataflow", "end"));
         });
+
+        describe("complete", function() {
+            it("works on through", async function() {
+                const src = new TestSource();
+                const thru = new Through({through});
+                const sinkSpy = spy();
+                const sink = new Sink({push: sinkSpy, name: "sink1"});
+                src.channels[0].pipe(thru);
+                thru.channels[0].pipe(sink);
+                await thru.complete();
+
+                assert.strictEqual(sinkSpy.callCount, 11);
+            });
+
+            it("iterates a complex tree", async function() {
+                const src = new TestSource();
+                const thru1 = new Through({through, name: "thru1"});
+                const thru2 = new Through({through, name: "thru2"});
+                const thru3 = new Through({through, name: "thru3"});
+                const sinkSpy1 = spy();
+                const sink1 = new Sink({push: sinkSpy1, name: "sink1"});
+                const sinkSpy2 = spy();
+                const sink2 = new Sink({push: sinkSpy2, name: "sink2"});
+                const sinkSpy3 = spy();
+                const sink3 = new Sink({push: sinkSpy3, name: "sink3"});
+                const sinkSpy4 = spy();
+                const sink4 = new Sink({push: sinkSpy4, name: "sink4"});
+                src.channels[0].pipe([sink1, thru1, thru2]);
+                thru1.channels[0].pipe(sink2);
+                thru2.channels[0].pipe([thru3, sink3]);
+                thru3.channels[0].pipe(sink4);
+                await thru3.complete();
+
+                // TODO: test results
+                assert.strictEqual(sinkSpy1.callCount, 11);
+                assert.strictEqual(sinkSpy2.callCount, 11);
+                assert.strictEqual(sinkSpy3.callCount, 11);
+                assert.strictEqual(sinkSpy4.callCount, 11);
+            });
+
+            it("can be called multiple times", async function() {
+                const src = new TestSource();
+                const thru = new Through({through});
+                const sinkSpy = spy();
+                const sink = new Sink({push: sinkSpy, name: "sink1"});
+                src.channels[0].pipe(thru);
+                thru.channels[0].pipe(sink);
+                await thru.complete();
+                await thru.complete();
+
+                assert.strictEqual(sinkSpy.callCount, 11);
+            });
+        });
     });
 });

@@ -14,4 +14,18 @@ export class Sink extends Writable(Component) {
     constructor(opts: WritableOpts) {
         super(opts);
     }
+
+    /**
+     * Initializes the Sync. Typically called by .complete()
+     *
+     * @returns a promise that resolves when streaming has completed, or rejects on error
+     */
+    async init(): Promise<void> {
+        if (this.finished) {
+            return this.finished;
+        }
+
+        this.finished = super.init();
+        return this.finished;
+    }
 }

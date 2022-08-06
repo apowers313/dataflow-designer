@@ -51,6 +51,20 @@ export class Through extends Writable(Readable(Component)) {
     }
 
     /**
+     * Initializes through. Usually called by .complete()
+     *
+     * @returns a promise that resolves when streaming has completed, or rejects on error
+     */
+    async init(): Promise<void> {
+        if (this.finished) {
+            return this.finished;
+        }
+
+        this.finished = super.init();
+        return this.finished;
+    }
+
+    /**
      * Receives data from a WritableStream
      *
      * @param chunk - Data received as input

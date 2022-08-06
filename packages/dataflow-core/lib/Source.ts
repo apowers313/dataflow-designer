@@ -55,8 +55,14 @@ export class Source extends Readable(Component) {
 
     /**
      * Initializes the Source. Typically called by .complete()
+     *
+     * @returns a promise that resolves when streaming has completed, or rejects on error
      */
     async init(): Promise<void> {
+        if (this.finished) {
+            return this.finished;
+        }
+
         if (this.sendStartMetadata) {
             const mds = Chunk.create({type: "metadata"}) as MetadataChunk;
             mds.metadata.add(new DataflowStart(this.name));
@@ -64,6 +70,7 @@ export class Source extends Readable(Component) {
             this.readableController.enqueue(cc);
         }
 
-        await super.init();
+        this.finished = super.init();
+        return this.finished;
     }
 }
