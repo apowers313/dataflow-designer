@@ -100,7 +100,6 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
 
         // eslint-disable-next-line jsdoc/require-jsdoc
         async #run(): Promise<void> {
-            console.log("running");
             const activeReaders = [... this.inputs];
             const readerPromises = activeReaders.map((r) => r.read());
             const mode = this.inputMuxMode;
@@ -108,7 +107,6 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
 
             const processStreams = async(): Promise<void> => {
                 const results = await getResults();
-                console.log("writable got", results);
 
                 // forward-loop sending results to maintain order of messages
                 const batch: Array<Chunk> = [];
@@ -149,7 +147,6 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
                 }
 
                 if (activeReaders.length === 0) {
-                    console.log("writer closing");
                     // no more readers, all done!
                     await this.#writer.close();
                     return;
@@ -160,12 +157,9 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
             };
 
             const waitForReaders = async(): Promise<void> => {
-                console.log("waitForReaders");
                 switch (mode) {
                 case "fifo":
-                    console.log("racing");
                     await Promise.race(readerPromises.map((p) => p.then(() => [p])));
-                    console.log("race done");
                     return;
                 case "batch":
                 case "zipper":

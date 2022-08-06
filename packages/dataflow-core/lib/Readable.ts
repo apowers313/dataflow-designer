@@ -107,7 +107,6 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
                 cancel: cfg.readCancel,
             }, new CountQueuingStrategy({highWaterMark: this.queueSize}));
             this.#reader = this.#readableStream.getReader();
-            console.log("this.#reader.closed in constructor", this.#reader.closed);
         }
 
         /**
@@ -143,7 +142,6 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
          * Initializes the Readable
          */
         async init(): Promise<void> {
-            console.log("Readable.init()");
             await super.init();
         }
 
@@ -170,7 +168,6 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
          * @returns The data that has been received
          */
         async readFor(dest: Output): Promise<Chunk> {
-            console.log("readFor");
             if (this.done) {
                 const md = Chunk.create({type: "metadata"}) as MetadataChunk;
                 md.metadata.add(new DataflowEnd());
@@ -183,7 +180,6 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
             }
 
             const dp = new DeferredPromise<Chunk>();
-            console.log("setting pendingReads");
             this.#pendingReads.set(dest, dp);
 
             if ((this.#pendingReads.size) >= this.numDests) {
@@ -197,10 +193,7 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
          * Internal helper function for reading data and sending it to all the correct Outputs
          */
         async #doRead(): Promise<void> {
-            console.log("doRead");
-            console.log("this.#reader.closed", this.#reader.closed);
             const readData = await this.#reader.read();
-            console.log("got read data", readData);
             if (readData.done) {
                 // wrap things up
                 this.done = true;
@@ -236,7 +229,6 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
          * @param cc - The ChunkCollection to send
          */
         async sendMulti(cc: ChunkCollection): Promise<void> {
-            console.log("!!! SENDMULTI");
             await this.initDone;
             cc.forEach((chunk, chNum) => {
                 if (this.channels[chNum].numDests === 0) {
@@ -293,7 +285,6 @@ export class OutputChannel {
      * @param dst - The Writeable (Sink or Through) to connect the data to. May be a single output or an array of outputs.
      */
     pipe(dst: WritableType | Array<WritableType>): void {
-        console.log("doing pipe");
         if (!Array.isArray(dst)) {
             dst = [dst];
         }

@@ -37,7 +37,6 @@ export class Source extends Readable(Component) {
                 await this.#sourcePull({
                     ... methods,
                     finished: async(): Promise<void> => {
-                        console.log("readableController close()");
                         this.readableController!.close();
                     },
                 });
@@ -58,17 +57,13 @@ export class Source extends Readable(Component) {
      * Initializes the Source. Typically called by .complete()
      */
     async init(): Promise<void> {
-        console.log("Source.init");
-        console.log("broadcasting start");
         if (this.sendStartMetadata) {
             const mds = Chunk.create({type: "metadata"}) as MetadataChunk;
             mds.metadata.add(new DataflowStart(this.name));
             const cc = ChunkCollection.broadcast(mds, this.numChannels);
-            console.log("num dests", this.numDests);
             this.readableController.enqueue(cc);
         }
 
-        console.log("Source.init super()");
         await super.init();
     }
 }

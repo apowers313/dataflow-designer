@@ -70,7 +70,6 @@ export type WalkCallbackFn = (c: Component) => void;
  * @param ctx - Used internally for tracking state throughout recursion.
  */
 export function walkStream(c: Component, cb: WalkCallbackFn, ctx?: WalkContext): void {
-    console.log("walking", c.name);
     if (!ctx) {
         ctx = new WalkContext();
     }

@@ -145,7 +145,6 @@ describe("Source", function() {
             src2.channels[0].pipe(sink);
             await src1.complete();
 
-            sinkSpy.args.forEach((a) => console.log("arg0", a[0]));
             assert.strictEqual(sinkSpy.callCount, 22);
         });
 
@@ -158,7 +157,6 @@ describe("Source", function() {
             src2.channels[0].pipe(sink);
             await src1.complete();
 
-            sinkSpy.args.forEach((a) => console.log("arg0", a[0]));
             assert.strictEqual(sinkSpy.callCount, 22);
         });
 

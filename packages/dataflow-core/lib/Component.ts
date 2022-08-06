@@ -54,7 +54,6 @@ export abstract class Component {
      */
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     async init(): Promise<void> {
-        console.log("Component.init()");
         this.initialized = true;
         this.resolveInit();
     }
