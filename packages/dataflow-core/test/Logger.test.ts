@@ -134,7 +134,17 @@ describe("Logger", function() {
 
             assert.instanceOf(logger, Logger);
             assert.instanceOf(logger, TestLogger);
+
+            stdMocks.use();
             logger.log("x");
+            stdMocks.restore();
+
+            const output = stdMocks.flush();
+            assert.strictEqual(output.stderr.length, 0);
+            assert.strictEqual(output.stdout.length, 1);
+            assert.deepEqual(output.stdout, [
+                "foo\n",
+            ]);
         });
 
         it("default", function() {

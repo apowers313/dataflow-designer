@@ -75,24 +75,3 @@ textStatusGenerator.register("idle", function(type: string, ... args: any[]) {
     console.log(`[${type.toUpperCase()}]:`, ... args);
 });
 StatusGenerator.setGeneratorForType(undefined, textStatusGenerator);
-
-// class Node{
-//     name = "foo"
-//     status(s: Record<any, any> | string): void {
-//         console.log(`${s}`);
-//     }
-// }
-
-// const nodeStatusGenerator = new StatusGenerator<Node>({name: "node"});
-// nodeStatusGenerator.register("idle", function(this: Node, type: string, ... args: any[]) {
-//     const txt = format(... args);
-//     this.status({fill: "red", shape: "ring", text: txt});
-//     // console.log(`[${this.name}:${type.toUpperCase()}]:`, ... args);
-// });
-
-// const tg = new StatusReporter({context: undefined});
-// const ng = new StatusReporter({context: new Node()});
-// ng.context;
-// ng.generator;
-
-// StatusGenerator.setGeneratorForType(Node, nodeStatusGenerator);

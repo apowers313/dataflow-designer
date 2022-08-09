@@ -83,10 +83,6 @@ export class Logger<TCtx> {
     static setLoggerForType<T>(t: LoggerRegistryIndexType<T>, gen: LoggerConstructor<T>): void {
         loggerRegistry.set(t, gen);
     }
-
-    // static clone<T>(l: Logger<T>): Logger<T> {
-    //     return new Logger(l.cfg);
-    // }
 }
 
 class DefaultLogger extends Logger<undefined> {
