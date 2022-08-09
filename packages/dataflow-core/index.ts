@@ -1,4 +1,4 @@
-export {Chunk, ChunkCollection, DataChunk, ErrorChunk, MetadataChunk} from "./lib/Chunk";
+export {Chunk, ChunkData, ChunkCollection, DataChunk, ErrorChunk, MetadataChunk} from "./lib/Chunk";
 export {Component} from "./lib/Component";
 export {isSource, isSink, isThrough, isComponent} from "./lib/types";
 export {Source, SourceMethods} from "./lib/Source";
@@ -7,4 +7,6 @@ export {Sink} from "./lib/Sink";
 export {MetadataCollection, MetadataType, DataflowEnd, DataflowStart, MetadataRegistry} from "./lib/Metadata";
 export {Readable, ReadableType, ReadMethods} from "./lib/Readable";
 export {Writable, WritableType, WriteMethods} from "./lib/Writable";
+export {StatusReporter, StatusGenerator} from "./lib/Status";
+export {Logger} from "./lib/Logger";
 export * as utils from "./lib/utils";

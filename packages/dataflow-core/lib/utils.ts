@@ -138,3 +138,5 @@ export const inspectSymbol = Symbol.for("nodejs.util.inspect.custom");
  * Error class for internal dataflow errors
  */
 export class DataflowError extends Error {}
+
+export type ContextConstructor<T> = new (... args: any[]) => T;

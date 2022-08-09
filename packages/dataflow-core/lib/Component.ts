@@ -1,16 +1,12 @@
-import {DeferredPromise, walkStream} from "./utils";
+import {ContextConstructor, DeferredPromise, walkStream} from "./utils";
+import {Logger} from "./Logger";
+import {StatusReporter} from "./Status";
 
 export const DataflowSymbol = Symbol();
 
 export interface ComponentOpts {
     name?: string
-    log?: {
-        error: typeof console.error
-        warn: typeof console.warn,
-        info: typeof console.info,
-        debug: typeof console.debug,
-        trace: typeof console.trace,
-    }
+    context?: ContextConstructor<any>;
 }
 
 /**
@@ -24,22 +20,17 @@ export abstract class Component {
     finished?: Promise<void>
     resolveInit: () => void;
     name = "<undefined>";
-    log = {
-        error: console.error,
-        warn: console.warn,
-        info: console.info,
-        debug: console.debug,
-        trace: console.trace,
-    }
+    logger!: Logger<any>;
+    status!: StatusReporter<any>;
 
     /**
      * Creates a new component
      *
      * @param opts - Options for the new component
      */
-    constructor(opts: ComponentOpts = {}) {
+    constructor(opts: ComponentOpts) {
+        opts = opts ?? {};
         this.name = opts.name ?? this.name;
-        this.log = opts.log ?? this.log;
         const dp = new DeferredPromise<void>();
         this.started = dp.promise;
         this.resolveInit = dp.resolve;
@@ -48,6 +39,8 @@ export abstract class Component {
             enumerable: false,
             value: true,
         });
+
+        this.context = opts.context;
     }
 
     /**
@@ -57,6 +50,11 @@ export abstract class Component {
     async init(): Promise<void> {
         this.initialized = true;
         this.resolveInit();
+    }
+
+    set context(c: any | undefined) {
+        this.logger = Logger.getLoggerForType(c);
+        this.status = new StatusReporter({context: c});
     }
 
     /**
