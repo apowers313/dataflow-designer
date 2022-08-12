@@ -1,1 +1,1 @@
-export * from "./lib/main";
+export {S3Source} from "./lib/S3Source";
