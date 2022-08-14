@@ -1,9 +1,9 @@
-import {Foo} from "../index";
+import {Parser} from "../index";
 import {assert} from "chai";
 // import { spy } from "sinon";
 
-describe("Foo", function() {
+describe("Parser", function() {
     it("is function", function() {
-        assert.isFunction(Foo);
+        assert.isFunction(Parser);
     });
 });
