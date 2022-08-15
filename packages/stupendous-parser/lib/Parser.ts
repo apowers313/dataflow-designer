@@ -5,5 +5,5 @@ export abstract class Parser {
 
     abstract encode(... args: any[]): TransformStream;
 
-    // async abstract decode(... args: any[]): TransformStream;
+    abstract decode(... args: any[]): TransformStream;
 }
