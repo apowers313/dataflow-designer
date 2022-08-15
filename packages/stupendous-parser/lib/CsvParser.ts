@@ -1,6 +1,6 @@
 import {Parser as CParser, Options as CParserOptions, parse} from "csv-parse";
 import {TransformStream} from "node:stream/web";
-import {Duplex} from "node:stream";
+import {Duplex, Readable, Writable} from "node:stream";
 import {Stringifier, Options as StringifierOptions, stringify} from "csv-stringify";
 import {Parser} from "./Parser";
 
@@ -31,6 +31,7 @@ export class CsvParser extends Parser {
     decode(opt: CsvDecodeOpts = {}): TransformStream {
         // XXX: at the time of this writing, Duplex type is missing experimental toWeb method
         return (Duplex as any).toWeb(parse({
+            columns: opt.columns,
             delimiter: opt.delimiter ?? ",",
         }));
     }
