@@ -1,5 +1,4 @@
-/* eslint-disable jsdoc/require-jsdoc */
-import {ReadableStream, ReadableStreamDefaultReader, TransformStream, WritableStream} from "node:stream/web";
+import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
 import {Parser} from "./Parser";
 
 export interface DataCollectionEntryCfg<TMetadata> {
@@ -78,7 +77,5 @@ export abstract class DataCollection extends Parser {
 
         return {writable, readable};
     }
-
-    // abstract decoderEntryGenerator(): AsyncGenerator<DataCollectionEntry, void, void>;
 }
 
