@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "stupendous-parser",
   "version": "0.1.0",
-  "description": "PUT A DESCRIPTION HERE",
+  "description": "A collection of file parsing streams",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
@@ -21,6 +21,7 @@
     "@types/node": "^18.7.3",
     "@types/sinon": "^10.0.12",
     "@types/temp": "^0.9.1",
+    "@types/unzip-stream": "^0.3.1",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "chai": "^4.3.6",
@@ -40,6 +41,8 @@
     "@types/stream-json": "^1.7.2",
     "csv-parse": "^5.3.0",
     "csv-stringify": "^6.2.0",
-    "stream-json": "^1.7.4"
+    "stream-json": "^1.7.4",
+    "unzip-stream": "^0.3.1",
+    "zip-stream": "^4.1.0"
   }
 }
