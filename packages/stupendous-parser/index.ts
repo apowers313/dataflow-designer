@@ -13,9 +13,10 @@ Parser.registerParser("zip", ZipParser);
 Parser.registerFileExt(".csv", ["csv"]);
 Parser.registerFileExt(".json", ["json"]);
 Parser.registerFileExt(".zip", ["zip"]);
-// Parser.registerFileExt(".csv.zip", ["csv", "zip"]);
-// Parser.registerFileExt(".json.zip", ["json", "zip"]);
-// Parser.registerFileExt(".csv.gz", ["csv", "gzip"]);
-// Parser.registerFileExt(".json.gz", ["json", "gzip"]);
+
+// Parser.registerFileExt(".tgz", ["tar", "gzip"]);
+// Parser.registerFileExt(".tar.gz", ["tar", "gzip"]);
+// Parser.registerFileExt(".tar", ["tar"]);
 
 export {Parser, CsvParser, JsonParser, GzParser, ZipParser};
+export {DataCollection} from "./lib/DataCollection";

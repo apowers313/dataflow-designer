@@ -1,5 +1,5 @@
 import {TransformStream} from "node:stream/web";
-import {parser} from "stream-json";
+import {ParserDecodeOpts, ParserEncodeOpts, ParserOpts} from "./ParserOpts";
 
 type ParserConstructor = new (... args: any[]) => Parser
 
@@ -72,7 +72,9 @@ export abstract class Parser {
         return [... ret];
     }
 
-    static getParserStreamForExt(ext: string, type: "encode" | "decode", userOpts: Record<any, any> = {}): TransformStream | undefined {
+    // static getParserStreamForExt(ext: string, type: "encode", userOpts: ParserEncodeOpts): TransformStream | undefined;
+    // static getParserStreamForExt(ext: string, type: "decode", userOpts: ParserDecodeOpts): TransformStream | undefined;
+    static getParserStreamForExt(ext: string, type: "decode" | "encode", userOpts: ParserOpts = {}): TransformStream | undefined {
         const parserStrList = fileExtRegistry.get(ext);
         if (!parserStrList) {
             return undefined;
@@ -127,7 +129,7 @@ export abstract class Parser {
         };
     }
 
-    static getParserStreamForPath(path: string, type: "encode" | "decode", parserOpts: Record<any, any> = {}): TransformStream | undefined {
+    static getParserStreamForPath(path: string, type: "encode" | "decode", parserOpts: ParserOpts = {}): TransformStream | undefined {
         const ext = Parser.findExtForPath(path);
         if (!ext) {
             return undefined;

@@ -1,3 +1,4 @@
+import {ParserDecodeOpts, ParserEncodeOpts} from "./ParserOpts";
 import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
 import {Parser} from "./Parser";
 
@@ -22,21 +23,27 @@ export abstract class DataCollectionEntry<TMetadata extends Record<any, any> = R
     abstract done(): void;
 }
 
-interface DataCollectionDecodeCfg {
+export interface DataCollectionEncodeCfg {
+    parserOpts?: ParserEncodeOpts;
+}
+
+export interface DataCollectionDecodeCfg {
     collectionStream: TransformStream<any, DataCollectionEntry>;
+    parserOpts?: ParserDecodeOpts;
 }
 
 export abstract class DataCollection extends Parser {
     abstract type: string;
 
-    encode(): TransformStream {
+    encode(opts: DataCollectionEncodeCfg): TransformStream {
         return new TransformStream();
     }
 
     decode(cfg: DataCollectionDecodeCfg): TransformStream {
         const {writable} = cfg.collectionStream;
         const collectionReader = cfg.collectionStream.readable.getReader();
-        let currentEntry: DataCollectionEntry | undefined;
+        let currentEntry: DataCollectionEntry;
+        const needEntry = true;
         let entryReader: ReadableStreamDefaultReader;
 
         const getNextEntry = async(controller: ReadableStreamController<any>): Promise<boolean> => {
@@ -49,28 +56,45 @@ export abstract class DataCollection extends Parser {
 
             currentEntry = iter.value;
             // console.log("currentEntry", currentEntry);
-            entryReader = currentEntry.stream.getReader();
+            // console.log("getting parser with opts", cfg.parserOpts);
+            const fileParser = Parser.getParserStreamForPath(currentEntry.path, "decode", cfg.parserOpts);
+            if (!fileParser) {
+                throw new Error(`file parser not found for: '${currentEntry.path}'`);
+            }
+
+            const s = currentEntry.stream.pipeThrough(fileParser);
+            // const s = currentEntry.stream;
+            entryReader = s.getReader();
             return true;
         };
 
         const readable = new ReadableStream({
+            start: async(controller): Promise<void> => {
+                await getNextEntry(controller);
+            },
             pull: async(controller): Promise<void> => {
-                console.log("read requested");
-                if (!currentEntry) {
-                    if (!await getNextEntry(controller)) {
-                        return;
-                    }
-                }
+                // console.log("read requested for", currentEntry?.path);
+                // if (needEntry) {
+                //     needEntry = false;
+                //     console.log("getting next entry");
+                //     if (!await getNextEntry(controller)) {
+                //         return;
+                //     }
+                // }
 
-                const iter = await entryReader.read();
-                if (iter.done) {
-                    console.log("entry stream done");
-                    currentEntry = undefined;
-                    return;
-                }
+                let iter: ReadableStreamDefaultReadResult<any>;
+                do {
+                    iter = await entryReader.read();
+                    if (iter.done) {
+                        console.log("entry stream done");
+                        if (!await getNextEntry(controller)) {
+                            return;
+                        }
+                    }
+                } while (iter.done);
 
                 const entryData = iter.value;
-                console.log("entryData", entryData);
+                // console.log("entryData", entryData);
                 controller.enqueue(entryData);
             },
         });

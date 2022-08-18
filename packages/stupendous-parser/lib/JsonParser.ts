@@ -15,16 +15,16 @@ import {Token} from "stream-json/filters/FilterBase";
 
 export type JsonSelectorFn = (path: ReadonlyArray<number | string | null>) => boolean;
 
-interface JsonEncodeOpts extends JsonCommonOpts {
+export interface JsonEncodeOpts extends JsonCommonOpts {
     makeArray?: boolean;
 }
 
-interface JsonDecodeOpts extends JsonCommonOpts {
+export interface JsonDecodeOpts extends JsonCommonOpts {
     path?: string | RegExp | JsonSelectorFn;
     outputType?: "array" | "object" | "values";
 }
 
-interface JsonCommonOpts {
+export interface JsonCommonOpts {
     ndjson?: boolean;
 }
 

@@ -1,4 +1,4 @@
-import {DataCollection, DataCollectionEntry} from "./DataCollection";
+import {DataCollection, DataCollectionDecodeCfg, DataCollectionEncodeCfg, DataCollectionEntry} from "./DataCollection";
 import {Entry as ZipEntry, Parse as ZipParse} from "unzip-stream";
 import {Readable} from "node:stream";
 import {TransformStream} from "node:stream/web";
@@ -19,10 +19,17 @@ class ZipDataCollectionEntry extends DataCollectionEntry<ZipEntry> {
     done(): void {}
 }
 
+interface ZipDecodeOpts extends Omit<DataCollectionDecodeCfg, "collectionStream"> {}
+interface ZipEncodeOpts extends DataCollectionEncodeCfg {}
+
 export class ZipParser extends DataCollection {
     type = "zip";
 
-    decode(): TransformStream<never, ZipDataCollectionEntry> {
+    encode(opts: ZipEncodeOpts = {}): TransformStream<any, ZipDataCollectionEntry> {
+        return super.encode(opts);
+    }
+
+    decode(opts: ZipDecodeOpts = {}): TransformStream<any, ZipDataCollectionEntry> {
         const unzip = ZipParse();
 
         const collectionStream = new TransformStream({
@@ -52,12 +59,13 @@ export class ZipParser extends DataCollection {
                 unzip.on("end", () => console.log("END"));
             },
             transform: async(chunk): Promise<void> => {
-                console.log("WRITING CHUNK", chunk);
+                // console.log("WRITING CHUNK", chunk);
                 unzip.write(chunk);
             },
         });
 
         console.log("super decode");
-        return super.decode({collectionStream});
+
+        return super.decode({... opts, collectionStream});
     }
 }
