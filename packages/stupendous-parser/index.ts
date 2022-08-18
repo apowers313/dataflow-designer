@@ -12,9 +12,10 @@ Parser.registerParser("zip", ZipParser);
 
 Parser.registerFileExt(".csv", ["csv"]);
 Parser.registerFileExt(".json", ["json"]);
-Parser.registerFileExt(".csv.zip", ["csv", "zip"]);
-Parser.registerFileExt(".json.zip", ["json", "zip"]);
-Parser.registerFileExt(".csv.gz", ["csv", "gzip"]);
-Parser.registerFileExt(".json.gz", ["json", "gzip"]);
+Parser.registerFileExt(".zip", ["zip"]);
+// Parser.registerFileExt(".csv.zip", ["csv", "zip"]);
+// Parser.registerFileExt(".json.zip", ["json", "zip"]);
+// Parser.registerFileExt(".csv.gz", ["csv", "gzip"]);
+// Parser.registerFileExt(".json.gz", ["json", "gzip"]);
 
 export {Parser, CsvParser, JsonParser, GzParser, ZipParser};

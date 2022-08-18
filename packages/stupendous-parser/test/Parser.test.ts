@@ -29,20 +29,20 @@ describe("Parser", function() {
 
     it("findExtForPath", function() {
         let p = Parser.findExtForPath("foo.csv.zip");
-        assert.strictEqual(p, ".csv.zip");
+        assert.strictEqual(p, ".zip");
         p = Parser.findExtForPath("areallylongfilename-foo_bar.json.zip");
-        assert.strictEqual(p, ".json.zip");
+        assert.strictEqual(p, ".zip");
+        p = Parser.findExtForPath("areallylongfilename-foo_bar.json");
+        assert.strictEqual(p, ".json");
         p = Parser.findExtForPath("video.mpeg");
         assert.isUndefined(p);
     });
 
     it("getParsersForExt", function() {
-        let e = Parser.getParsersForExt(".csv.zip");
-        assert.deepEqual(e, ["csv", "zip"]);
+        let e = Parser.getParsersForExt(".zip");
+        assert.deepEqual(e, ["zip"]);
         e = Parser.getParsersForExt(".csv");
         assert.deepEqual(e, ["csv"]);
-        e = Parser.getParsersForExt(".json.zip");
-        assert.deepEqual(e, ["json", "zip"]);
         e = Parser.getParsersForExt(".json");
         assert.deepEqual(e, ["json"]);
         e = Parser.getParsersForExt("asdfasdasdf");
@@ -116,7 +116,6 @@ describe("Parser", function() {
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(p).pipeTo(testWritable);
 
-            console.log("writeSpy.args", writeSpy.args);
             assert.strictEqual(writeSpy.callCount, 436);
             assert.strictEqual(writeSpy.args[0][0].key, 0);
             assert.strictEqual(writeSpy.args[0][0].value.person.name, "Rep. Robert Aderholt [R-AL4]");

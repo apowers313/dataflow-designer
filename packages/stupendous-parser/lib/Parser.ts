@@ -95,13 +95,8 @@ export abstract class Parser {
             const parser = new (p.parser)();
 
             let opts: Record<any, any> = {};
-            console.log("userOpts", userOpts);
-            console.log("userOpts[str]", userOpts[str]);
             opts = mergeOpts(opts, userOpts[str]);
-            console.log("opts1", opts);
-            console.log("p.parserOpts", p.parserOpts);
             opts = mergeOpts(opts, p.parserOpts);
-            console.log("opts2", opts);
 
             if (type === "decode") {
                 return parser.decode(opts);

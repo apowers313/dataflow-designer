@@ -28,7 +28,6 @@ export class ZipParser extends DataCollection {
         const collectionStream = new TransformStream({
             start: async(controller): Promise<void> => {
                 unzip.on("entry", (header: ZipEntry) => {
-                    console.log("ENTRY HEADER", header);
                     if (header.type !== "File") {
                         console.log("skipping directory");
                         header.resume();

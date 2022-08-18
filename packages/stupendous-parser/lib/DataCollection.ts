@@ -48,7 +48,7 @@ export abstract class DataCollection extends Parser {
             }
 
             currentEntry = iter.value;
-            console.log("currentEntry", currentEntry);
+            // console.log("currentEntry", currentEntry);
             entryReader = currentEntry.stream.getReader();
             return true;
         };

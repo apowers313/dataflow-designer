@@ -11,12 +11,10 @@ describe("ZipParser", function() {
 
     it("decode", async function() {
         const cp = new CsvParser();
-        console.log("new zip parser");
         const zp = new ZipParser();
         const inputFile = Readable.toWeb(createReadStream("test/helpers/test1.csv.zip"));
         const writeSpy = spy();
         const testWritable = new WritableStream({write: writeSpy});
-        console.log("running pipe");
         await inputFile
             .pipeThrough(zp.decode())
             .pipeThrough(cp.decode({columns: true}))
