@@ -55,7 +55,7 @@ describe("Parser", function() {
     describe("getParserStreamForPath", function() {
         it.only(".csv.zip", async function() {
             const filename = "test/helpers/test1.csv.zip";
-            const opts: ParserDecodeOpts = {csv: {header: true}};
+            const opts: ParserDecodeOpts = {zip: {parserOpts: {csv: {header: true}}}};
             const p = Parser.getParserStreamForPath(filename, "decode", opts);
             if (!p) {
                 throw new Error("couldn't find parser");
