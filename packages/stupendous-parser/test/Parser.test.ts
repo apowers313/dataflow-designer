@@ -1,4 +1,5 @@
 import {CsvParser, GzParser, JsonParser, Parser, ZipParser} from "../index";
+import {ParserDecodeOpts} from "../lib/ParserOpts";
 import {Readable} from "node:stream";
 import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
@@ -52,9 +53,10 @@ describe("Parser", function() {
     it("getParserStreamForExt");
 
     describe("getParserStreamForPath", function() {
-        it(".csv.zip", async function() {
+        it.only(".csv.zip", async function() {
             const filename = "test/helpers/test1.csv.zip";
-            const p = Parser.getParserStreamForPath(filename, "decode", {csv: {columns: true}});
+            const opts: ParserDecodeOpts = {csv: {header: true}};
+            const p = Parser.getParserStreamForPath(filename, "decode", opts);
             if (!p) {
                 throw new Error("couldn't find parser");
             }
@@ -66,6 +68,7 @@ describe("Parser", function() {
                 .pipeThrough(p)
                 .pipeTo(dest);
 
+            console.log("writeSpy.args", writeSpy.args);
             assert.strictEqual(writeSpy.callCount, 100);
             assert.deepEqual(writeSpy.args[0][0], {
                 "Region": "Australia and Oceania",

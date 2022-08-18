@@ -97,8 +97,17 @@ export abstract class Parser {
             const parser = new (p.parser)();
 
             let opts: Record<any, any> = {};
+            console.log("str", str);
+            console.log("userOpts pre", userOpts);
             opts = mergeOpts(opts, userOpts[str]);
+            console.log("userOpts", opts);
+            opts.parserOpts = mergeOpts({}, userOpts);
+            console.log("parserOpts", opts);
             opts = mergeOpts(opts, p.parserOpts);
+            console.log("p.parserOpts", opts);
+            console.log("parser.constructor.name", parser.constructor.name);
+
+            console.log("opts", opts);
 
             if (type === "decode") {
                 return parser.decode(opts);
@@ -130,6 +139,7 @@ export abstract class Parser {
     }
 
     static getParserStreamForPath(path: string, type: "encode" | "decode", parserOpts: ParserOpts = {}): TransformStream | undefined {
+        console.log("getParserStreamForPath opts", parserOpts);
         const ext = Parser.findExtForPath(path);
         if (!ext) {
             return undefined;

@@ -19,8 +19,8 @@ class ZipDataCollectionEntry extends DataCollectionEntry<ZipEntry> {
     done(): void {}
 }
 
-interface ZipDecodeOpts extends Omit<DataCollectionDecodeCfg, "collectionStream"> {}
-interface ZipEncodeOpts extends DataCollectionEncodeCfg {}
+export interface ZipDecodeOpts extends Omit<DataCollectionDecodeCfg, "collectionStream"> {}
+export interface ZipEncodeOpts extends DataCollectionEncodeCfg {}
 
 export class ZipParser extends DataCollection {
     type = "zip";

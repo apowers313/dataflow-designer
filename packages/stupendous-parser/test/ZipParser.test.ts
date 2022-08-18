@@ -10,7 +10,7 @@ describe("ZipParser", function() {
     });
 
     describe("decode", function() {
-        it.only("two csvs", async function() {
+        it("two csvs", async function() {
             this.timeout(5 * 1000);
             this.slow(5 * 1000);
 
