@@ -55,8 +55,8 @@ export abstract class DataCollection extends Parser {
             }
 
             currentEntry = iter.value;
-            console.log("currentEntry", currentEntry);
-            console.log("getting parser with opts", cfg.parserOpts);
+            // console.log("currentEntry", currentEntry);
+            // console.log("getting parser with opts", cfg.parserOpts);
             const fileParser = Parser.getParserStreamForPath(currentEntry.path, "decode", cfg.parserOpts);
             if (!fileParser) {
                 throw new Error(`file parser not found for: '${currentEntry.path}'`);
@@ -73,7 +73,7 @@ export abstract class DataCollection extends Parser {
                 await getNextEntry(controller);
             },
             pull: async(controller): Promise<void> => {
-                console.log("read requested for", currentEntry?.path);
+                // console.log("read requested for", currentEntry?.path);
                 // if (needEntry) {
                 //     needEntry = false;
                 //     console.log("getting next entry");

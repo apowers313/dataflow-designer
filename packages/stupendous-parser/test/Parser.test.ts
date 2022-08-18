@@ -53,7 +53,7 @@ describe("Parser", function() {
     it("getParserStreamForExt");
 
     describe("getParserStreamForPath", function() {
-        it.only(".csv.zip", async function() {
+        it(".csv.zip", async function() {
             const filename = "test/helpers/test1.csv.zip";
             const opts: ParserDecodeOpts = {zip: {parserOpts: {csv: {header: true}}}};
             const p = Parser.getParserStreamForPath(filename, "decode", opts);

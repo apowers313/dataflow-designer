@@ -61,14 +61,12 @@ describe("ZipParser", function() {
         });
 
         it("decode", async function() {
-            const cp = new CsvParser();
             const zp = new ZipParser();
             const inputFile = Readable.toWeb(createReadStream("test/helpers/test1.csv.zip"));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile
-                .pipeThrough(zp.decode())
-                .pipeThrough(cp.decode({columns: true}))
+                .pipeThrough(zp.decode({parserOpts: {csv: {header: true}}}))
                 .pipeTo(testWritable);
 
             assert.strictEqual(writeSpy.callCount, 100);
