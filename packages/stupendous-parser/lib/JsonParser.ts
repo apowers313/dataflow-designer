@@ -7,11 +7,9 @@ import {stringer as jsonStringer} from "stream-json/Stringer";
 import {parser as jsonlParser} from "stream-json/jsonl/Parser";
 import {stringer as jsonlStringer} from "stream-json/jsonl/Stringer";
 import {pick} from "stream-json/filters/Pick";
-import {replace} from "stream-json/filters/Replace";
 import {streamArray} from "stream-json/streamers/StreamArray";
 import {streamObject} from "stream-json/streamers/StreamObject";
 import {streamValues} from "stream-json/streamers/StreamValues";
-import {Token} from "stream-json/filters/FilterBase";
 
 export type JsonSelectorFn = (path: ReadonlyArray<number | string | null>) => boolean;
 
@@ -22,6 +20,7 @@ export interface JsonEncodeOpts extends JsonCommonOpts {
 export interface JsonDecodeOpts extends JsonCommonOpts {
     path?: string | RegExp | JsonSelectorFn;
     outputType?: "array" | "object" | "values";
+    includeKeys?: boolean;
 }
 
 export interface JsonCommonOpts {
@@ -45,7 +44,7 @@ export class JsonParser extends Parser {
         };
     }
 
-    decode(opt: JsonDecodeOpts): TransformStream {
+    decode(opt: JsonDecodeOpts = {}): TransformStream {
         if (opt.ndjson) {
             return (Duplex as any).toWeb(jsonlParser());
         }
@@ -54,7 +53,20 @@ export class JsonParser extends Parser {
         const pipelineInput = jsonParser();
         // TODO: autodetect output
         const path = opt.path ?? "";
-        const pipelineOutput = pipelineInput.pipe(pick({filter: path})).pipe(typeConverter);
+        const includeKeys = opt.includeKeys ?? false;
+        let pipelineOutput = pipelineInput
+            .pipe(pick({filter: path}))
+            .pipe(typeConverter);
+
+        if (!includeKeys) {
+            pipelineOutput = pipelineOutput.pipe(new Transform({
+                objectMode: true,
+                transform: function(chunk: Record<any, any>, _encoding, cb): void {
+                    this.push(chunk.value);
+                    cb();
+                },
+            }));
+        }
 
         return {
             writable: Writable.toWeb(pipelineInput),

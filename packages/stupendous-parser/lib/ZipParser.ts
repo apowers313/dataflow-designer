@@ -1,7 +1,9 @@
 import {DataCollection, DataCollectionDecodeCfg, DataCollectionEncodeCfg, DataCollectionEntry} from "./DataCollection";
+import {Duplex, Readable} from "node:stream";
 import {Entry as ZipEntry, Parse as ZipParse} from "unzip-stream";
-import {Readable} from "node:stream";
 import {TransformStream} from "node:stream/web";
+import archiver from "archiver";
+import {once} from "node:events";
 
 class ZipDataCollectionEntry extends DataCollectionEntry<ZipEntry> {
     constructor(header: ZipEntry) {
@@ -16,17 +18,53 @@ class ZipDataCollectionEntry extends DataCollectionEntry<ZipEntry> {
         this.metadata.autodrain();
     }
 
-    done(): void {}
+    done(): void {
+        // ignored
+    }
 }
 
-export interface ZipDecodeOpts extends Omit<DataCollectionDecodeCfg, "collectionStream"> {}
+export interface ZipDecodeOpts extends DataCollectionDecodeCfg {}
 export interface ZipEncodeOpts extends DataCollectionEncodeCfg {}
 
 export class ZipParser extends DataCollection {
     type = "zip";
 
     encode(opts: ZipEncodeOpts = {}): TransformStream<any, ZipDataCollectionEntry> {
-        return super.encode(opts);
+        const enc = super.encode(opts);
+        const {writable} = enc;
+        const zipArchiver = archiver("zip");
+        console.log("zipArchiver", zipArchiver);
+        const readable = Readable.toWeb(zipArchiver);
+
+        const zipPump = new WritableStream({
+            write: async(entry): Promise<void> => {
+                zipArchiver.append(
+                    Readable.fromWeb(entry.stream),
+                    {name: entry.path},
+                );
+                console.log("once entry");
+                await once(zipArchiver, "entry");
+                console.log("entry done");
+            },
+            close: async(): Promise<void> => {
+                await zipArchiver.finalize();
+            },
+        });
+        setPromiseHandled(enc.readable.pipeTo(zipPump));
+
+        // const entryReader = enc.readable.getReader();
+        // (Duplex as any).toWeb(zipArchiver) as TransformStream;
+        // const readable = enc.readable.pipeThrough(zipArchiver);
+        // const readable = new WritableStream<DataCollectionEntry>({
+        //     write: async(dce): Promise<void> => {
+        //         entryReader.read();
+        //         // const data = entryReader.read();
+        //     },
+        //     flush: async(): Promise<void> => {
+        //         await zipArchiver.finalize();
+        //     },
+        // });
+        return {writable, readable};
     }
 
     decode(opts: ZipDecodeOpts = {}): TransformStream<any, ZipDataCollectionEntry> {
@@ -36,7 +74,6 @@ export class ZipParser extends DataCollection {
             start: async(controller): Promise<void> => {
                 unzip.on("entry", (header: ZipEntry) => {
                     if (header.type !== "File") {
-                        console.log("skipping directory");
                         header.resume();
                         return;
                     }
@@ -52,11 +89,11 @@ export class ZipParser extends DataCollection {
                 });
 
                 unzip.on("finish", () => {
-                    console.log("FINISH");
+                    // console.log("FINISH");
                     // this.decodeController.terminate();
                 });
 
-                unzip.on("end", () => console.log("END"));
+                // unzip.on("end", () => console.log("END"));
             },
             transform: async(chunk): Promise<void> => {
                 // console.log("WRITING CHUNK", chunk);
@@ -64,8 +101,14 @@ export class ZipParser extends DataCollection {
             },
         });
 
-        console.log("super decode");
+        // TODO: is there a way of doing this with collectionStream.pipeThrough(super.decode())?
+        const readable = collectionStream.readable.pipeThrough(super.decode({... opts}));
+        const {writable} = collectionStream;
 
-        return super.decode({... opts, collectionStream});
+        return {readable, writable};
     }
+}
+
+function setPromiseHandled(p: Promise<any>): void {
+    p.then(() => {/* resolve ignored */}, () => {/* reject ignored */});
 }

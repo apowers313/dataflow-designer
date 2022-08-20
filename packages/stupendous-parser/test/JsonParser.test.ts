@@ -137,14 +137,14 @@ describe("JsonParser", function() {
         });
 
         it("congress.json", async function() {
-            this.timeout(250);
-            this.slow(250);
+            this.slow(500);
 
             const jp = new JsonParser();
             const inputFile = Readable.toWeb(createReadStream("./test/helpers/congress.json"));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({
+                includeKeys: true,
                 path: "objects",
                 outputType: "array",
             })).pipeTo(testWritable);
@@ -165,9 +165,8 @@ describe("JsonParser", function() {
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({
-                // path: /0\.data\.\d+/,
+                includeKeys: true,
                 path: "",
-                // path: "0.data.0",
                 outputType: "object",
             })).pipeTo(testWritable);
 
@@ -191,9 +190,8 @@ describe("JsonParser", function() {
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({
-                // path: /0\.data\.\d+/,
+                includeKeys: true,
                 path: "0.data",
-                // path: "0.data.0",
                 outputType: "array",
             })).pipeTo(testWritable);
 

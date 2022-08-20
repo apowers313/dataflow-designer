@@ -1,5 +1,5 @@
+import {ParserOpts} from "./ParserOpts";
 import {TransformStream} from "node:stream/web";
-import {ParserDecodeOpts, ParserEncodeOpts, ParserOpts} from "./ParserOpts";
 
 type ParserConstructor = new (... args: any[]) => Parser
 
@@ -130,7 +130,6 @@ export abstract class Parser {
     }
 
     static getParserStreamForPath(path: string, type: "encode" | "decode", parserOpts: ParserOpts = {}): TransformStream | undefined {
-        console.log("getParserStreamForPath opts", parserOpts);
         const ext = Parser.findExtForPath(path);
         if (!ext) {
             return undefined;

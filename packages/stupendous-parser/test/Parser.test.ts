@@ -68,7 +68,6 @@ describe("Parser", function() {
                 .pipeThrough(p)
                 .pipeTo(dest);
 
-            console.log("writeSpy.args", writeSpy.args);
             assert.strictEqual(writeSpy.callCount, 100);
             assert.deepEqual(writeSpy.args[0][0], {
                 "Region": "Australia and Oceania",
@@ -109,7 +108,9 @@ describe("Parser", function() {
             this.slow(250);
 
             const filename = "./test/helpers/congress.json";
-            const p = Parser.getParserStreamForPath(filename, "decode", {json: {path: "objects", outputType: "array"}});
+            const p = Parser.getParserStreamForPath(filename, "decode", {
+                json: {path: "objects", outputType: "array", includeKeys: true},
+            });
             if (!p) {
                 throw new Error("couldn't find parser");
             }

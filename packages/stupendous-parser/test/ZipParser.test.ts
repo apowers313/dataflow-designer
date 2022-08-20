@@ -1,8 +1,11 @@
-import {CsvParser, ZipParser} from "../index";
-import {Readable} from "node:stream";
+import {Readable, Writable} from "node:stream";
+import {createReadStream, createWriteStream} from "node:fs";
+import AdmZip from "adm-zip";
+import {ZipParser} from "../index";
 import {assert} from "chai";
-import {createReadStream} from "node:fs";
+import {objectStream} from "./helpers/helpers";
 import {spy} from "sinon";
+import temp from "temp";
 
 describe("ZipParser", function() {
     it("is function", function() {
@@ -23,7 +26,6 @@ describe("ZipParser", function() {
                 .pipeTo(testWritable);
 
             assert.strictEqual(writeSpy.callCount, 112);
-            console.log("writeSpy.args[0][0]", writeSpy.args[0][0]);
             assert.deepEqual(writeSpy.args[0][0], {1958: "340", 1959: "360", 1960: "417", Month: "JAN"});
             assert.deepEqual(writeSpy.args[11][0], {1958: "337", 1959: "405", 1960: "432", Month: "DEC"});
             assert.deepEqual(writeSpy.args[12][0], {
@@ -103,5 +105,42 @@ describe("ZipParser", function() {
                 "Total Profit": "889472.91",
             });
         });
+    });
+
+    describe("encode", function() {
+        it("simple", async function() {
+            const zp = new ZipParser();
+
+            const inputStream = objectStream([
+                {foo: "bar", filename: "file1.json"},
+                {foo: "baz", filename: "file1.json"},
+                {foo: "bat", filename: "file1.json"},
+            ]);
+
+            const tempFile = temp.path();
+            const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
+            // const writeSpy = spy();
+            // const outputFile = new WritableStream({
+            //     write: writeSpy,
+            // });
+            console.log("tempFile", tempFile);
+            await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
+
+            const zip = new AdmZip(tempFile);
+            const zipEntries = zip.getEntries();
+            console.log("zipEntries", zipEntries[0]);
+            console.log("zipEntries data", zipEntries[0].getData().toString());
+            // console.log("zipEntries", zipEntries[0].toJSON());
+            // console.log("zipEntries[0].header", zipEntries[0].header.toJSON());
+            assert.strictEqual(zipEntries.length, 1);
+            assert.strictEqual(zipEntries[0].entryName, "file1.json");
+            assert.strictEqual(zipEntries[0].getData().toString(), "[{\"key\":0,\"value\":{\"foo\":\"bar\"}},{\"key\":1,\"value\":{\"foo\":\"baz\"}},{\"key\":2,\"value\":{\"foo\":\"bat\"}}]");
+
+            // console.log("writeSpy", writeSpy);
+        });
+        it("one csv");
+        it("one json");
+        it("multiple files");
+        it("multiple file types");
     });
 });
