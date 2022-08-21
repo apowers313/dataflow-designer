@@ -1,15 +1,7 @@
 import {ParserDecodeOpts, ParserEncodeOpts} from "./ParserOpts";
 import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
-import {close, createReadStream, open, write} from "node:fs";
-import {JsonParser} from "./JsonParser";
+import {FileCache} from "./FileCache";
 import {Parser} from "./Parser";
-import {Readable} from "node:stream";
-import {promisify} from "node:util";
-import temp from "temp";
-
-const fsWrite = promisify(write);
-const fsOpen = promisify(open);
-const fsClose = promisify(close);
 
 export interface DataCollectionEntryCfg<TMetadata> {
     path: string;
@@ -72,125 +64,6 @@ class Interlock {
     }
 }
 
-class FileCacheEntry {
-    #tmpFileFd: number | undefined;
-    #tmpFilePath: string | undefined;
-    done = false;
-    lastWrite = -1;
-    path: string;
-    fc: FileCache;
-
-    constructor(fc: FileCache, path: string) {
-        this.#tmpFilePath = temp.path();
-        this.fc = fc;
-        this.path = path;
-    }
-
-    async write(str: string): Promise<void> {
-        if (!this.isOpen) {
-            await this.open();
-        }
-
-        if (this.#tmpFileFd === undefined) {
-            throw new Error("internal error: tmpFileFd undefined");
-        }
-
-        this.lastWrite = Date.now();
-        await fsWrite(this.#tmpFileFd, str);
-    }
-
-    async close(): Promise<void> {
-        if (this.#tmpFileFd === undefined) {
-            throw new Error("internal error: tmpFileFd undefined");
-        }
-
-        await fsClose(this.#tmpFileFd);
-        this.#tmpFileFd = undefined;
-    }
-
-    async open(): Promise<void> {
-        this.fc.enforceOpenLimit();
-
-        if (this.#tmpFilePath) {
-            this.#tmpFileFd = await fsOpen(this.#tmpFilePath, "a");
-        } else {
-            const info = await temp.open(undefined);
-            this.#tmpFileFd = info.fd;
-            this.#tmpFilePath = info.path;
-        }
-    }
-
-    get isOpen(): boolean {
-        return this.#tmpFileFd !== undefined;
-    }
-
-    toStream(): ReadableStream<DataCollectionEntry> {
-        this.done = true;
-        if (!this.#tmpFilePath) {
-            throw new Error("internal error: tmpFilePath not defined");
-        }
-
-        // convert objects back into streams
-        const outputStream = Readable
-            .toWeb(createReadStream(this.#tmpFilePath))
-            .pipeThrough(new JsonParser().decode({ndjson: true}));
-        return outputStream;
-    }
-}
-
-interface FileCacheOpt {
-    fdLimit?: number;
-}
-
-class FileCache {
-    fdMap: Map<string, FileCacheEntry> = new Map()
-    fdLimit: number;
-
-    constructor(opt: FileCacheOpt = {}) {
-        this.fdLimit = opt.fdLimit ?? 512;
-        temp.track();
-    }
-
-    async write(path: string, obj: Record<any, any>): Promise<void> {
-        let fileCacheEntry = this.fdMap.get(path);
-        if (!fileCacheEntry) {
-            fileCacheEntry = new FileCacheEntry(this, path);
-            this.fdMap.set(path, fileCacheEntry);
-        }
-
-        await fileCacheEntry.write(`${JSON.stringify(obj)}\n`);
-    }
-
-    get(path: string): ReadableStream<DataCollectionEntry> {
-        const fileCacheEntry = this.fdMap.get(path);
-        if (!fileCacheEntry) {
-            throw new Error(`fileCacheEntry not found: '${path}'`);
-        }
-
-        return fileCacheEntry.toStream();
-    }
-
-    enforceOpenLimit(): void {
-        const cacheList = [... this.fdMap.values()].filter((c) => c.isOpen);
-
-        if ((cacheList.length + 1) > this.fdLimit) {
-            cacheList
-                // sort by files with the oldest write time
-                .sort((a, b) => {
-                    return a.lastWrite - b.lastWrite;
-                })
-                // pick the oldest 50
-                .slice(0, 50)
-                // close the oldest 50
-                .forEach((cacheEntry) => cacheEntry.close());
-        }
-    }
-
-    [Symbol.iterator](): IterableIterator<FileCacheEntry> {
-        return this.fdMap.values();
-    }
-}
-
 export interface DataCollectionEncodeCfg {
     parserOpts?: ParserEncodeOpts;
     filenameProp?: string;
@@ -205,7 +78,7 @@ export abstract class DataCollection extends Parser {
     abstract type: string;
 
     encode(opt: DataCollectionEncodeCfg = {}): TransformStream {
-        const fc = new FileCache({fdLimit: opt.fdLimit});
+        const fc = new FileCache<DataCollectionEntry>({fdLimit: opt.fdLimit});
         const filenameProp = opt.filenameProp ?? "filename";
         const rwConnector = new Interlock();
 
@@ -230,12 +103,14 @@ export abstract class DataCollection extends Parser {
                         path: cacheEntry.path,
                         metadata: {},
                     });
+                    console.log("Sending data entry", de);
 
                     await rwConnector.send(de);
                 }
 
+                console.log("Closing DataCollection encoder");
+                await fc.delete();
                 await rwConnector.send(null);
-                await temp.cleanup();
             },
         });
 
@@ -243,6 +118,7 @@ export abstract class DataCollection extends Parser {
             pull: async(controller): Promise<void> => {
                 const cacheEntry = await rwConnector.recv();
                 if (!cacheEntry) {
+                    console.log("DataCollection.encode readable done");
                     controller.close();
                     return;
                 }
