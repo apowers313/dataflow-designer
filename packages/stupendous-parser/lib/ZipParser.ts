@@ -33,7 +33,6 @@ export class ZipParser extends DataCollection {
         const enc = super.encode(opts);
         const {writable} = enc;
         const zipArchiver = archiver("zip");
-        console.log("zipArchiver", zipArchiver);
         const readable = Readable.toWeb(zipArchiver);
 
         const zipPump = new WritableStream({
@@ -42,9 +41,7 @@ export class ZipParser extends DataCollection {
                     Readable.fromWeb(entry.stream),
                     {name: entry.path},
                 );
-                console.log("once entry");
                 await once(zipArchiver, "entry");
-                console.log("entry done");
             },
             close: async(): Promise<void> => {
                 await zipArchiver.finalize();

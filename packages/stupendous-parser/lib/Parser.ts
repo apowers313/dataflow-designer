@@ -75,7 +75,7 @@ export abstract class Parser {
     // static getParserStreamForExt(ext: string, type: "encode", userOpts: ParserEncodeOpts): TransformStream | undefined;
     // static getParserStreamForExt(ext: string, type: "decode", userOpts: ParserDecodeOpts): TransformStream | undefined;
     static getParserStreamForExt(ext: string, type: "decode" | "encode", userOpts: ParserOpts = {}): TransformStream | undefined {
-        const parserStrList = fileExtRegistry.get(ext);
+        const parserStrList = fileExtRegistry.get(ext) as Array<keyof ParserOpts> | undefined;
         if (!parserStrList) {
             return undefined;
         }

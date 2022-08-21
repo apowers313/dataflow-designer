@@ -42,25 +42,6 @@ export class JsonParser extends Parser {
             readable = Readable.toWeb(objToJsonStream.pipe(jsonStringer({makeArray: opt.makeArray ?? true})));
         }
 
-        // readable = readable.pipeThrough(new TransformStream({
-        //     transform: (chunk, controller): void => {
-        //         console.log("JSON PARSER CHUNK", chunk);
-        //         controller.enqueue(chunk);
-        //     },
-        // }));
-
-        // return {writable, readable};
-        // const simplifyStream = new TransformStream({
-        //     transform: (chunk, controller): void => {
-        //         console.log("JSON PARSER CHUNK", chunk);
-        //         controller.enqueue(chunk.value);
-        //     },
-        // });
-
-        // return {
-        //     readable: simplifyStream.readable.pipeThrough({readable, writable}),
-        //     writable: simplifyStream.writable,
-        // };
         return {writable, readable};
     }
 

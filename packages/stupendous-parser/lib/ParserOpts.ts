@@ -14,4 +14,4 @@ export interface ParserEncodeOpts {
     zip?: ZipEncodeOpts;
 }
 
-export type ParserOpts = DecodeOpts | EncodeOpts;
+export type ParserOpts = ParserDecodeOpts | ParserEncodeOpts;

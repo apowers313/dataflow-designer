@@ -81,7 +81,6 @@ class FileCacheEntry {
     fc: FileCache;
 
     constructor(fc: FileCache, path: string) {
-        console.log("new FileCacheEntry");
         this.#tmpFilePath = temp.path();
         this.fc = fc;
         this.path = path;
@@ -116,7 +115,6 @@ class FileCacheEntry {
             this.#tmpFileFd = await fsOpen(this.#tmpFilePath, "a");
         } else {
             const info = await temp.open(undefined);
-            console.log("INFO", info);
             this.#tmpFileFd = info.fd;
             this.#tmpFilePath = info.path;
         }
@@ -149,13 +147,11 @@ class FileCache {
     fdLimit: number;
 
     constructor(opt: FileCacheOpt = {}) {
-        console.log("new FileCache");
         this.fdLimit = opt.fdLimit ?? 512;
         temp.track();
     }
 
     async write(path: string, obj: Record<any, any>): Promise<void> {
-        console.log("FileCache write");
         let fileCacheEntry = this.fdMap.get(path);
         if (!fileCacheEntry) {
             fileCacheEntry = new FileCacheEntry(this, path);
@@ -209,20 +205,14 @@ export abstract class DataCollection extends Parser {
     abstract type: string;
 
     encode(opt: DataCollectionEncodeCfg = {}): TransformStream {
-        console.log("encode");
         const fc = new FileCache({fdLimit: opt.fdLimit});
-        console.log("opt.filenameProp", opt.filenameProp);
         const filenameProp = opt.filenameProp ?? "filename";
-        console.log("filenameProp", filenameProp);
         const rwConnector = new Interlock();
 
         const writable = new WritableStream({
             write: async(chunk: Record<any, any>, controller): Promise<void> => {
-                console.log("WRITING CHUNK", chunk);
                 const path: string | undefined = chunk[filenameProp];
-                console.log("path", path);
                 if (!path) {
-                    console.log("throwing");
                     // TODO: abort?
                     controller.error(new Error(`missing property for writing to data collection: '${filenameProp}'`));
                     return;
@@ -230,19 +220,16 @@ export abstract class DataCollection extends Parser {
 
                 const data = {... chunk};
                 delete data[filenameProp];
-                console.log("fc.write", data);
                 await fc.write(path, data);
             },
 
             close: async(): Promise<void> => {
-                console.log("close");
                 for (const cacheEntry of fc) {
                     const de = new GenericDataCollectionEntry({
                         stream: cacheEntry.toStream(),
                         path: cacheEntry.path,
                         metadata: {},
                     });
-                    console.log("de", de);
 
                     await rwConnector.send(de);
                 }
@@ -266,7 +253,6 @@ export abstract class DataCollection extends Parser {
                 }
 
                 cacheEntry.stream = cacheEntry.stream.pipeThrough(parser),
-                console.log("enqueueing", cacheEntry);
                 controller.enqueue(cacheEntry);
             },
         });
