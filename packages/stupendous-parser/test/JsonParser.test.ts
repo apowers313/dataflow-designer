@@ -126,7 +126,7 @@ describe("JsonParser", function() {
             const inputFile = Readable.toWeb(createReadStream("./test/helpers/yelp.ndjson"));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
-            await inputFile.pipeThrough(jp.decode({ndjson: true})).pipeTo(testWritable);
+            await inputFile.pipeThrough(jp.decode({ndjson: true, includeKeys: true})).pipeTo(testWritable);
 
             assert.strictEqual(writeSpy.callCount, 5);
             assert.strictEqual(writeSpy.args[0][0].key, 0);

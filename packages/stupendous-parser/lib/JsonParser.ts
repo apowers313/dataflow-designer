@@ -1,6 +1,6 @@
 import {Duplex, Readable, Transform, Writable} from "node:stream";
 import {Parser} from "./Parser";
-import {TransformStream} from "node:stream/web";
+import {ReadableStream, TransformStream, WritableStream} from "node:stream/web";
 import {disassembler} from "stream-json/Disassembler";
 import {parser as jsonParser} from "stream-json";
 import {stringer as jsonStringer} from "stream-json/Stringer";
@@ -31,47 +31,64 @@ export class JsonParser extends Parser {
     type = "json";
 
     encode(opt: JsonEncodeOpts = {}): TransformStream {
+        let writable: WritableStream;
+        let readable: ReadableStream;
+
         if (opt.ndjson) {
-            return (Duplex as any).toWeb(jsonlStringer());
+            ({readable, writable} = (Duplex as any).toWeb(jsonlStringer()));
+        } else {
+            const objToJsonStream = disassembler();
+            writable = Writable.toWeb(objToJsonStream);
+            readable = Readable.toWeb(objToJsonStream.pipe(jsonStringer({makeArray: opt.makeArray ?? true})));
         }
 
-        const pipelineInput = disassembler();
-        const pipelineOutput = pipelineInput.pipe(jsonStringer({makeArray: opt.makeArray ?? true}));
+        // readable = readable.pipeThrough(new TransformStream({
+        //     transform: (chunk, controller): void => {
+        //         console.log("JSON PARSER CHUNK", chunk);
+        //         controller.enqueue(chunk);
+        //     },
+        // }));
 
-        return {
-            writable: Writable.toWeb(pipelineInput),
-            readable: Readable.toWeb(pipelineOutput),
-        };
+        // return {writable, readable};
+        // const simplifyStream = new TransformStream({
+        //     transform: (chunk, controller): void => {
+        //         console.log("JSON PARSER CHUNK", chunk);
+        //         controller.enqueue(chunk.value);
+        //     },
+        // });
+
+        // return {
+        //     readable: simplifyStream.readable.pipeThrough({readable, writable}),
+        //     writable: simplifyStream.writable,
+        // };
+        return {writable, readable};
     }
 
     decode(opt: JsonDecodeOpts = {}): TransformStream {
-        if (opt.ndjson) {
-            return (Duplex as any).toWeb(jsonlParser());
-        }
-
-        const typeConverter = outputTypeToTransform(opt.outputType);
-        const pipelineInput = jsonParser();
-        // TODO: autodetect output
+        let writable: WritableStream;
+        let readable: ReadableStream<Record<any, any>>;
         const path = opt.path ?? "";
         const includeKeys = opt.includeKeys ?? false;
-        let pipelineOutput = pipelineInput
-            .pipe(pick({filter: path}))
-            .pipe(typeConverter);
+
+        if (opt.ndjson) {
+            ({readable, writable} = (Duplex as any).toWeb(jsonlParser()));
+        } else {
+            const jsonParserStream = jsonParser();
+            writable = Writable.toWeb(jsonParserStream);
+            readable = Readable.toWeb(jsonParserStream
+                .pipe(pick({filter: path}))
+                .pipe(outputTypeToTransform(opt.outputType)));
+        }
 
         if (!includeKeys) {
-            pipelineOutput = pipelineOutput.pipe(new Transform({
-                objectMode: true,
-                transform: function(chunk: Record<any, any>, _encoding, cb): void {
-                    this.push(chunk.value);
-                    cb();
+            readable = readable.pipeThrough(new TransformStream({
+                transform: function(chunk: Record<any, any>, controller): void {
+                    controller.enqueue(chunk.value);
                 },
             }));
         }
 
-        return {
-            writable: Writable.toWeb(pipelineInput),
-            readable: Readable.toWeb(pipelineOutput),
-        };
+        return {writable, readable};
     }
 }
 

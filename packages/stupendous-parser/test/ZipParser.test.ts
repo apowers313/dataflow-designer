@@ -123,18 +123,18 @@ describe("ZipParser", function() {
             // const outputFile = new WritableStream({
             //     write: writeSpy,
             // });
-            console.log("tempFile", tempFile);
+            // console.log("tempFile", tempFile);
             await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
 
             const zip = new AdmZip(tempFile);
             const zipEntries = zip.getEntries();
-            console.log("zipEntries", zipEntries[0]);
-            console.log("zipEntries data", zipEntries[0].getData().toString());
+            // console.log("zipEntries", zipEntries[0]);
+            // console.log("zipEntries data", zipEntries[0].getData().toString());
             // console.log("zipEntries", zipEntries[0].toJSON());
             // console.log("zipEntries[0].header", zipEntries[0].header.toJSON());
             assert.strictEqual(zipEntries.length, 1);
             assert.strictEqual(zipEntries[0].entryName, "file1.json");
-            assert.strictEqual(zipEntries[0].getData().toString(), "[{\"key\":0,\"value\":{\"foo\":\"bar\"}},{\"key\":1,\"value\":{\"foo\":\"baz\"}},{\"key\":2,\"value\":{\"foo\":\"bat\"}}]");
+            assert.strictEqual(zipEntries[0].getData().toString(), "[{\"foo\":\"bar\"},{\"foo\":\"baz\"},{\"foo\":\"bat\"}]");
 
             // console.log("writeSpy", writeSpy);
         });
