@@ -16,8 +16,6 @@ describe("FileCache", function() {
         assert.strictEqual(cacheEntries.length, 1);
         await cacheEntries[0].toStream().pipeTo(outputFile);
 
-        // await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
-        console.log("writeSpy.args", writeSpy.args);
         assert.strictEqual(writeSpy.args.length, 3);
         assert.deepEqual(writeSpy.args[0][0], {foo: "bar"});
         assert.deepEqual(writeSpy.args[1][0], {foo: "baz"});
@@ -37,8 +35,6 @@ describe("FileCache", function() {
         assert.strictEqual(cacheEntries.length, 1);
         await cacheEntries[0].toStream().pipeTo(outputFile);
 
-        // await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
-        console.log("writeSpy.args", writeSpy.args);
         assert.strictEqual(writeSpy.args.length, 3);
         assert.deepEqual(writeSpy.args[0][0], {foo: "bar"});
         assert.deepEqual(writeSpy.args[1][0], {foo: "baz"});
@@ -62,10 +58,6 @@ describe("FileCache", function() {
         await cacheEntries[0].toStream().pipeTo(output1);
         await cacheEntries[1].toStream().pipeTo(output2);
         await cacheEntries[2].toStream().pipeTo(output3);
-
-        console.log("writeSpy1.args", writeSpy1.args);
-        console.log("writeSpy2.args", writeSpy2.args);
-        console.log("writeSpy3.args", writeSpy3.args);
 
         assert.strictEqual(writeSpy1.args.length, 1);
         assert.strictEqual(writeSpy2.args.length, 1);

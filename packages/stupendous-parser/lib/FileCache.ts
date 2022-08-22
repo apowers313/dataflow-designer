@@ -56,7 +56,6 @@ export class FileCache<TCacheType extends Record<any, any>> {
 
         if ((cacheList.length + 1) > this.fdLimit) {
             const numToClose = Math.ceil(this.fdLimit * 0.1); // close 10% of open FDs
-            console.log("numToClose", numToClose);
             cacheList
                 // sort by files with the oldest write time
                 .sort((a, b) => {
@@ -191,7 +190,6 @@ export class MemoryCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
     }
 
     async write(obj: Record<any, any>): Promise<void> {
-        console.log("memory write", obj);
         this.#objList.push(obj);
     }
 
@@ -212,7 +210,6 @@ export class MemoryCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
                 }
 
                 const data = this.#objList.shift();
-                console.log("memory sending", data);
                 controller.enqueue(data);
             },
         });
