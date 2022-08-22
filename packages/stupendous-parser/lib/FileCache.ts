@@ -1,4 +1,5 @@
-import {close, createReadStream, open, write} from "node:fs";
+/* eslint-disable jsdoc/require-jsdoc */
+import {close, closeSync, createReadStream, fsyncSync, open, write} from "node:fs";
 import {JsonParser} from "./JsonParser";
 import {Readable} from "node:stream";
 import {ReadableStream} from "node:stream/web";
@@ -14,7 +15,7 @@ export interface FileCacheOpt {
 }
 
 export class FileCache<TCacheType extends Record<any, any>> {
-    fdMap: Map<string, FileCacheEntry<TCacheType>> = new Map();
+    fdMap: Map<string, CacheEntry<TCacheType>> = new Map();
     fdLimit: number;
 
     constructor(opt: FileCacheOpt = {}) {
@@ -25,11 +26,12 @@ export class FileCache<TCacheType extends Record<any, any>> {
     async write(path: string, obj: Record<any, any>): Promise<void> {
         let fileCacheEntry = this.fdMap.get(path);
         if (!fileCacheEntry) {
-            fileCacheEntry = new FileCacheEntry<TCacheType>(this, path);
+            fileCacheEntry = new MemoryCacheEntry<TCacheType>(this, path);
             this.fdMap.set(path, fileCacheEntry);
         }
 
-        await fileCacheEntry.write(`${JSON.stringify(obj)}\n`);
+        await fileCacheEntry.write(obj);
+        // await fileCacheEntry.write(`${JSON.stringify(obj)}\n`);
     }
 
     get(path: string): ReadableStream<TCacheType> {
@@ -66,7 +68,21 @@ export class FileCache<TCacheType extends Record<any, any>> {
     }
 }
 
-export class FileCacheEntry<TCacheType> {
+interface CacheEntry<TCacheType> {
+    done: boolean;
+    lastWrite: number;
+    path: string;
+    fc: FileCache<TCacheType>;
+    // new (fc: FileCache<TCacheType>, path: string): CacheEntry<TCacheType>;
+    // new(fc: FileCache<TCacheType>, path: string): CacheEntry<TCacheType>;
+    write: (obj: Record<any, any>) => Promise<void>;
+    close: () => Promise<void>;
+    open: () => Promise<void>;
+    get isOpen(): boolean;
+    toStream(): ReadableStream<TCacheType>;
+}
+
+export class FileCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
     #tmpFileFd: number | undefined;
     #tmpFilePath: string | undefined;
     done = false;
@@ -80,7 +96,13 @@ export class FileCacheEntry<TCacheType> {
         this.path = path;
     }
 
-    async write(str: string): Promise<void> {
+    async write(obj: Record<any, any>): Promise<void> {
+        const str = `${JSON.stringify(obj)}\n`;
+
+        if (this.done) {
+            throw new Error("attempting to write after completion");
+        }
+
         if (!this.isOpen) {
             await this.open();
         }
@@ -94,6 +116,10 @@ export class FileCacheEntry<TCacheType> {
     }
 
     async close(): Promise<void> {
+        if (this.done) {
+            throw new Error("attempting to close after completion");
+        }
+
         if (this.#tmpFileFd === undefined) {
             throw new Error("internal error: tmpFileFd undefined");
         }
@@ -103,6 +129,10 @@ export class FileCacheEntry<TCacheType> {
     }
 
     async open(): Promise<void> {
+        if (this.done) {
+            throw new Error("attempting to open after completion");
+        }
+
         this.fc.enforceOpenLimit();
 
         if (this.#tmpFilePath) {
@@ -119,6 +149,13 @@ export class FileCacheEntry<TCacheType> {
     }
 
     toStream(): ReadableStream<TCacheType> {
+        if (this.#tmpFileFd === undefined) {
+            throw new Error("internal error: tmpFileFd undefined");
+        }
+
+        closeSync(this.#tmpFileFd);
+        // fsyncSync(this.#tmpFileFd);
+        this.#tmpFileFd = undefined;
         this.done = true;
         if (!this.#tmpFilePath) {
             throw new Error("internal error: tmpFilePath not defined");
@@ -129,5 +166,46 @@ export class FileCacheEntry<TCacheType> {
             .toWeb(createReadStream(this.#tmpFilePath))
             .pipeThrough(new JsonParser().decode({ndjson: true}));
         return outputStream;
+    }
+}
+
+export class MemoryCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
+    done = false;
+    lastWrite = -1;
+    path: string;
+    fc: FileCache<TCacheType>;
+    #objList: Array<Record<any, any>> = [];
+
+    constructor(fc: FileCache<TCacheType>, path: string) {
+        this.fc = fc;
+        this.path = path;
+    }
+
+    async write(obj: Record<any, any>): Promise<void> {
+        console.log("memory write", obj);
+        this.#objList.push(obj);
+    }
+
+    async close(): Promise<void> {}
+
+    async open(): Promise<void> {}
+
+    get isOpen(): boolean {
+        return false;
+    }
+
+    toStream(): ReadableStream<TCacheType> {
+        return new ReadableStream({
+            pull: (controller): void => {
+                if (this.#objList.length === 0) {
+                    controller.close();
+                    return;
+                }
+
+                const data = this.#objList.shift();
+                console.log("memory sending", data);
+                controller.enqueue(data);
+            },
+        });
     }
 }
