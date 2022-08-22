@@ -1,3 +1,4 @@
+import {Interlock, timeout} from "./utils";
 import {ParserDecodeOpts, ParserEncodeOpts} from "./ParserOpts";
 import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
 import {FileCache} from "./FileCache";
@@ -29,41 +30,6 @@ class GenericDataCollectionEntry extends DataCollectionEntry {
     done(): void {}
 }
 
-type ResolveFn = (... args: any[]) => void;
-
-class Interlock {
-    #writeDone!: Promise<DataCollectionEntry>;
-    #writeResolve!: ResolveFn;
-    #readDone!: Promise<void>;
-    #readResolve!: ResolveFn;
-
-    constructor() {
-        this.reset();
-    }
-
-    async send(data: DataCollectionEntry | null): Promise<void> {
-        this.#writeResolve(data);
-        await this.#readDone;
-    }
-
-    async recv(): Promise<DataCollectionEntry | null> {
-        const data = await this.#writeDone;
-        this.#readResolve();
-        this.reset();
-        return data;
-    }
-
-    reset(): void {
-        this.#writeDone = new Promise((resolve) => {
-            this.#writeResolve = resolve;
-        });
-
-        this.#readDone = new Promise((resolve) => {
-            this.#readResolve = resolve;
-        });
-    }
-}
-
 export interface DataCollectionEncodeCfg {
     parserOpts?: ParserEncodeOpts;
     filenameProp?: string;
@@ -80,7 +46,7 @@ export abstract class DataCollection extends Parser {
     encode(opt: DataCollectionEncodeCfg = {}): TransformStream {
         const fc = new FileCache<DataCollectionEntry>({fdLimit: opt.fdLimit});
         const filenameProp = opt.filenameProp ?? "filename";
-        const rwConnector = new Interlock();
+        const rwConnector = new Interlock<DataCollectionEntry>();
 
         const writable = new WritableStream({
             write: async(chunk: Record<any, any>, controller): Promise<void> => {
@@ -138,7 +104,7 @@ export abstract class DataCollection extends Parser {
 
     decode(cfg: DataCollectionDecodeCfg): TransformStream<DataCollectionEntry> {
         let entryReader: ReadableStreamDefaultReader;
-        const rwConnector = new Interlock();
+        const rwConnector = new Interlock<DataCollectionEntry>();
 
         const getNextEntry = async(controller: ReadableStreamController<any>): Promise<boolean> => {
             const currentEntry = await rwConnector.recv();
