@@ -158,6 +158,10 @@ export class FileCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
     }
 
     toStream(): ReadableStream<TCacheType> {
+        if (this.done) {
+            throw new Error("attempting to get stream after completion");
+        }
+
         if (this.#tmpFileFd !== undefined) {
             closeSync(this.#tmpFileFd);
             this.#tmpFileFd = undefined;
