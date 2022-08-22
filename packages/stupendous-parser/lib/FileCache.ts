@@ -12,35 +12,43 @@ const fsClose = promisify(close);
 
 export interface FileCacheOpt {
     fdLimit?: number;
+    inMemory?: boolean;
 }
 
 export class FileCache<TCacheType extends Record<any, any>> {
     fdMap: Map<string, CacheEntry<TCacheType>> = new Map();
     fdLimit: number;
+    inMemory: boolean;
 
     constructor(opt: FileCacheOpt = {}) {
+        this.inMemory = opt.inMemory ?? false;
         this.fdLimit = opt.fdLimit ?? 512;
         temp.track();
     }
 
     async write(path: string, obj: Record<any, any>): Promise<void> {
-        let fileCacheEntry = this.fdMap.get(path);
-        if (!fileCacheEntry) {
-            fileCacheEntry = new MemoryCacheEntry<TCacheType>(this, path);
-            this.fdMap.set(path, fileCacheEntry);
+        let cacheEntry = this.fdMap.get(path);
+        if (!cacheEntry) {
+            if (this.inMemory) {
+                cacheEntry = new MemoryCacheEntry<TCacheType>(this, path);
+            } else {
+                cacheEntry = new FileCacheEntry<TCacheType>(this, path);
+            }
+
+            this.fdMap.set(path, cacheEntry);
         }
 
-        await fileCacheEntry.write(obj);
-        // await fileCacheEntry.write(`${JSON.stringify(obj)}\n`);
+        await cacheEntry.write(obj);
+        // await cacheEntry.write(`${JSON.stringify(obj)}\n`);
     }
 
     get(path: string): ReadableStream<TCacheType> {
-        const fileCacheEntry = this.fdMap.get(path);
-        if (!fileCacheEntry) {
-            throw new Error(`fileCacheEntry not found: '${path}'`);
+        const cacheEntry = this.fdMap.get(path);
+        if (!cacheEntry) {
+            throw new Error(`cacheEntry not found: '${path}'`);
         }
 
-        return fileCacheEntry.toStream();
+        return cacheEntry.toStream();
     }
 
     enforceOpenLimit(): void {
@@ -63,7 +71,7 @@ export class FileCache<TCacheType extends Record<any, any>> {
         await temp.cleanup();
     }
 
-    [Symbol.iterator](): IterableIterator<FileCacheEntry<TCacheType>> {
+    [Symbol.iterator](): IterableIterator<CacheEntry<TCacheType>> {
         return this.fdMap.values();
     }
 }
