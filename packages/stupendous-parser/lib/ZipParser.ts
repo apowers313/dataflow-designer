@@ -4,6 +4,18 @@ import {Entry as ZipEntry, Parse as ZipParse} from "unzip-stream";
 import {TransformStream} from "node:stream/web";
 import archiver from "archiver";
 import {once} from "node:events";
+import {timeout} from "./utils";
+import {finished} from "node:stream/promises";
+
+// const { finished } = require('node:stream/promises');
+// const fs = require('node:fs');
+
+// const rs = fs.createReadStream('archive.tar');
+
+// async function run() {
+//     await finished(rs);
+//     console.log('Stream is done reading.');
+// }
 
 class ZipDataCollectionEntry extends DataCollectionEntry<ZipEntry> {
     constructor(header: ZipEntry) {
@@ -30,25 +42,53 @@ export class ZipParser extends DataCollection {
     type = "zip";
 
     encode(opts: ZipEncodeOpts = {}): TransformStream<any, ZipDataCollectionEntry> {
-        const enc = super.encode(opts);
-        const {writable} = enc;
+        const {writable, readable: entryStream} = super.encode(opts);
         const zipArchiver = archiver("zip");
         const readable = Readable.toWeb(zipArchiver);
 
-        const zipPump = new WritableStream({
+        const zipPump = new WritableStream<DataCollectionEntry<ZipEntry>>({
             write: async(entry): Promise<void> => {
+                console.log("appending", entry.path);
+                const dataReader = entry.stream.getReader();
+                // const dataStream = Readable.fromWeb(entry.stream); // XXX
+                const dataStream = new Readable({
+                    read: function(): void {
+                        dataReader.read()
+                            .then((iter) => {
+                                if (iter.done) {
+                                    console.log("done reading data, returning");
+                                    this.push(null);
+                                    return;
+                                }
+
+                                console.log("got data", iter.value);
+                                this.push(iter.value);
+                            })
+                            .catch((err) => {
+                                this.destroy(err);
+                            });
+                    },
+                });
                 zipArchiver.append(
-                    Readable.fromWeb(entry.stream),
+                    dataStream,
                     {name: entry.path},
                 );
                 await once(zipArchiver, "entry");
+                await finished(dataStream);
+                console.log("dataStream finished:", entry.path);
             },
             close: async(): Promise<void> => {
                 await zipArchiver.finalize();
             },
         });
-        setPromiseHandled(enc.readable.pipeTo(zipPump));
+        setPromiseHandled(entryStream.pipeTo(zipPump));
 
+        // new Readable({
+        //     objectMode: true,
+        //     read: function(): void {
+        //         this.push({});
+        //     },
+        // });
         // const entryReader = enc.readable.getReader();
         // (Duplex as any).toWeb(zipArchiver) as TransformStream;
         // const readable = enc.readable.pipeThrough(zipArchiver);
