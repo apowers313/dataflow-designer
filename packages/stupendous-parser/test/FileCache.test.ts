@@ -45,7 +45,93 @@ describe("FileCache", function() {
         assert.deepEqual(writeSpy.args[2][0], {foo: "bat"});
     });
 
-    it("multiple file types");
+    it("stores and recovers multiple files", async function() {
+        const writeSpy1 = spy();
+        const writeSpy2 = spy();
+        const writeSpy3 = spy();
+        const output1 = new WritableStream({write: writeSpy1});
+        const output2 = new WritableStream({write: writeSpy2});
+        const output3 = new WritableStream({write: writeSpy3});
 
-    it("stores and recovers multiple files");
+        const fc = new FileCache();
+        await fc.write("file1.json", {foo: "bar"});
+        await fc.write("file2.json", {foo: "baz"});
+        await fc.write("file3.json", {foo: "bat"});
+        const cacheEntries = [... fc];
+        assert.strictEqual(cacheEntries.length, 3);
+        await cacheEntries[0].toStream().pipeTo(output1);
+        await cacheEntries[1].toStream().pipeTo(output2);
+        await cacheEntries[2].toStream().pipeTo(output3);
+
+        console.log("writeSpy1.args", writeSpy1.args);
+        console.log("writeSpy2.args", writeSpy2.args);
+        console.log("writeSpy3.args", writeSpy3.args);
+
+        assert.strictEqual(writeSpy1.args.length, 1);
+        assert.strictEqual(writeSpy2.args.length, 1);
+        assert.strictEqual(writeSpy3.args.length, 1);
+        assert.deepEqual(writeSpy1.args[0][0], {foo: "bar"});
+        assert.deepEqual(writeSpy2.args[0][0], {foo: "baz"});
+        assert.deepEqual(writeSpy3.args[0][0], {foo: "bat"});
+    });
+
+    it("closes files over fdLimit", async function() {
+        const writeSpy1 = spy();
+        const writeSpy2 = spy();
+        const writeSpy3 = spy();
+        const output1 = new WritableStream({write: writeSpy1});
+        const output2 = new WritableStream({write: writeSpy2});
+        const output3 = new WritableStream({write: writeSpy3});
+
+        const fc = new FileCache({fdLimit: 1});
+        for (let i = 0; i < 60; i++) {
+            await fc.write(`file${(i % 3) + 1}.json`, {count: i});
+        }
+
+        const cacheEntries = [... fc];
+        assert.strictEqual(cacheEntries.length, 3);
+        await cacheEntries[0].toStream().pipeTo(output1);
+        await cacheEntries[1].toStream().pipeTo(output2);
+        await cacheEntries[2].toStream().pipeTo(output3);
+
+        assert.strictEqual(writeSpy1.args.length, 20);
+        assert.strictEqual(writeSpy2.args.length, 20);
+        assert.strictEqual(writeSpy3.args.length, 20);
+        assert.deepEqual(writeSpy1.args[0][0], {count: 0});
+        assert.deepEqual(writeSpy2.args[0][0], {count: 1});
+        assert.deepEqual(writeSpy3.args[0][0], {count: 2});
+        assert.deepEqual(writeSpy1.args[19][0], {count: 57});
+        assert.deepEqual(writeSpy2.args[19][0], {count: 58});
+        assert.deepEqual(writeSpy3.args[19][0], {count: 59});
+    });
+
+    it("pretends to close files over fdLimit in memory", async function() {
+        const writeSpy1 = spy();
+        const writeSpy2 = spy();
+        const writeSpy3 = spy();
+        const output1 = new WritableStream({write: writeSpy1});
+        const output2 = new WritableStream({write: writeSpy2});
+        const output3 = new WritableStream({write: writeSpy3});
+
+        const fc = new FileCache({fdLimit: 1, inMemory: true});
+        for (let i = 0; i < 60; i++) {
+            await fc.write(`file${(i % 3) + 1}.json`, {count: i});
+        }
+
+        const cacheEntries = [... fc];
+        assert.strictEqual(cacheEntries.length, 3);
+        await cacheEntries[0].toStream().pipeTo(output1);
+        await cacheEntries[1].toStream().pipeTo(output2);
+        await cacheEntries[2].toStream().pipeTo(output3);
+
+        assert.strictEqual(writeSpy1.args.length, 20);
+        assert.strictEqual(writeSpy2.args.length, 20);
+        assert.strictEqual(writeSpy3.args.length, 20);
+        assert.deepEqual(writeSpy1.args[0][0], {count: 0});
+        assert.deepEqual(writeSpy2.args[0][0], {count: 1});
+        assert.deepEqual(writeSpy3.args[0][0], {count: 2});
+        assert.deepEqual(writeSpy1.args[19][0], {count: 57});
+        assert.deepEqual(writeSpy2.args[19][0], {count: 58});
+        assert.deepEqual(writeSpy3.args[19][0], {count: 59});
+    });
 });

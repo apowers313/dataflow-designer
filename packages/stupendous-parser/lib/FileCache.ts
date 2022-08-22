@@ -55,14 +55,16 @@ export class FileCache<TCacheType extends Record<any, any>> {
         const cacheList = [... this.fdMap.values()].filter((c) => c.isOpen);
 
         if ((cacheList.length + 1) > this.fdLimit) {
+            const numToClose = Math.ceil(this.fdLimit * 0.1); // close 10% of open FDs
+            console.log("numToClose", numToClose);
             cacheList
                 // sort by files with the oldest write time
                 .sort((a, b) => {
                     return a.lastWrite - b.lastWrite;
                 })
-                // pick the oldest 50
-                .slice(0, 50)
-                // close the oldest 50
+                // pick the oldest N
+                .slice(0, numToClose)
+                // close the oldest N
                 .forEach((cacheEntry) => cacheEntry.close());
         }
     }
@@ -157,13 +159,12 @@ export class FileCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
     }
 
     toStream(): ReadableStream<TCacheType> {
-        if (this.#tmpFileFd === undefined) {
-            throw new Error("internal error: tmpFileFd undefined");
+        if (this.#tmpFileFd !== undefined) {
+            closeSync(this.#tmpFileFd);
+            this.#tmpFileFd = undefined;
         }
 
-        closeSync(this.#tmpFileFd);
         // fsyncSync(this.#tmpFileFd);
-        this.#tmpFileFd = undefined;
         this.done = true;
         if (!this.#tmpFilePath) {
             throw new Error("internal error: tmpFilePath not defined");
@@ -179,7 +180,7 @@ export class FileCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
 
 export class MemoryCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
     done = false;
-    lastWrite = -1;
+    lastWrite = 0;
     path: string;
     fc: FileCache<TCacheType>;
     #objList: Array<Record<any, any>> = [];
