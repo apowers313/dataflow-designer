@@ -140,7 +140,40 @@ describe("ZipParser", function() {
         });
         it("one csv");
         it("one json");
-        it("multiple files");
+        it.only("multiple files", async function() {
+            const zp = new ZipParser();
+
+            const inputStream = objectStream([
+                {foo: "bar", filename: "file1.json"},
+                {foo: "baz", filename: "file2.json"},
+                {foo: "bat", filename: "file3.json"},
+            ]);
+
+            const tempFile = temp.path();
+            const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
+            // const writeSpy = spy();
+            // const outputFile = new WritableStream({
+            //     write: writeSpy,
+            // });
+            console.log("tempFile", tempFile);
+            await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
+
+            const zip = new AdmZip(tempFile);
+            const zipEntries = zip.getEntries();
+            // console.log("zipEntries", zipEntries[0]);
+            // console.log("zipEntries data", zipEntries[0].getData().toString());
+            // console.log("zipEntries", zipEntries[0].toJSON());
+            // console.log("zipEntries[0].header", zipEntries[0].header.toJSON());
+            assert.strictEqual(zipEntries.length, 3);
+            assert.strictEqual(zipEntries[0].entryName, "file1.json");
+            assert.strictEqual(zipEntries[0].getData().toString(), "{\"foo\":\"bar\"}");
+            assert.strictEqual(zipEntries[1].entryName, "file2.json");
+            assert.strictEqual(zipEntries[1].getData().toString(), "{\"foo\":\"baz\"}");
+            assert.strictEqual(zipEntries[2].entryName, "file3.json");
+            assert.strictEqual(zipEntries[2].getData().toString(), "{\"foo\":\"bat\"}");
+
+            // console.log("writeSpy", writeSpy);
+        });
         it("multiple file types");
     });
 });
