@@ -5,22 +5,6 @@ import {FileCache} from "./FileCache";
 import {Parser} from "./Parser";
 import {resolve} from "node:path";
 
-function pollStreamUnlock(stream: ReadableStream): Promise<void> {
-    return new Promise((resolve) => {
-        function checkLock(): void {
-            if (!stream.locked) {
-                console.log("!!! done", stream);
-                resolve();
-                return;
-            }
-
-            setTimeout(checkLock.bind(stream), 1);
-        }
-
-        checkLock();
-    });
-}
-
 export interface DataCollectionEntryCfg<TMetadata> {
     path: string;
     stream: ReadableStream;
@@ -80,24 +64,16 @@ export abstract class DataCollection extends Parser {
             },
 
             close: async(): Promise<void> => {
-                console.log("closed, writing out cache");
                 for (const cacheEntry of fc) {
-                    const str = cacheEntry.toStream();
                     const de = new GenericDataCollectionEntry({
-                        stream: str,
+                        stream: cacheEntry.toStream(),
                         path: cacheEntry.path,
                         metadata: {},
                     });
-                    console.log("Sending data entry", de);
 
                     await rwConnector.send(de);
-                    console.log("str before", str);
-                    // await timeout(1000);
-                    // await pollStreamUnlock(str);
-                    console.log("str after", str);
                 }
 
-                console.log("Closing DataCollection encoder");
                 await fc.delete();
                 await rwConnector.send(null);
             },
