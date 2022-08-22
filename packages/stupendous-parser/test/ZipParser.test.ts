@@ -119,25 +119,15 @@ describe("ZipParser", function() {
 
             const tempFile = temp.path();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
-            // const writeSpy = spy();
-            // const outputFile = new WritableStream({
-            //     write: writeSpy,
-            // });
-            // console.log("tempFile", tempFile);
             await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
 
             const zip = new AdmZip(tempFile);
             const zipEntries = zip.getEntries();
-            // console.log("zipEntries", zipEntries[0]);
-            // console.log("zipEntries data", zipEntries[0].getData().toString());
-            // console.log("zipEntries", zipEntries[0].toJSON());
-            // console.log("zipEntries[0].header", zipEntries[0].header.toJSON());
             assert.strictEqual(zipEntries.length, 1);
             assert.strictEqual(zipEntries[0].entryName, "file1.json");
             assert.strictEqual(zipEntries[0].getData().toString(), "[{\"foo\":\"bar\"},{\"foo\":\"baz\"},{\"foo\":\"bat\"}]");
-
-            // console.log("writeSpy", writeSpy);
         });
+
         it("one csv");
         it("one json");
         it.only("multiple files", async function() {
@@ -156,7 +146,7 @@ describe("ZipParser", function() {
             // const outputFile = new WritableStream({
             //     write: writeSpy,
             // });
-            console.log("tempFile", tempFile);
+            // console.log("tempFile", tempFile);
             await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
 
             const zip = new AdmZip(tempFile);

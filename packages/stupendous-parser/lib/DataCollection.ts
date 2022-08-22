@@ -83,7 +83,6 @@ export abstract class DataCollection extends Parser {
             pull: async(controller): Promise<void> => {
                 const cacheEntry = await rwConnector.recv();
                 if (!cacheEntry) {
-                    console.log("DataCollection.encode readable done");
                     controller.close();
                     return;
                 }
