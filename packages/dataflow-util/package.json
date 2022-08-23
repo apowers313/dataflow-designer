@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "dataflow-util",
   "version": "0.1.0",
-  "description": "PUT A DESCRIPTION HERE",
+  "description": "Utilties for dataflow",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {

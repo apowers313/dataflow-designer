@@ -1,1 +1,1 @@
-export * from "./lib/main";
+export {FileSource} from "./lib/FileSource";
