@@ -35,6 +35,7 @@ export interface DataCollectionEncodeCfg {
     parserOpts?: ParserEncodeOpts;
     filenameProp?: string;
     fdLimit?: number;
+    inMemory?: boolean;
 }
 
 export interface DataCollectionDecodeCfg {
@@ -45,7 +46,8 @@ export abstract class DataCollection extends Parser {
     abstract type: string;
 
     encode(opt: DataCollectionEncodeCfg = {}): TransformStream {
-        const fc = new FileCache<DataCollectionEntry>({fdLimit: opt.fdLimit});
+        const inMemory = opt.inMemory ?? false;
+        const fc = new FileCache<DataCollectionEntry>({fdLimit: opt.fdLimit, inMemory});
         const filenameProp = opt.filenameProp ?? "filename";
         const rwConnector = new Interlock<DataCollectionEntry>();
 

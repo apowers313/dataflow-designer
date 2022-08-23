@@ -25,7 +25,7 @@ describe("Parser", function() {
     });
 
     it("getParserList", function() {
-        assert.deepEqual(Parser.getParserList(), ["csv", "json", "gzip", "zip"]);
+        assert.deepEqual(Parser.getParserList(), ["csv", "json", "ndjson", "jsonl", "gzip", "zip", "tar"]);
     });
 
     it("findExtForPath", function() {

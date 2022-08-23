@@ -130,7 +130,7 @@ describe("ZipParser", function() {
 
         it("one csv");
         it("one json");
-        it.only("multiple files", async function() {
+        it("multiple files", async function() {
             // this.timeout(10 * 1000);
             const zp = new ZipParser();
 
@@ -155,7 +155,7 @@ describe("ZipParser", function() {
             // console.log("zipEntries data", zipEntries[0].getData().toString());
             // console.log("zipEntries", zipEntries[0].toJSON());
             // console.log("zipEntries[0].header", zipEntries[0].header.toJSON());
-            // assert.strictEqual(zipEntries.length, 3);
+            assert.strictEqual(zipEntries.length, 3);
             assert.strictEqual(zipEntries[0].entryName, "file1.json");
             assert.strictEqual(zipEntries[0].getData().toString(), "[{\"foo\":\"bar\"}]");
             assert.strictEqual(zipEntries[1].entryName, "file2.json");
@@ -165,6 +165,58 @@ describe("ZipParser", function() {
 
             // console.log("writeSpy", writeSpy);
         });
+
+        it.skip("bulk", async function() {
+            this.timeout(120 * 1000);
+            this.slow(60 * 1000);
+
+            const zp = new ZipParser();
+
+            let count = 0;
+            const inputStream = new ReadableStream({
+                pull: (controller): void => {
+                    if (count > 100000) {
+                        controller.close();
+                        return;
+                    }
+
+                    if (!(count % 100000)) {
+                        console.log("current count:", count);
+                    }
+
+                    controller.enqueue({count, filename: `file${(count % 10) + 1}.json`});
+                    count++;
+                },
+            });
+
+            const tempFile = temp.path();
+            const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
+            console.log("tempFile", tempFile);
+            await inputStream.pipeThrough(zp.encode({inMemory: true})).pipeTo(outputFile);
+
+            const zip = new AdmZip(tempFile);
+            const zipEntries = zip.getEntries();
+            zipEntries.forEach((e: any, idx) => console.log(`Zip Entry ${idx}:`, e.toJSON()));
+            assert.strictEqual(zipEntries.length, 10);
+            assert.strictEqual(zipEntries[0].entryName, "file1.json");
+            assert.strictEqual(zipEntries[0].header.compressedSize, 25326);
+            assert.strictEqual(zipEntries[0].header.size, 158907);
+            assert.strictEqual(zipEntries[0].header.crc, 0x458F1B73);
+            assert.strictEqual(zipEntries[1].entryName, "file2.json");
+            assert.strictEqual(zipEntries[2].entryName, "file3.json");
+            assert.strictEqual(zipEntries[3].entryName, "file4.json");
+            assert.strictEqual(zipEntries[4].entryName, "file5.json");
+            assert.strictEqual(zipEntries[5].entryName, "file6.json");
+            assert.strictEqual(zipEntries[6].entryName, "file7.json");
+            assert.strictEqual(zipEntries[7].entryName, "file8.json");
+            assert.strictEqual(zipEntries[8].entryName, "file9.json");
+            assert.strictEqual(zipEntries[9].entryName, "file10.json");
+            assert.strictEqual(zipEntries[9].header.compressedSize, 25248);
+            assert.strictEqual(zipEntries[9].header.size, 158890);
+            assert.strictEqual(zipEntries[9].header.crc, 0x3936A62B);
+        });
         it("multiple file types");
+        it("in memory");
+        it("single file based on extension");
     });
 });
