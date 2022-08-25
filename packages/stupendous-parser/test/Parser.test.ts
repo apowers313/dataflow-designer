@@ -28,6 +28,14 @@ describe("Parser", function() {
         assert.deepEqual(Parser.getParserList(), ["csv", "json", "ndjson", "jsonl", "gzip", "zip", "tar"]);
     });
 
+    it("getFileExtList", function() {
+        assert.deepEqual(Parser.getFileExtList(), [".csv", ".json", ".ndjson", ".jsonl", ".zip", ".tgz", ".tar.gz", ".tar"]);
+    });
+
+    it("getMimeTypeList", function() {
+        assert.deepEqual(Parser.getMimeTypeList(), ["application/json", "application/gzip", "application/zip", "application/x-tar", "text/csv"]);
+    });
+
     it("findExtForPath", function() {
         let p = Parser.findExtForPath("foo.csv.zip");
         assert.strictEqual(p, ".zip");
@@ -48,6 +56,9 @@ describe("Parser", function() {
         assert.deepEqual(e, ["json"]);
         e = Parser.getParsersForExt("asdfasdasdf");
         assert.isUndefined(e);
+    });
+
+    it("getStreamForMimeType", function() {
     });
 
     it("getParserStreamForExt");
@@ -126,5 +137,105 @@ describe("Parser", function() {
             assert.strictEqual(writeSpy.args[435][0].key, 435);
             assert.strictEqual(writeSpy.args[435][0].value.person.name, "Rep. Mike Flood [R-NE1]");
         });
+    });
+
+    describe("getParserStreamForMimeType", function() {
+        it("text/csv", async function() {
+            const filename = "test/helpers/test1.csv";
+            const opts: ParserDecodeOpts = {csv: {header: true}};
+            const p = Parser.getParserStreamForMimeType("text/csv", "decode", opts);
+            if (!p) {
+                throw new Error("couldn't find parser");
+            }
+
+            const src = Readable.toWeb(createReadStream(filename));
+            const writeSpy = spy();
+            const dest = new WritableStream({write: writeSpy});
+            await src
+                .pipeThrough(p)
+                .pipeTo(dest);
+
+            assert.strictEqual(writeSpy.callCount, 100);
+            assert.deepEqual(writeSpy.args[0][0], {
+                "Region": "Australia and Oceania",
+                "Country": "Tuvalu",
+                "Item Type": "Baby Food",
+                "Sales Channel": "Offline",
+                "Order Priority": "H",
+                "Order Date": "5/28/2010",
+                "Order ID": "669165933",
+                "Ship Date": "6/27/2010",
+                "Units Sold": "9925",
+                "Unit Price": "255.28",
+                "Unit Cost": "159.42",
+                "Total Revenue": "2533654.00",
+                "Total Cost": "1582243.50",
+                "Total Profit": "951410.50",
+            });
+            assert.deepEqual(writeSpy.args[99][0], {
+                "Region": "Sub-Saharan Africa",
+                "Country": "Mozambique",
+                "Item Type": "Household",
+                "Sales Channel": "Offline",
+                "Order Priority": "L",
+                "Order Date": "2/10/2012",
+                "Order ID": "665095412",
+                "Ship Date": "2/15/2012",
+                "Units Sold": "5367",
+                "Unit Price": "668.27",
+                "Unit Cost": "502.54",
+                "Total Revenue": "3586605.09",
+                "Total Cost": "2697132.18",
+                "Total Profit": "889472.91",
+            });
+        });
+
+        it("application/json", async function() {
+            this.timeout(250);
+            this.slow(250);
+
+            const filename = "./test/helpers/congress.json";
+            const p = Parser.getParserStreamForMimeType("application/json", "decode", {
+                json: {path: "objects", outputType: "array", includeKeys: true},
+            });
+            if (!p) {
+                throw new Error("couldn't find parser");
+            }
+
+            const inputFile = Readable.toWeb(createReadStream(filename));
+            const writeSpy = spy();
+            const testWritable = new WritableStream({write: writeSpy});
+            await inputFile.pipeThrough(p).pipeTo(testWritable);
+
+            assert.strictEqual(writeSpy.callCount, 436);
+            assert.strictEqual(writeSpy.args[0][0].key, 0);
+            assert.strictEqual(writeSpy.args[0][0].value.person.name, "Rep. Robert Aderholt [R-AL4]");
+            assert.strictEqual(writeSpy.args[435][0].key, 435);
+            assert.strictEqual(writeSpy.args[435][0].value.person.name, "Rep. Mike Flood [R-NE1]");
+        });
+    });
+
+    it("application/json; charset=utf-8", async function() {
+        this.timeout(250);
+        this.slow(250);
+
+        const filename = "./test/helpers/congress.json";
+        const p = Parser.getParserStreamForMimeType("application/json; charset=utf-8", "decode", {
+            json: {path: "objects", outputType: "array", includeKeys: true},
+        });
+        if (!p) {
+            throw new Error("couldn't find parser");
+        }
+
+        const inputFile = Readable.toWeb(createReadStream(filename));
+        const writeSpy = spy();
+        const testWritable = new WritableStream({write: writeSpy});
+        await inputFile.pipeThrough(p).pipeTo(testWritable);
+
+        assert.strictEqual(writeSpy.callCount, 436);
+        assert.strictEqual(writeSpy.args[0][0].key, 0);
+        assert.strictEqual(writeSpy.args[0][0].value.person.name, "Rep. Robert Aderholt [R-AL4]");
+        assert.strictEqual(writeSpy.args[435][0].key, 435);
+        assert.strictEqual(writeSpy.args[435][0].value.person.name, "Rep. Mike Flood [R-NE1]");
     });
 });

@@ -2,8 +2,8 @@ import {CsvParser} from "./lib/CsvParser";
 import {GzParser} from "./lib/GzParser";
 import {JsonParser} from "./lib/JsonParser";
 import {Parser} from "./lib/Parser";
-import {ZipParser} from "./lib/ZipParser";
 import {TarParser} from "./lib/TarParser";
+import {ZipParser} from "./lib/ZipParser";
 
 Parser.registerParser("csv", CsvParser);
 Parser.registerParser("json", JsonParser);
@@ -22,5 +22,12 @@ Parser.registerFileExt(".tgz", ["tar", "gzip"]);
 Parser.registerFileExt(".tar.gz", ["tar", "gzip"]);
 Parser.registerFileExt(".tar", ["tar"]);
 
+Parser.registerMime("application/json", ["json"]);
+Parser.registerMime("application/gzip", ["gzip"]);
+Parser.registerMime("application/zip", ["zip"]);
+Parser.registerMime("application/x-tar", ["tar"]);
+Parser.registerMime("text/csv", ["csv"]);
+
 export {Parser, CsvParser, GzParser, JsonParser, TarParser, ZipParser};
 export {DataCollection} from "./lib/DataCollection";
+export {ParserOpts, ParserDecodeOpts, ParserEncodeOpts} from "./lib/ParserOpts";

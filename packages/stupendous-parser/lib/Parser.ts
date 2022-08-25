@@ -28,6 +28,14 @@ export abstract class Parser {
         return [... parserRegistry.keys()];
     }
 
+    static getFileExtList(): Array<string> {
+        return [... fileExtRegistry.keys()];
+    }
+
+    static getMimeTypeList(): Array<string> {
+        return [... mimeRegistry.keys()];
+    }
+
     // XXX: parsers must be in ENCODE order
     static registerFileExt(ext: string, parsers: Array<string>): void {
         // make sure parsers exist
@@ -38,6 +46,16 @@ export abstract class Parser {
         });
 
         fileExtRegistry.set(ext, parsers);
+    }
+
+    static registerMime(mimeType: string, parsers: Array<string>) {
+        parsers.forEach((p) => {
+            if (!Parser.getParser(p)) {
+                throw new Error(`parser '${p}' does not exist in registry`);
+            }
+        });
+
+        mimeRegistry.set(mimeType, parsers);
     }
 
     static findExtForPath(path: string): string | undefined {
@@ -72,14 +90,17 @@ export abstract class Parser {
         return [... ret];
     }
 
-    // static getParserStreamForExt(ext: string, type: "encode", userOpts: ParserEncodeOpts): TransformStream | undefined;
-    // static getParserStreamForExt(ext: string, type: "decode", userOpts: ParserDecodeOpts): TransformStream | undefined;
-    static getParserStreamForExt(ext: string, type: "decode" | "encode", userOpts: ParserOpts = {}): TransformStream | undefined {
-        const parserStrList = fileExtRegistry.get(ext) as Array<keyof ParserOpts> | undefined;
-        if (!parserStrList) {
-            return undefined;
+    static getParsersForMimeType(mimeType: string): Array<string> | undefined {
+        const ret = mimeRegistry.get(mimeType);
+
+        if (!ret) {
+            return ret;
         }
 
+        return [... ret];
+    }
+
+    static getParserStreamForParserList(parserStrList: Array<keyof ParserOpts>, type: "decode" | "encode", userOpts: ParserOpts = {}): TransformStream | undefined {
         function mergeOpts(base: Record<any, any>, add: Record<any, any> | undefined): Record<any, any> {
             if (!add) {
                 return base;
@@ -87,6 +108,7 @@ export abstract class Parser {
 
             return Object.assign(base, add);
         }
+        console.log("parserStrList", parserStrList);
 
         const parserList = parserStrList.map((str) => {
             const p = Parser.getParser(str);
@@ -123,22 +145,42 @@ export abstract class Parser {
         });
 
         const last = parserList.length - 1;
+        console.log("returning new parser");
         return {
             writable: parserList[0].writable,
             readable: parserList[last].readable,
         };
     }
 
-    static getParserStreamForPath(path: string, type: "encode" | "decode", parserOpts: ParserOpts = {}): TransformStream | undefined {
+    static getParserStreamForExt(ext: string, type: "decode" | "encode", userOpts: ParserOpts = {}): TransformStream | undefined {
+        const parserStrList = fileExtRegistry.get(ext) as Array<keyof ParserOpts> | undefined;
+        if (!parserStrList) {
+            return undefined;
+        }
+
+        return Parser.getParserStreamForParserList(parserStrList, type, userOpts);
+    }
+
+    static getParserStreamForPath(path: string, type: "encode" | "decode", userOpts: ParserOpts = {}): TransformStream | undefined {
         const ext = Parser.findExtForPath(path);
         if (!ext) {
             return undefined;
         }
 
-        return Parser.getParserStreamForExt(ext, type, parserOpts);
+        return Parser.getParserStreamForExt(ext, type, userOpts);
+    }
+
+    static getParserStreamForMimeType(mimeType: string, type: "encode" | "decode", userOpts: ParserOpts = {}): TransformStream | undefined {
+        mimeType = mimeType.split(";")[0];
+        const parserStrList = mimeRegistry.get(mimeType) as Array<keyof ParserOpts> | undefined;
+        if (!parserStrList) {
+            return undefined;
+        }
+
+        return Parser.getParserStreamForParserList(parserStrList, type, userOpts);
     }
 }
 
 const parserRegistry: Map<string, SpecificParser> = new Map();
-
 const fileExtRegistry: Map<string, Array<string>> = new Map();
+const mimeRegistry: Map<string, Array<string>> = new Map();
