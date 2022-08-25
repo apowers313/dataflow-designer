@@ -112,9 +112,15 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
                 const batch: Array<Chunk> = [];
                 for (let i = 0; i < results.length; i++) {
                     const chunk = results[i];
+
+                    // discard non-data if not doing writeAll
                     if (chunk === null ||
                         !(chunk.isData() || this.writeAll)) {
-                        // discard non-data if not doing writeAll
+                        // warn user if discarding an error at a Sink
+                        if (chunk?.isError() && !this.isReadable) {
+                            this.logger.error("Unhandled error Chunk in dataflow:", chunk.error);
+                        }
+
                         readerPromises[i] = activeReaders[i].read();
                         continue;
                     }

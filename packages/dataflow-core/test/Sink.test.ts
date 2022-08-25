@@ -1,7 +1,8 @@
-import {Chunk, ChunkCollection, Sink, Through} from "../index";
+import {Chunk, ChunkCollection, Sink, Source, Through} from "../index";
 import {TestSource, push, through} from "./helpers/helpers";
 import {assert} from "chai";
 import {spy} from "sinon";
+import stdMocks from "std-mocks";
 
 describe("Sink", function() {
     it("is a class", function() {
@@ -98,9 +99,14 @@ describe("Sink", function() {
                 throw new Error("expected all args to be a chunk collection");
             }
 
+            assert.strictEqual(arg.size, 2);
+
+            console.log("arg", arg);
             let chunk = Chunk.create({type: "data", data: {count: ch0results[idx]}});
+            console.log("arg.get(0)", arg.get(0));
             assert.deepEqual(arg.get(0), chunk);
             chunk = Chunk.create({type: "data", data: {count: ch1results[idx]}});
+            console.log("arg.get(1)", arg.get(1));
             assert.deepEqual(arg.get(1), chunk);
         });
     });
@@ -209,5 +215,32 @@ describe("Sink", function() {
 
             assert.strictEqual(sinkSpy.callCount, 11);
         });
+    });
+
+    it("logs uncaught error", async function() {
+        let first = true;
+        const src = new Source({
+            pull: async(methods): Promise<void> => {
+                if (first) {
+                    first = false;
+                    throw new Error("this is an intentional test error");
+                }
+
+                await methods.finished();
+            },
+        });
+        const sinkSpy = spy();
+        const sink = new Sink({push: sinkSpy, name: "sink1"});
+        src.channels[0].pipe(sink);
+
+        stdMocks.use();
+        await sink.complete();
+        stdMocks.restore();
+
+        const output = stdMocks.flush();
+        assert.strictEqual(output.stdout.length, 1);
+        assert.strictEqual(output.stderr.length, 0);
+        assert.isTrue(output.stdout[0].startsWith("Unhandled error Chunk in dataflow: Error: this is an intentional test error\n"));
+        assert.strictEqual(sinkSpy.callCount, 0);
     });
 });
