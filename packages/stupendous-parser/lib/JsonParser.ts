@@ -82,6 +82,6 @@ function outputTypeToTransform(type?: string): Transform {
     case "values":
         return streamValues();
     default:
-        return streamArray();
+        return streamValues();
     }
 }
