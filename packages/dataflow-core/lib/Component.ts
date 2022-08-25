@@ -54,7 +54,7 @@ export abstract class Component {
 
     set context(c: any | undefined) {
         this.logger = Logger.getLoggerForType(c);
-        this.status = new StatusReporter({context: c});
+        this.status = StatusReporter.getStatusReporterForType(c);
     }
 
     /**

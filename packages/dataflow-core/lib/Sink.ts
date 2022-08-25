@@ -1,5 +1,8 @@
-import {Writable, WritableOpts} from "./Writable";
+import {Writable, WritableOpts, WriteMethods} from "./Writable";
 import {Component} from "./Component";
+
+export interface SinkOpts extends WritableOpts {}
+export interface SinkMethods extends WriteMethods {}
 
 /**
  * The end of a pipeline
@@ -11,7 +14,7 @@ export class Sink extends Writable(Component) {
      * @param opts - Options for the Sink
      */
     // eslint-disable-next-line no-useless-constructor
-    constructor(opts: WritableOpts) {
+    constructor(opts: SinkOpts) {
         super(opts);
     }
 

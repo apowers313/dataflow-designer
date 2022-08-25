@@ -4,7 +4,9 @@ import {ContextConstructor} from "./utils";
 type LogFn<TCtx> = (this: TCtx, data: any, ... args: any[]) => void
 type MetricFn = () => boolean;
 type LoggerRegistryIndexType<T> = ContextConstructor<T> | undefined;
-type LoggerConstructor<T> = new (context: T) => Logger<T>
+// eslint-disable-next-line @typescript-eslint/ban-types
+type ContextClassInstance = Record<"constructor", Function> | undefined;
+export type LoggerConstructor<T> = new (context: T) => Logger<T>
 
 const loggerRegistry: Map<LoggerRegistryIndexType<any>, LoggerConstructor<any>> = new Map();
 
@@ -66,7 +68,7 @@ export class Logger<TCtx> {
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    static getLoggerForType<T>(ctx: Record<"constructor", Function> | undefined): Logger<T> {
+    static getLoggerForType<T>(ctx: ContextClassInstance): Logger<T> {
         let lkup = undefined;
         if (typeof ctx === "object" && typeof ctx.constructor === "function") {
             lkup = ctx.constructor as ContextConstructor<T>;

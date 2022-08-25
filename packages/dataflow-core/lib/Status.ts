@@ -2,76 +2,61 @@ import {ContextConstructor} from "./utils";
 // import {format} from "node:util";
 
 type StatusFn<TCtx> = (this: TCtx, type: string, ... args: any[]) => void
+type StatusReporterRegistryIndexType<T> = ContextConstructor<T> | undefined;
+// eslint-disable-next-line @typescript-eslint/ban-types
+type ContextClassInstance = Record<"constructor", Function> | undefined;
+export type StatusReporterConstructor<T> = new (context: T) => StatusReporter<T>
 
-const statusRegistry: Map<ContextConstructor<any> | undefined, StatusGenerator<any>> = new Map();
-
-export interface StatusGeneratorCfg {
-    name: string;
-}
-
-export class StatusGenerator<TCtx> {
-    name: string;
-    collection: Map<string, StatusFn<TCtx>> = new Map();
-
-    constructor(cfg: StatusGeneratorCfg) {
-        this.name = cfg.name;
-    }
-
-    register(type: string, fn: StatusFn<TCtx>): void {
-        this.collection.set(type, fn);
-    }
-
-    get(type: string): StatusFn<TCtx> | undefined {
-        return this.collection.get(type);
-    }
-
-    static getGeneratorForType<T>(t: Record<"constructor", Function> | undefined): StatusGenerator<T> | undefined {
-        let lkup = undefined;
-        if (typeof t === "object" && typeof t.constructor === "function") {
-            lkup = t.constructor as ContextConstructor<T>;
-        }
-
-        return statusRegistry.get(lkup) ?? undefined;
-    }
-
-    static setGeneratorForType<T>(t: ContextConstructor<T> | undefined, gen: StatusGenerator<T>): void {
-        statusRegistry.set(t, gen);
-    }
-}
+const statusRegistry: Map<StatusReporterRegistryIndexType<any>, StatusReporterConstructor<any>> = new Map();
 
 export interface StatusReporterCfg<TCtx> {
     context?: TCtx;
+    status: StatusFn<TCtx>;
 }
 
-export class StatusReporter<TCtx = undefined> {
+export class StatusReporter<TCtx> {
     context!: TCtx;
-    generator: StatusGenerator<TCtx>;
+    #statusFn: StatusFn<TCtx>
 
-    constructor(cfg: StatusReporterCfg<TCtx> = {}) {
+    constructor(cfg: StatusReporterCfg<TCtx>) {
         if (cfg.context) {
             this.context = cfg.context;
         }
 
-        let gen: StatusGenerator<TCtx> | undefined = StatusGenerator.getGeneratorForType(this.context);
-        if (!gen) {
-            gen = StatusGenerator.getGeneratorForType(undefined) as StatusGenerator<TCtx>;
-        }
-
-        this.generator = gen;
+        this.#statusFn = cfg.status;
     }
 
     status(type: string, ... args: any[]): void {
-        const statusFn = this.generator.get(type);
-        if (!statusFn) {
-            return;
+        this.#statusFn.call(this.context, type, ... args);
+    }
+
+    static getStatusReporterForType<T>(ctx: ContextClassInstance): StatusReporter<T> {
+        let lkup = undefined;
+        if (typeof ctx === "object" && typeof ctx.constructor === "function") {
+            lkup = ctx.constructor as ContextConstructor<T>;
         }
 
-        statusFn.call(this.context, type, ... args);
+        let ret = statusRegistry.get(lkup);
+        if (!ret) {
+            ret = statusRegistry.get(undefined) as StatusReporterConstructor<T>;
+        }
+
+        return new ret(ctx);
+    }
+
+    static setStatusReporterForType<T>(t: StatusReporterRegistryIndexType<T>, gen: StatusReporterConstructor<T>): void {
+        statusRegistry.set(t, gen);
     }
 }
 
-const textStatusGenerator = new StatusGenerator<undefined>({name: "text"});
-textStatusGenerator.register("idle", function(type: string, ... args: any[]) {
-    console.log(`[${type.toUpperCase()}]:`, ... args);
-});
-StatusGenerator.setGeneratorForType(undefined, textStatusGenerator);
+export class DefaultStatusReporter extends StatusReporter<undefined> {
+    constructor(ctx: undefined) {
+        super({
+            context: ctx,
+            status: function(type: string, ... args: any[]) {
+                console.log(`[${type.toUpperCase()}]:`, ... args);
+            },
+        });
+    }
+}
+StatusReporter.setStatusReporterForType(undefined, DefaultStatusReporter);
