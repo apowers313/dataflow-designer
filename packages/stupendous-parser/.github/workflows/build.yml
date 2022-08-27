@@ -41,8 +41,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, windows-2016, ubuntu-latest, ubuntu-18.04, macos-latest]
-        node-version: [12.x, 14.x]
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        node-version: [18.x]
 
     steps:
     - name: Git checkout
@@ -67,41 +67,41 @@ jobs:
     - name: Test
       run: npm test
 
-  # docs:
-  #   needs: test
+  docs:
+    needs: test
 
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Git checkout
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v2
 
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v1
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
 
-  #   - name: Cache Node Modules
-  #     id: cache-node-modules
-  #     uses: actions/cache@v2
-  #     with:
-  #       path: node_modules
-  #       key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: Cache Node Modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
 
-  #   - name: Install
-  #     if: steps.cache.outputs.cache-hit != 'true'
-  #     run: npm install
+    - name: Install
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm install
 
-  #   - name: Create Docs
-  #     run: npm run docs
+    - name: Create Docs
+      run: npm run docs
 
-  #   - name: Publish Docs
-  #     uses: JamesIves/github-pages-deploy-action@3.7.1
-  #     with:
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       BRANCH: gh-pages
-  #       FOLDER: docs
-  #       CLEAN: true
+    - name: Publish Docs
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: docs
+        CLEAN: true
 
 
   # coverage:
