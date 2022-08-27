@@ -65,7 +65,7 @@ describe("Parser", function() {
 
     describe("getParserStreamForPath", function() {
         it(".csv.zip", async function() {
-            const filename = "test/helpers/test1.csv.zip";
+            const filename = "test/helpers/data/test1.csv.zip";
             const opts: ParserDecodeOpts = {zip: {parserOpts: {csv: {header: true}}}};
             const p = Parser.getParserStreamForPath(filename, "decode", opts);
             if (!p) {
@@ -118,7 +118,7 @@ describe("Parser", function() {
             this.timeout(250);
             this.slow(250);
 
-            const filename = "./test/helpers/congress.json";
+            const filename = "./test/helpers/data/congress.json";
             const p = Parser.getParserStreamForPath(filename, "decode", {
                 json: {path: "objects", outputType: "array", includeKeys: true},
             });
@@ -141,7 +141,7 @@ describe("Parser", function() {
 
     describe("getParserStreamForMimeType", function() {
         it("text/csv", async function() {
-            const filename = "test/helpers/test1.csv";
+            const filename = "test/helpers/data/test1.csv";
             const opts: ParserDecodeOpts = {csv: {header: true}};
             const p = Parser.getParserStreamForMimeType("text/csv", "decode", opts);
             if (!p) {
@@ -194,7 +194,7 @@ describe("Parser", function() {
             this.timeout(250);
             this.slow(250);
 
-            const filename = "./test/helpers/congress.json";
+            const filename = "./test/helpers/data/congress.json";
             const p = Parser.getParserStreamForMimeType("application/json", "decode", {
                 json: {path: "objects", outputType: "array", includeKeys: true},
             });
@@ -219,7 +219,7 @@ describe("Parser", function() {
         this.timeout(250);
         this.slow(250);
 
-        const filename = "./test/helpers/congress.json";
+        const filename = "./test/helpers/data/congress.json";
         const p = Parser.getParserStreamForMimeType("application/json; charset=utf-8", "decode", {
             json: {path: "objects", outputType: "array", includeKeys: true},
         });

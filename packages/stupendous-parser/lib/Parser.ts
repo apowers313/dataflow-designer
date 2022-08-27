@@ -108,7 +108,6 @@ export abstract class Parser {
 
             return Object.assign(base, add);
         }
-        console.log("parserStrList", parserStrList);
 
         const parserList = parserStrList.map((str) => {
             const p = Parser.getParser(str);
@@ -145,7 +144,6 @@ export abstract class Parser {
         });
 
         const last = parserList.length - 1;
-        console.log("returning new parser");
         return {
             writable: parserList[0].writable,
             readable: parserList[last].readable,

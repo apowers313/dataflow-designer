@@ -15,7 +15,7 @@ describe("GzParser", function() {
 
         const cp = new CsvParser();
         const zp = new GzParser();
-        const inputFile = Readable.toWeb(createReadStream("test/helpers/test1.csv.gz"));
+        const inputFile = Readable.toWeb(createReadStream("test/helpers/data/test1.csv.gz"));
         const writeSpy = spy();
         const testWritable = new WritableStream({write: writeSpy});
         await inputFile

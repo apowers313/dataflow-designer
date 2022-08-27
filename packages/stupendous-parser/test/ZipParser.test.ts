@@ -18,7 +18,7 @@ describe("ZipParser", function() {
             this.slow(5 * 1000);
 
             const zp = new ZipParser();
-            const inputFile = Readable.toWeb(createReadStream("test/helpers/csvdata.zip"));
+            const inputFile = Readable.toWeb(createReadStream("test/helpers/data/csvdata.zip"));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile
@@ -64,7 +64,7 @@ describe("ZipParser", function() {
 
         it("decode", async function() {
             const zp = new ZipParser();
-            const inputFile = Readable.toWeb(createReadStream("test/helpers/test1.csv.zip"));
+            const inputFile = Readable.toWeb(createReadStream("test/helpers/data/test1.csv.zip"));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile
