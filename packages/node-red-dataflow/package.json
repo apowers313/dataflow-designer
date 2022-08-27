@@ -4,8 +4,7 @@
   "description": "Streaming data framework for Node-RED",
   "node-red": {
     "nodes": {
-      "dataflow-source": "dataflow-source/dataflow-source.js",
-      "dataflow-sink": "dataflow-sink/dataflow-sink.js"
+      "dataflow-file-source": "file/dataflow-file-source.js"
     }
   },
   "scripts": {
@@ -26,6 +25,7 @@
     "node-red-node-test-helper": "^0.2.7"
   },
   "dependencies": {
-    "dataflow-core": "file:../dataflow"
+    "dataflow-util": "file:../dataflow-util",
+    "dataflow-nodered": "file:../dataflow-nodered"
   }
 }
