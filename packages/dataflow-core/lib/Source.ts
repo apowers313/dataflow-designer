@@ -34,6 +34,7 @@ export class Source extends Readable(Component) {
         const inputOpts: SourceSuperOpts = {
             ... opts,
             pull: async(methods): Promise<void> => {
+                await this.started;
                 await this.#sourcePull({
                     ... methods,
                     finished: async(): Promise<void> => {
