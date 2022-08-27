@@ -18,6 +18,16 @@ module.exports = {
         "plugin:old-c-programmer/node",
     ],
     rules: {
+        "@typescript-eslint/member-delimiter-style": ["error", {
+            multiline: {
+                delimiter: "semi",
+                requireLast: true,
+            },
+            singleline: {
+                delimiter: "comma",
+                requireLast: false,
+            },
+        }],
         "tsdoc/syntax": "warn",
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-inferrable-types": "error",
