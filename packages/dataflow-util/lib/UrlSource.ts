@@ -23,7 +23,6 @@ export class UrlSource extends Source {
     }
 
     async pull(methods: SourceMethods): Promise<void> {
-        await this.started;
         if (!this.#dataReader) {
             await methods.finished();
             return;
@@ -52,32 +51,17 @@ export class UrlSource extends Source {
         }
 
         const contentType = response.headers.get("content-type");
-        console.log("content type", contentType);
         if (!contentType) {
             throw new Error("no content type header was found");
         }
 
-        console.log("Parser.getParserStreamForMimeType");
         const parser = Parser.getParserStreamForMimeType(contentType, "decode", this.parserOpts);
         if (!parser) {
             throw new Error(`parser not found for content type: '${contentType}'`);
         }
 
-        console.log("doing pipe");
         this.#dataReader = dataStream
-            // .pipeThrough(new TransformStream({
-            //     transform: (chunk, controller): void => {
-            //         console.log("chunk", chunk);
-            //         controller.enqueue(chunk);
-            //     },
-            // }))
             .pipeThrough(parser)
-            // .pipeThrough(new TransformStream({
-            //     transform: (chunk, controller): void => {
-            //         console.log("after", chunk);
-            //         controller.enqueue(chunk);
-            //     },
-            // }))
             .getReader();
 
         await super.init();
