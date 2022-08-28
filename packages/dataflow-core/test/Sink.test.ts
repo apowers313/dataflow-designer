@@ -20,31 +20,35 @@ describe("Sink", function() {
     });
 
     it("merges two streams", async function() {
-        this.slow(250);
+        this.timeout(2500);
         this.retries(4);
 
-        const src1 = new TestSource({delay: 5, countBy: 5, sendNum: 5});
-        const src2 = new TestSource({delay: 13, countBy: 13, sendNum: 5});
+        const src1 = new TestSource({delay: 5, countBy: 5, sendNum: 6});
+        const src2 = new TestSource({delay: 23, countBy: 23, sendNum: 6});
         const sinkSpy = spy();
         const sink = new Sink({push: sinkSpy});
 
         src1.channels[0].pipe(sink);
         src2.channels[0].pipe(sink);
         await src1.complete();
-        assert.strictEqual(sinkSpy.callCount, 10);
+        assert.strictEqual(sinkSpy.callCount, 12);
         const args = sinkSpy.args.map((a) => a[0]);
 
+        console.log("args", args);
         assert.deepEqual(args, [
             {type: "data", data: {count: 5}},
             {type: "data", data: {count: 10}},
-            {type: "data", data: {count: 13}},
             {type: "data", data: {count: 15}},
             {type: "data", data: {count: 20}},
-            {type: "data", data: {count: 26}},
+            {type: "data", data: {count: 23}},
             {type: "data", data: {count: 25}},
-            {type: "data", data: {count: 39}},
-            {type: "data", data: {count: 52}},
-            {type: "data", data: {count: 65}},
+            {type: "data", data: {count: 30}},
+            {type: "data", data: {count: 46}},
+            {type: "data", data: {count: 69}},
+            {type: "data", data: {count: 92}},
+            {type: "data", data: {count: 115}},
+            {type: "data", data: {count: 138}},
+
         ]);
     });
 
