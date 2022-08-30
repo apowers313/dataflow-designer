@@ -25,7 +25,7 @@
     "node-red-node-test-helper": "^0.2.7"
   },
   "dependencies": {
-    "dataflow-util": "file:../dataflow-util",
-    "dataflow-nodered": "file:../dataflow-nodered"
+    "dataflow-util": "*",
+    "dataflow-nodered": "*"
   }
 }
