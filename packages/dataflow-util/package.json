@@ -38,9 +38,9 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "dataflow-core": "file:../dataflow-core",
+    "dataflow-core": "*",
     "handlebars": "^4.7.7",
-    "stupendous-parser": "file:../stupendous-parser",
+    "stupendous-parser": "*",
     "undici": "^5.9.1"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "dataflow-nodered",
   "version": "0.1.0",
-  "description": "PUT A DESCRIPTION HERE",
+  "description": "Utilities for creating NodeRED dataflow components",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
