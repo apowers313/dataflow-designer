@@ -11,7 +11,6 @@
     "test": "ts-mocha test/**/*.test.ts",
     "docs": "typedoc",
     "build": "tsc",
-    "prepare": "npm run build",
     "lint": "npx eslint",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm test"
   },
