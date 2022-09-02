@@ -1,5 +1,5 @@
 {
-  "name": "stupendous-parser",
+  "name": "@dataflow-designer/stupendous-parser",
   "version": "0.1.0",
   "description": "A collection of file parsing and encoding streams",
   "main": "build/index.js",
