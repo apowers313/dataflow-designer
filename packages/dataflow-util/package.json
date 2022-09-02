@@ -53,5 +53,5 @@
   "peerDependencies": {
     "@dataflow-designer/dataflow-core": "*"
   },
-  "gitHead": "a0c02e1a5f5d14f268ed23143e0c0bd05f6bd427"
+  "gitHead": "a1b95fa7ac31f9b68f1a26ed49907d9e9a2d87fd"
 }
