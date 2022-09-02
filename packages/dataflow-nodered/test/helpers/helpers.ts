@@ -23,7 +23,7 @@ export interface TestSourceOpts {
     countBy?: number;
     delay?: number;
     sendNum?: number;
-    enableLogging?: boolean
+    enableLogging?: boolean;
 }
 
 export class TestSource extends Source {
@@ -66,9 +66,7 @@ export class TestSource extends Source {
         this.count += this.countBy;
 
         if (this.enableLogging) {
-            console.log("log before", (this.logger.log as Sinon.SinonSpy).callCount);
             this.logger.log("TestSource sending:", (next as any).data);
-            console.log("log after", (this.logger.log as Sinon.SinonSpy).callCount);
         }
 
         await methods.send(0, next);
@@ -80,11 +78,10 @@ export class TestSource extends Source {
 }
 
 interface TestSourceConfig extends NodeRed.NodeDef {
-    enableLogging?: boolean
+    enableLogging?: boolean;
 }
 
 export const testSourceNodeFactory = nodeFactoryCreator(function testSourceFactory(_node, nodeCfg): Component {
-    console.log("nodeCfg", nodeCfg);
     const cfg = (nodeCfg ?? {}) as TestSourceConfig;
     return new TestSource({
         enableLogging: cfg.enableLogging ?? false,
@@ -110,7 +107,7 @@ export type TestInputCb = (
         msg: NodeRed.NodeMessageInFlow,
         send: (msg: NodeRed.NodeMessage | Array<NodeRed.NodeMessage | NodeRed.NodeMessage[] | null>) => void,
         done: (err?: Error) => void,
-    ) => void
+    ) => void;
 
 export function testNodeFactoryCreator(inputCb: TestInputCb) {
     return function testNodeFactory(RED: NodeRed.NodeAPI): void {

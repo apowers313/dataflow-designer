@@ -18,7 +18,6 @@ describe("FileSink", function() {
             {three: "3"},
         ]);
         const temppath = temp.path({suffix: ".json"});
-        console.log("temppath", temppath);
         const sink = new FileSink({file: temppath});
         src.channels[0].pipe(sink);
         await src.complete();
@@ -35,7 +34,6 @@ describe("FileSink", function() {
         ]);
 
         const temppath = temp.path({suffix: ".csv"});
-        console.log("temppath", temppath);
         const sink = new FileSink({file: temppath});
         src.channels[0].pipe(sink);
         await src.complete();

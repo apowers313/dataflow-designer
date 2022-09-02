@@ -74,7 +74,6 @@ export function objectSource(objs: Array<Record<any, any>>): Source {
     return new Source({
         pull: async(methods): Promise<void> => {
             if (curr > (objs.length - 1)) {
-                console.log("source finished");
                 await methods.finished();
                 return;
             }

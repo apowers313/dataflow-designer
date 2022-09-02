@@ -36,7 +36,6 @@ export class FileSource extends Source {
             return;
         }
 
-        console.log("iter.value", iter.value);
         const chunk = Chunk.create({type: "data", data: iter.value});
         await methods.send(0, chunk);
     }
@@ -52,6 +51,5 @@ export class FileSource extends Source {
         this.#fileReader = fileStream.pipeThrough(parser).getReader();
 
         await super.init();
-        console.log("init done");
     }
 }

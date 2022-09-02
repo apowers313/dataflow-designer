@@ -114,7 +114,6 @@ describe("nodeFactoryCreator", function() {
                 srcNode.receive({payload: {testTrigger: "true"}});
                 await dataflowComplete(srcNode);
 
-                sinkSpy.args.forEach((a) => console.log("arg", a[0]));
                 assert.strictEqual(sinkSpy.callCount, 11);
                 assert.strictEqual((testNode.log as Sinon.SinonSpy).callCount, 11);
             });

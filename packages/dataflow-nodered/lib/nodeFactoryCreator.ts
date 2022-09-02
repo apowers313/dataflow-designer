@@ -60,7 +60,6 @@ export function nodeFactoryCreator(dataflowFactory: DataflowFactory, cfg: NodeFa
         }
 
         if (cfg.register) {
-            console.log("registering", cfg.register);
             RED.nodes.registerType(cfg.register, DataflowNodeConstructor);
         }
 
@@ -151,7 +150,6 @@ function attachDataflowToNode(cfg: AttachConfig): void {
     // if the node is a source with no inputs to trigger the flow, trigger ourselves now
     const inputNodes = getInputNodes(RED, node as MonkeyPatchNode);
     if (inputNodes.length === 0) {
-        console.log("autostarting source");
         setImmediate(() => {
             node.receive({payload: {autostart: true}});
         });
@@ -193,7 +191,7 @@ function coerceNode(RED: NodeRed.NodeAPI, node: MonkeyPatchNode): void {
 
 function sinkWrapperFactory(this: null, node: NodeRed.Node, inputCallbacks: Array<RedEventCallback>, _config: unknown): Component {
     return new Sink({push: async(): Promise<void> => {
-        console.log("push:", node, inputCallbacks);
+        // console.log("push:", node, inputCallbacks);
     }});
 }
 

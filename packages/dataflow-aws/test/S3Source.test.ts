@@ -35,6 +35,6 @@ describe("S3Source", function() {
             "dev-dataflow-staging",
             "airline_delays.json",
         );
-        console.log("RESULTS:", str);
+        // console.log("RESULTS:", str);
     });
 });

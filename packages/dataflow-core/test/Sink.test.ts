@@ -39,7 +39,6 @@ describe("Sink", function() {
         assert.strictEqual(sinkSpy.callCount, 12);
         const args = sinkSpy.args.map((a) => a[0]);
 
-        console.log("args", args);
         assert.deepEqual(args, [
             {type: "data", data: {count: 5}},
             {type: "data", data: {count: 10}},
@@ -110,12 +109,9 @@ describe("Sink", function() {
 
             assert.strictEqual(arg.size, 2);
 
-            console.log("arg", arg);
             let chunk = Chunk.create({type: "data", data: {count: ch0results[idx]}});
-            console.log("arg.get(0)", arg.get(0));
             assert.deepEqual(arg.get(0), chunk);
             chunk = Chunk.create({type: "data", data: {count: ch1results[idx]}});
-            console.log("arg.get(1)", arg.get(1));
             assert.deepEqual(arg.get(1), chunk);
         });
     });
