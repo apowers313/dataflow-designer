@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-aws",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "AWS dataflow components",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -47,7 +47,7 @@
     "@aws-sdk/client-s3": "^3.145.0"
   },
   "peerDependencies": {
-        "@dataflow-designer/dataflow-core": "*"
+    "@dataflow-designer/dataflow-core": "*"
   },
   "gitHead": "a0c02e1a5f5d14f268ed23143e0c0bd05f6bd427"
 }
