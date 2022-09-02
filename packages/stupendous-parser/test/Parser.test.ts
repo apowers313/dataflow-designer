@@ -217,7 +217,7 @@ describe("Parser", function() {
     });
 
     it("application/json; charset=utf-8", async function() {
-        const filename = "./test/helpers/data/congress.json";
+        const filename = path.resolve(__dirname, "helpers/data/congress.json");
         const p = Parser.getParserStreamForMimeType("application/json; charset=utf-8", "decode", {
             json: {path: "objects", outputType: "array", includeKeys: true},
         });
