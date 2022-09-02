@@ -74,7 +74,7 @@ describe("CsvParser", function() {
         });
     });
 
-    it.only("encode", async function() {
+    it("encode", async function() {
         const test1File = path.resolve(__dirname, "helpers/data/test1.csv");
 
         const cp = new CsvParser();
@@ -88,17 +88,6 @@ describe("CsvParser", function() {
 
         let expectedBuf = readFileSync(test1File);
         let outputBuf = readFileSync(tempFile);
-
-        console.log("test1File", test1File);
-        console.log("tempFile", tempFile);
-        console.log("expectedBuf", expectedBuf);
-        console.log("outputBuf", outputBuf);
-        console.log("expectedBuf.length", expectedBuf.length);
-        console.log("outputBuf.length", outputBuf.length);
-        console.log("expectedBuf", expectedBuf.slice(expectedBuf.length - 10));
-        console.log("outputBuf", outputBuf.slice(outputBuf.length - 10));
-        // console.log("testBuf.toString", testBuf.toString());
-        // console.log("tempBuf.toString", tempBuf.toString());
 
         if (process.platform === "win32") {
             assert.strictEqual(
