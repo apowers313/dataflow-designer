@@ -1,3 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/apowers313/dataflow-designer/badge.svg?branch=master)](https://coveralls.io/github/apowers313/dataflow-designer?branch=master)
+[![build](https://github.com/apowers313/dataflow-designer/actions/workflows/build.yml/badge.svg)](https://github.com/apowers313/dataflow-designer/actions/workflows/build.yml) [![Coverage Status](https://coveralls.io/repos/github/apowers313/dataflow-designer/badge.svg?branch=master)](https://coveralls.io/github/apowers313/dataflow-designer?branch=master)
 
 Monorepo for dataflow. Work in progress. Do not use.
