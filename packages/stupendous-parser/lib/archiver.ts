@@ -6,7 +6,7 @@ import archiver from "archiver";
 
 export interface ArchiverEncodeOpts extends DataCollectionEncodeCfg { }
 
-export function archiverEncode<TMetadata, TOut>(type: "zip" | "tar", parentEncoder: DataCollection["encode"], opts: ArchiverEncodeOpts): TransformStream<any, TOut> {
+export function archiverEncode<TMetadata extends Record<any, any>, TOut>(type: "zip" | "tar", parentEncoder: DataCollection["encode"], opts: ArchiverEncodeOpts): TransformStream<any, TOut> {
     const {writable, readable: entryStream} = parentEncoder(opts);
     const ar = archiver(type);
     const readable = Readable.toWeb(ar);

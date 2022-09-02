@@ -8,10 +8,10 @@ import type {WritableType} from "./Writable";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T = Record<any, any>> = abstract new (... args: any[]) => T;
 
-export type PullFn = (methods: ReadMethods) => Promise<void>
+export type PullFn = (methods: ReadMethods) => Promise<void>;
 
 export interface ReadableOpts extends ComponentOpts {
-    readStart?: (controller: WritableStreamDefaultController) => Promise<void>;
+    readStart?: (controller: ReadableStreamController<any>) => Promise<void>;
     readClose?: () => Promise<void>;
     readCancel?: () => Promise<void>;
     numChannels?: number;
@@ -20,8 +20,8 @@ export interface ReadableOpts extends ComponentOpts {
     pull: PullFn;
 }
 
-type SendFn = (chNum: number, data: Chunk) => Promise<void>
-type SendMultiFn = (cc: ChunkCollection) => Promise<void>
+type SendFn = (chNum: number, data: Chunk) => Promise<void>;
+type SendMultiFn = (cc: ChunkCollection) => Promise<void>;
 type DesiredSizeFn = () => number | null;
 
 export interface ReadMethods {
@@ -37,7 +37,7 @@ export interface ReadMethods {
  * @returns A Reader class that extends specified base class
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
+export function ReadableComponent<TBase extends Constructor<Component>>(Base: TBase) {
     /**
      * Creates a stream that can be read from
      */
@@ -115,7 +115,7 @@ export function Readable<TBase extends Constructor<Component>>(Base: TBase) {
          * @param err - The error to handle. Should be an instance of Error, but sometimes fools throw crazy things...
          * @param chunk - If the user-defined function was handling a chunk, this is the chunk that caused the error
          */
-        async handleCaughtError(err: unknown, chunk: Chunk|null): Promise<void> {
+        async handleCaughtError(err: unknown, chunk: Chunk | null): Promise<void> {
             if (!(err instanceof Error)) {
                 // TODO: what should we do with a non-Error? dunno, just throw it for now
                 throw err;
@@ -354,5 +354,5 @@ export class Output {
     }
 }
 
-export type ReadableType = InstanceType<ReturnType<typeof Readable>>
+export type ReadableType = InstanceType<ReturnType<typeof ReadableComponent>>;
 // export class ReadableType extends Readable(Component) {}

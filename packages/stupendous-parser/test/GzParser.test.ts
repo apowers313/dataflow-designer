@@ -2,6 +2,7 @@ import {CsvParser, GzParser} from "../index";
 import {Readable} from "node:stream";
 import {assert} from "chai";
 import {createReadStream} from "node:fs";
+import path from "node:path";
 import {spy} from "sinon";
 
 describe("GzParser", function() {
@@ -15,7 +16,7 @@ describe("GzParser", function() {
 
         const cp = new CsvParser();
         const zp = new GzParser();
-        const inputFile = Readable.toWeb(createReadStream("test/helpers/data/test1.csv.gz"));
+        const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/test1.csv.gz")));
         const writeSpy = spy();
         const testWritable = new WritableStream({write: writeSpy});
         await inputFile

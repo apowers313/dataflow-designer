@@ -77,7 +77,7 @@ export class FileCache<TCacheType extends Record<any, any>> {
     }
 }
 
-interface CacheEntry<TCacheType> {
+interface CacheEntry<TCacheType extends Record<any, any>> {
     done: boolean;
     lastWrite: number;
     path: string;
@@ -91,7 +91,7 @@ interface CacheEntry<TCacheType> {
     toStream(): ReadableStream<TCacheType>;
 }
 
-export class FileCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
+export class FileCacheEntry<TCacheType extends Record<any, any>> implements CacheEntry<TCacheType> {
     #tmpFileFd: number | undefined;
     #tmpFilePath: string | undefined;
     done = false;
@@ -181,7 +181,7 @@ export class FileCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
     }
 }
 
-export class MemoryCacheEntry<TCacheType> implements CacheEntry<TCacheType> {
+export class MemoryCacheEntry<TCacheType extends Record<any, any>> implements CacheEntry<TCacheType> {
     done = false;
     lastWrite = 0;
     path: string;

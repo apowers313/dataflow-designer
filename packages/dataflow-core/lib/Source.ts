@@ -1,6 +1,6 @@
 import {Chunk, ChunkCollection, MetadataChunk} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
-import {ReadMethods, Readable, ReadableOpts} from "./Readable";
+import {ReadMethods, ReadableComponent, ReadableOpts} from "./Readable";
 import {DataflowStart} from "./Metadata";
 
 type FinishedFn = () => Promise<void>
@@ -20,7 +20,7 @@ type SourceSuperOpts = ReadableOpts & ComponentOpts
 /**
  * Generates data for a pipeline
  */
-export class Source extends Readable(Component) {
+export class Source extends ReadableComponent(Component) {
     #sourcePull: SourcePullFn;
     sendStartMetadata: boolean;
 

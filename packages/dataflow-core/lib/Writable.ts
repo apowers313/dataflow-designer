@@ -1,13 +1,13 @@
 import {Chunk, ChunkCollection} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
-import {CountQueuingStrategy, WritableStream} from "node:stream/web";
+import {CountQueuingStrategy, WritableStream, WritableStreamDefaultController} from "node:stream/web";
 import type {Output, ReadableType} from "./Readable";
 import {promiseState} from "./utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T = Record<any, any>> = abstract new (... args: any[]) => T;
 
-type PushFn = (data: Chunk|ChunkCollection, methods: WriteMethods) => Promise<void>
+type PushFn = (data: Chunk | ChunkCollection, methods: WriteMethods) => Promise<void>;
 
 export interface WritableOpts extends ComponentOpts {
     writeStart?: (controller: WritableStreamDefaultController) => void;
@@ -22,7 +22,7 @@ export interface WritableOpts extends ComponentOpts {
 export type InputMuxModes = "fifo" | "zipper" | "batch";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface WriteMethods {}
+export interface WriteMethods { }
 
 /**
  * Applies the Writer mixin to a base class
@@ -31,7 +31,7 @@ export interface WriteMethods {}
  * @returns Writer
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
+export function WritableComponent<TBase extends Constructor<Component>>(Base: TBase) {
     abstract class Writer extends Base {
         readonly isWritable = true;
         readonly inputMuxMode: InputMuxModes = "fifo";
@@ -43,8 +43,8 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
         writableController?: WritableStreamDefaultController;
 
         #push: PushFn;
-        #writableStream: WritableStream<Chunk|ChunkCollection>;
-        #writer: WritableStreamDefaultWriter<Chunk|ChunkCollection>;
+        #writableStream: WritableStream<Chunk | ChunkCollection>;
+        #writer: WritableStreamDefaultWriter<Chunk | ChunkCollection>;
 
         /**
          * Creates a Writable type
@@ -176,9 +176,9 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
                 }
             };
 
-            const getResults = async(): Promise<Array<Chunk|null>> => {
+            const getResults = async(): Promise<Array<Chunk | null>> => {
                 const promiseStates = await Promise.all(readerPromises.map((r) => promiseState(r)));
-                const results: Array<Chunk|null> = [];
+                const results: Array<Chunk | null> = [];
 
                 for (let i = 0; i < promiseStates.length; i++) {
                     switch (promiseStates[i]) {
@@ -223,4 +223,4 @@ export function Writable<TBase extends Constructor<Component>>(Base: TBase) {
 }
 
 /** The type used to identify Writables */
-export class WritableType extends Writable(Component) {}
+export class WritableType extends WritableComponent(Component) { }

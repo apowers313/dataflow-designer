@@ -4,6 +4,7 @@ import {Readable} from "node:stream";
 import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
 import {createReadStream} from "fs";
+import path from "node:path";
 import {spy} from "sinon";
 
 describe("Parser", function() {
@@ -65,7 +66,7 @@ describe("Parser", function() {
 
     describe("getParserStreamForPath", function() {
         it(".csv.zip", async function() {
-            const filename = "test/helpers/data/test1.csv.zip";
+            const filename = path.resolve(__dirname, "helpers/data/test1.csv.zip");
             const opts: ParserDecodeOpts = {zip: {parserOpts: {csv: {header: true}}}};
             const p = Parser.getParserStreamForPath(filename, "decode", opts);
             if (!p) {
@@ -118,7 +119,7 @@ describe("Parser", function() {
             this.timeout(250);
             this.slow(250);
 
-            const filename = "./test/helpers/data/congress.json";
+            const filename = path.resolve(__dirname, "helpers/data/congress.json");
             const p = Parser.getParserStreamForPath(filename, "decode", {
                 json: {path: "objects", outputType: "array", includeKeys: true},
             });
@@ -141,7 +142,7 @@ describe("Parser", function() {
 
     describe("getParserStreamForMimeType", function() {
         it("text/csv", async function() {
-            const filename = "test/helpers/data/test1.csv";
+            const filename = path.resolve(__dirname, "helpers/data/test1.csv");
             const opts: ParserDecodeOpts = {csv: {header: true}};
             const p = Parser.getParserStreamForMimeType("text/csv", "decode", opts);
             if (!p) {
@@ -194,7 +195,7 @@ describe("Parser", function() {
             this.timeout(250);
             this.slow(250);
 
-            const filename = "./test/helpers/data/congress.json";
+            const filename = path.resolve(__dirname, "helpers/data/congress.json");
             const p = Parser.getParserStreamForMimeType("application/json", "decode", {
                 json: {path: "objects", outputType: "array", includeKeys: true},
             });
@@ -216,9 +217,6 @@ describe("Parser", function() {
     });
 
     it("application/json; charset=utf-8", async function() {
-        this.timeout(250);
-        this.slow(250);
-
         const filename = "./test/helpers/data/congress.json";
         const p = Parser.getParserStreamForMimeType("application/json; charset=utf-8", "decode", {
             json: {path: "objects", outputType: "array", includeKeys: true},

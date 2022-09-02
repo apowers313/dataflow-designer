@@ -1,8 +1,8 @@
 import {Sink} from "dataflow-core";
 import {UrlSource} from "../index";
 import {assert} from "chai";
-import {spy} from "sinon";
 import {setMockUrl} from "./helpers/helpers";
+import {spy} from "sinon";
 
 describe("UrlSource", function() {
     it("is function", function() {
@@ -11,7 +11,7 @@ describe("UrlSource", function() {
 
     it("gets stream", async function() {
         // this.timeout(10 * 1000);
-        setMockUrl("https://pokeapi.co/api/v2/version/?limit=39", "./test/helpers/data/pokemonVersions.json");
+        setMockUrl("https://pokeapi.co/api/v2/version/?limit=39", "pokemonVersions.json");
 
         const src = new UrlSource({
             request: "https://pokeapi.co/api/v2/version/?limit=39",

@@ -2,6 +2,7 @@ import {Readable, Writable} from "node:stream";
 import {createReadStream, createWriteStream, readFileSync} from "node:fs";
 import {CsvParser} from "../index";
 import {assert} from "chai";
+import path from "node:path";
 import {spy} from "sinon";
 import temp from "temp";
 
@@ -14,7 +15,7 @@ describe("CsvParser", function() {
         it("test1.csv", async function() {
             this.timeout(250);
             this.slow(250);
-            const test1File = "test/helpers/data/test1.csv";
+            const test1File = path.resolve(__dirname, "helpers/data/test1.csv");
 
             const cp = new CsvParser();
             const inputFile = Readable.toWeb(createReadStream(test1File));
@@ -62,7 +63,7 @@ describe("CsvParser", function() {
             this.slow(250);
 
             const cp = new CsvParser();
-            const inputFile = Readable.toWeb(createReadStream("test/helpers/data/airtravel.csv"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/airtravel.csv")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(cp.decode({header: true, skipEmptyLines: true, trim: true})).pipeTo(testWritable);
@@ -74,7 +75,7 @@ describe("CsvParser", function() {
     });
 
     it("encode", async function() {
-        const test1File = "test/helpers/data/test1.csv";
+        const test1File = path.resolve(__dirname, "helpers/data/test1.csv");
 
         const cp = new CsvParser();
         const inputFile = Readable.toWeb(createReadStream(test1File));

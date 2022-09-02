@@ -1,6 +1,7 @@
 import {Chunk, DataChunk, Source, SourceMethods} from "dataflow-core";
 import {MockAgent, setGlobalDispatcher} from "undici";
 import {readFileSync} from "fs";
+import path from "node:path";
 
 const debug = false;
 let debugf: typeof console.log;
@@ -18,19 +19,19 @@ export interface MockUrlOpts {
     method?: string;
     status?: number;
     contentType?: string;
-    headers?: Record<any, any>
-    interceptOpts?: Record<any, any>
+    headers?: Record<any, any>;
+    interceptOpts?: Record<any, any>;
 }
 
 type ClientType = ReturnType<MockAgent["get"]>;
 type TIntercept = ReturnType<ClientType["intercept"]>;
-type MockOptions = NonNullable<Parameters<TIntercept["reply"]>[2]>
+type MockOptions = NonNullable<Parameters<TIntercept["reply"]>[2]>;
 // type MockHeaders = NonNullable<MockOptions["headers"]>;
 const clientCache: Map<string, ClientType> = new Map();
 
 export function setMockUrl(urlStr: string, datapath: string, opts: MockUrlOpts = {}): void {
     const url = new URL(urlStr);
-    const path = url.pathname + url.search;
+    const fullUrlStr: string = url.pathname + url.search;
     const method = opts.method ?? "GET";
     const status = opts.status ?? 200;
     // const contentType = opts.contentType ?? "application/json; charset=utf-8";
@@ -60,11 +61,11 @@ export function setMockUrl(urlStr: string, datapath: string, opts: MockUrlOpts =
         ({interceptOpts} = opts);
     }
 
-    const data = readFileSync(datapath);
+    const data = readFileSync(path.resolve(__dirname, "data", datapath));
 
-    debugf("Mocking:", path, method, status, datapath, interceptOpts);
+    debugf("Mocking:", fullUrlStr, method, status, datapath, interceptOpts);
     client
-        .intercept({path, method})
+        .intercept({path: fullUrlStr, method})
         .reply(status, data, interceptOpts);
 }
 

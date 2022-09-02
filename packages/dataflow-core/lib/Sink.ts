@@ -1,13 +1,13 @@
-import {Writable, WritableOpts, WriteMethods} from "./Writable";
+import {WritableComponent, WritableOpts, WriteMethods} from "./Writable";
 import {Component} from "./Component";
 
-export interface SinkOpts extends WritableOpts {}
-export interface SinkMethods extends WriteMethods {}
+export interface SinkOpts extends WritableOpts { }
+export interface SinkMethods extends WriteMethods { }
 
 /**
  * The end of a pipeline
  */
-export class Sink extends Writable(Component) {
+export class Sink extends WritableComponent(Component) {
     /**
      * Creates a new Sink
      *

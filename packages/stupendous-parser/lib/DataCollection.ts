@@ -1,6 +1,6 @@
 import {Interlock, timeout} from "./utils";
 import {ParserDecodeOpts, ParserEncodeOpts} from "./ParserOpts";
-import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
+import {ReadableStream, ReadableStreamDefaultReadResult, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
 import {FileCache} from "./FileCache";
 import {Parser} from "./Parser";
 import {resolve} from "node:path";

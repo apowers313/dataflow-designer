@@ -1,25 +1,25 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import {ContextConstructor} from "./utils";
 
-type LogFn<TCtx> = (this: TCtx, data: any, ... args: any[]) => void
+type LogFn<TCtx> = (this: TCtx, data: any, ... args: any[]) => void;
 type MetricFn = () => boolean;
 type LoggerRegistryIndexType<T> = ContextConstructor<T> | undefined;
 // eslint-disable-next-line @typescript-eslint/ban-types
 type ContextClassInstance = Record<"constructor", Function> | undefined;
-export type LoggerConstructor<T> = new (context: T) => Logger<T>
+export type LoggerConstructor<T> = new (context: T) => Logger<T>;
 
 const loggerRegistry: Map<LoggerRegistryIndexType<any>, LoggerConstructor<any>> = new Map();
 
 interface LoggerCfg<TCtx> {
-    context?: TCtx,
-    log: LogFn<TCtx>
-    trace?: LogFn<TCtx>
-    debug?: LogFn<TCtx>
-    info?: LogFn<TCtx>
-    warn?: LogFn<TCtx>
-    error?: LogFn<TCtx>
-    fatal?: LogFn<TCtx>
-    audit?: LogFn<TCtx>
+    context?: TCtx;
+    log: LogFn<TCtx>;
+    trace?: LogFn<TCtx>;
+    debug?: LogFn<TCtx>;
+    info?: LogFn<TCtx>;
+    warn?: LogFn<TCtx>;
+    error?: LogFn<TCtx>;
+    fatal?: LogFn<TCtx>;
+    audit?: LogFn<TCtx>;
     metric?: MetricFn;
 }
 

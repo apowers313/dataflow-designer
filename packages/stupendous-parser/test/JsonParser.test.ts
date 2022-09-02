@@ -4,6 +4,7 @@ import {buf2str, objectStream} from "./helpers/helpers";
 import {createReadStream, createWriteStream, readFileSync} from "node:fs";
 import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
+import path from "node:path";
 import {spy} from "sinon";
 import temp from "temp";
 
@@ -60,7 +61,7 @@ describe("JsonParser", function() {
         });
 
         it("csv to ndjson", async function() {
-            const test1File = "test/helpers/data/test1.csv";
+            const test1File = path.resolve(__dirname, "helpers/data/test1.csv");
 
             const cp = new CsvParser();
             const jp = new JsonParser();
@@ -80,7 +81,7 @@ describe("JsonParser", function() {
         it("csv to json", async function() {
             this.slow(1000);
 
-            const test1File = "test/helpers/data/test1.csv";
+            const test1File = path.resolve(__dirname, "helpers/data/test1.csv");
             function buf2str(buf: Uint8Array): string {
                 return new TextDecoder().decode(buf);
             }
@@ -123,7 +124,7 @@ describe("JsonParser", function() {
             this.slow(250);
 
             const jp = new JsonParser();
-            const inputFile = Readable.toWeb(createReadStream("./test/helpers/data/yelp.ndjson"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/yelp.ndjson")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({ndjson: true, includeKeys: true})).pipeTo(testWritable);
@@ -140,7 +141,7 @@ describe("JsonParser", function() {
             this.slow(500);
 
             const jp = new JsonParser();
-            const inputFile = Readable.toWeb(createReadStream("./test/helpers/data/congress.json"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/congress.json")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({
@@ -161,7 +162,7 @@ describe("JsonParser", function() {
             this.slow(250);
 
             const jp = new JsonParser();
-            const inputFile = Readable.toWeb(createReadStream("./test/helpers/data/emoji.json"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/emoji.json")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({
@@ -186,7 +187,7 @@ describe("JsonParser", function() {
             this.slow(250);
 
             const jp = new JsonParser();
-            const inputFile = Readable.toWeb(createReadStream("./test/helpers/data/sample.json"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/sample.json")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile.pipeThrough(jp.decode({

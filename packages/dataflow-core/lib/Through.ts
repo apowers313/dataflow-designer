@@ -1,7 +1,7 @@
 import {Chunk, ChunkCollection} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
-import {ReadMethods, Readable, ReadableOpts} from "./Readable";
-import {Writable, WritableOpts, WriteMethods} from "./Writable";
+import {ReadMethods, ReadableComponent, ReadableOpts} from "./Readable";
+import {WritableComponent, WritableOpts, WriteMethods} from "./Writable";
 import {DeferredPromise} from "./utils";
 
 export type ThroughMethods = ReadMethods & WriteMethods;
@@ -16,7 +16,7 @@ type ThroughSuperOpts = ReadableOpts & WritableOpts & ComponentOpts;
 /**
  * A component that reads data from a input, acts on it, and then passes it to an output
  */
-export class Through extends Writable(Readable(Component)) {
+export class Through extends WritableComponent(ReadableComponent(Component)) {
     catchAll: boolean;
     #through: ThroughFn;
     #writePromise = new DeferredPromise<Chunk|ChunkCollection>();

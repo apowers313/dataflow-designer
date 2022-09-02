@@ -1,6 +1,7 @@
 import {FileSource} from "../index";
-import {assert} from "chai";
 import {Sink} from "dataflow-core";
+import {assert} from "chai";
+import path from "node:path";
 import {spy} from "sinon";
 
 describe("FileSource", function() {
@@ -10,7 +11,7 @@ describe("FileSource", function() {
 
     it("reads data", async function() {
         const src = new FileSource({
-            file: "./test/helpers/data/pokemonVersions.json",
+            file: path.resolve(__dirname, "helpers/data/pokemonVersions.json"),
             parserOpts: {
                 json: {
                     outputType: "array",

@@ -4,6 +4,7 @@ import AdmZip from "adm-zip";
 import {ZipParser} from "../index";
 import {assert} from "chai";
 import {objectStream} from "./helpers/helpers";
+import path from "node:path";
 import {spy} from "sinon";
 import temp from "temp";
 
@@ -18,7 +19,7 @@ describe("ZipParser", function() {
             this.slow(5 * 1000);
 
             const zp = new ZipParser();
-            const inputFile = Readable.toWeb(createReadStream("test/helpers/data/csvdata.zip"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/csvdata.zip")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile
@@ -64,7 +65,7 @@ describe("ZipParser", function() {
 
         it("decode", async function() {
             const zp = new ZipParser();
-            const inputFile = Readable.toWeb(createReadStream("test/helpers/data/test1.csv.zip"));
+            const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/test1.csv.zip")));
             const writeSpy = spy();
             const testWritable = new WritableStream({write: writeSpy});
             await inputFile
