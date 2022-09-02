@@ -1,9 +1,7 @@
 {
     "include": [
         ".eslintrc.js",
-        "index.ts",
-        "lib/**/*",
-        "test/**/*"
+        "packages/**/*.ts"
     ],
     "exclude": [
         "node_modules"

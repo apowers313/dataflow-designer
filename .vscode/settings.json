@@ -2,15 +2,18 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
+    "editor.rulers": [
+        120
+    ],
     "eslint.enable": true,
     "eslint.format.enable": true,
-    "eslint.run": "onType",
+    "eslint.run": "onSave",
     "eslint.alwaysShowStatus": true,
     "eslint.validate": [
         "javascript",
         "typescript"
     ],
     "mochaExplorer.require": "ts-node/register",
-    "mochaExplorer.files": "test/**/*.test.ts",
+    "mochaExplorer.files": "packages/*/test/**/*.test.ts",
     "mochaExplorer.fullTrace": true
 }

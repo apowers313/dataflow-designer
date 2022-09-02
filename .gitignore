@@ -1,1 +1,16 @@
 node_modules/
+*.swp
+gh-pages/
+misc/
+npm-debug.log
+yarn.lock
+.ipynb_checkpoints/
+.ropeproject/
+.DS_Store
+*~
+Untitled*.ipynb
+.nyc_output/
+coverage
+tmp/
+build/
+docs/

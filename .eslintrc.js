@@ -28,6 +28,7 @@ module.exports = {
                 requireLast: false,
             },
         }],
+        "@typescript-eslint/semi": ["error", "always"],
         "tsdoc/syntax": "warn",
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-inferrable-types": "error",
