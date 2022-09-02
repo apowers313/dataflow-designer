@@ -87,10 +87,10 @@ describe("CsvParser", function() {
             .pipeTo(outputFile);
 
         let testBuf = readFileSync(test1File);
-        const tempBuf = readFileSync(tempFile);
+        let tempBuf = readFileSync(tempFile);
         if (process.platform === "win32") {
-            testBuf = testBuf.slice(0, testBuf.length - 1);
             testBuf = testBuf.slice(0, testBuf.length - 2);
+            tempBuf = tempBuf.slice(0, tempBuf.length - 1);
         }
 
         console.log("test1File", test1File);
