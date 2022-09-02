@@ -74,7 +74,7 @@ describe("CsvParser", function() {
         });
     });
 
-    it("encode", async function() {
+    it.only("encode", async function() {
         const test1File = path.resolve(__dirname, "helpers/data/test1.csv");
 
         const cp = new CsvParser();
@@ -88,6 +88,12 @@ describe("CsvParser", function() {
 
         const testBuf = readFileSync(test1File);
         const tempBuf = readFileSync(tempFile);
+        console.log("test1File", test1File);
+        console.log("tempFile", tempFile);
+        console.log("testBuf", testBuf);
+        console.log("tempBuf", tempBuf);
+        console.log("testBuf.toString", testBuf.toString());
+        console.log("tempBuf.toString", tempBuf.toString());
         assert.isTrue(testBuf.equals(tempBuf));
     });
 });
