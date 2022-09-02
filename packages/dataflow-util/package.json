@@ -1,5 +1,5 @@
 {
-  "name": "dataflow-util",
+  "name": "@dataflow-designer/dataflow-util",
   "version": "0.1.0",
   "description": "Utilties for dataflow",
   "main": "build/index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "dataflow-core",
+  "name": "@dataflow-designer/dataflow-core",
   "version": "0.11.0",
   "description": "A framework for streaming data",
   "engines": {

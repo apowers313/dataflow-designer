@@ -1,5 +1,5 @@
 {
-  "name": "@apowers313/node-red-dataflow",
+  "name": "@dataflow-designer/node-red-dataflow",
   "version": "1.0.0",
   "description": "Streaming data framework for Node-RED",
   "node-red": {

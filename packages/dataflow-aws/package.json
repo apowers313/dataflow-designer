@@ -1,5 +1,5 @@
 {
-  "name": "dataflow-aws",
+  "name": "@dataflow-designer/dataflow-aws",
   "version": "0.1.0",
   "description": "AWS dataflow components",
   "main": "build/index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "dataflow-nodered",
+  "name": "@dataflow-designer/dataflow-nodered",
   "version": "0.1.0",
   "description": "Functions for creating NodeRED nodes from Dataflow components",
   "main": "build/index.js",
