@@ -32,7 +32,6 @@ export class FileSink extends Sink {
 
     async push(chunk: Chunk | ChunkCollection, _methods: SinkMethods): Promise<void> {
         if (!this.#fileWriter) {
-            console.log("no writer, ignoring");
             return;
         }
 
@@ -40,7 +39,6 @@ export class FileSink extends Sink {
             throw new Error("chunk collection ignored");
         } else {
             if (!chunk.isData()) {
-                console.log("chunk isn't data, returning");
                 return;
             }
 

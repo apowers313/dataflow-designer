@@ -158,9 +158,6 @@ describe("JsonParser", function() {
         });
 
         it("emoji.json", async function() {
-            this.timeout(250);
-            this.slow(250);
-
             const jp = new JsonParser();
             const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/emoji.json")));
             const writeSpy = spy();
@@ -183,9 +180,6 @@ describe("JsonParser", function() {
         });
 
         it("sample.json", async function() {
-            this.timeout(250);
-            this.slow(250);
-
             const jp = new JsonParser();
             const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/sample.json")));
             const writeSpy = spy();

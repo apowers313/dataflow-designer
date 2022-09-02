@@ -116,9 +116,6 @@ describe("Parser", function() {
         });
 
         it(".json", async function() {
-            this.timeout(250);
-            this.slow(250);
-
             const filename = path.resolve(__dirname, "helpers/data/congress.json");
             const p = Parser.getParserStreamForPath(filename, "decode", {
                 json: {path: "objects", outputType: "array", includeKeys: true},
@@ -192,9 +189,6 @@ describe("Parser", function() {
         });
 
         it("application/json", async function() {
-            this.timeout(250);
-            this.slow(250);
-
             const filename = path.resolve(__dirname, "helpers/data/congress.json");
             const p = Parser.getParserStreamForMimeType("application/json", "decode", {
                 json: {path: "objects", outputType: "array", includeKeys: true},
