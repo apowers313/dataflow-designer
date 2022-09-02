@@ -59,8 +59,7 @@ describe("Parser", function() {
         assert.isUndefined(e);
     });
 
-    it("getStreamForMimeType", function() {
-    });
+    it("getStreamForMimeType");
 
     it("getParserStreamForExt");
 

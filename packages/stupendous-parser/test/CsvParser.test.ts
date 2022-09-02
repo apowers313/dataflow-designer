@@ -92,8 +92,12 @@ describe("CsvParser", function() {
         console.log("tempFile", tempFile);
         console.log("testBuf", testBuf);
         console.log("tempBuf", tempBuf);
-        console.log("testBuf.toString", testBuf.toString());
-        console.log("tempBuf.toString", tempBuf.toString());
+        console.log("testBuf.length", testBuf.length);
+        console.log("tempBuf.length", tempBuf.length);
+        console.log("testBuf", testBuf.slice(testBuf.length - 10));
+        console.log("tempBuf", tempBuf.slice(tempBuf.length - 10));
+        // console.log("testBuf.toString", testBuf.toString());
+        // console.log("tempBuf.toString", tempBuf.toString());
         assert.isTrue(testBuf.equals(tempBuf));
     });
 });
