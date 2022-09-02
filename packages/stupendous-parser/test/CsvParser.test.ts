@@ -86,8 +86,13 @@ describe("CsvParser", function() {
             .pipeThrough(cp.encode({header: true}))
             .pipeTo(outputFile);
 
-        const testBuf = readFileSync(test1File);
+        let testBuf = readFileSync(test1File);
         const tempBuf = readFileSync(tempFile);
+        if (process.platform === "win32") {
+            testBuf = testBuf.slice(0, testBuf.length - 2);
+            testBuf = testBuf.slice(0, testBuf.length - 1);
+        }
+
         console.log("test1File", test1File);
         console.log("tempFile", tempFile);
         console.log("testBuf", testBuf);
@@ -98,6 +103,7 @@ describe("CsvParser", function() {
         console.log("tempBuf", tempBuf.slice(tempBuf.length - 10));
         // console.log("testBuf.toString", testBuf.toString());
         // console.log("tempBuf.toString", tempBuf.toString());
+
         assert.isTrue(testBuf.equals(tempBuf));
     });
 });
