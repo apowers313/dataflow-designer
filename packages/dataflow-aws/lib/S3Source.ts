@@ -53,7 +53,7 @@ export class S3Source {
             Key: key,
         });
         const resp: GetObjectCommandOutput = await this.s3client.send(cmd);
-        console.log("get response body", resp);
+        // console.log("get response body", resp);
         if (!(resp.Body instanceof Readable)) {
             throw new Error("expected Readable");
         }
