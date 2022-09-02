@@ -1,7 +1,7 @@
 {
   "name": "dataflow-nodered",
   "version": "0.1.0",
-  "description": "Utilities for creating NodeRED dataflow components",
+  "description": "Functions for creating NodeRED nodes from Dataflow components",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
@@ -25,6 +25,7 @@
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.2",
+    "@types/node-red-node-test-helper": "^0.2.2",
     "@types/sinon": "^10.0.12",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
@@ -35,14 +36,20 @@
     "eslint-plugin-old-c-programmer": "^1.0.1",
     "eslint-plugin-tsdoc": "^0.2.16",
     "mocha": "^10.0.0",
-    "nyc": "^15.1.0",
+    "node-red-node-test-helper": "^0.3.0",
     "sinon": "^14.0.0",
+    "std-mocks": "^1.0.1",
+    "nyc": "^15.1.0",
     "source-map-support": "^0.5.21",
     "ts-mocha": "^10.0.0",
     "typedoc": "^0.23.5",
     "typescript": "^4.7.4"
   },
+  "peerDependencies": {
+    "dataflow-core": "*",
+    "node-red": "^3.0.1"
+  },
   "dependencies": {
-    "typescript": "4.7"
+    "@types/std-mocks": "^1.0.1"
   }
 }
