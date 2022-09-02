@@ -167,7 +167,11 @@ describe("ZipParser", function() {
             // console.log("writeSpy", writeSpy);
         });
 
-        it.skip("bulk", async function() {
+        it("bulk", async function() {
+            if (process.env.CI === "true") {
+                this.skip();
+            }
+
             this.timeout(120 * 1000);
             this.slow(60 * 1000);
 
