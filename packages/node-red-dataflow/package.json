@@ -8,7 +8,8 @@
     }
   },
   "scripts": {
-    "test": "mocha"
+    "test": "true",
+    "build": "true"
   },
   "keywords": [
     "node-red"
@@ -25,7 +26,7 @@
     "node-red-node-test-helper": "^0.2.7"
   },
   "dependencies": {
-    "dataflow-util": "*",
-    "dataflow-nodered": "*"
+    "dataflow-nodered": "*",
+    "dataflow-util": "*"
   }
 }

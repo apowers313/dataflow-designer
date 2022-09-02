@@ -8,13 +8,18 @@
     "node": ">=18"
   },
   "scripts": {
-    "test": "ts-mocha test/**/*.test.ts",
+    "test": "ts-mocha -p ../../tsconfig.json test/**/*.test.ts",
     "docs": "typedoc",
-    "build": "tsc",
+    "build": "tsc -p ../../tsconfig.json",
     "lint": "npx eslint"
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
+  "typedoc": {
+    "entryPoint": "./index.ts",
+    "readmeFile": "./README.md",
+    "displayName": "Dataflow AWS"
+  },
   "devDependencies": {
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.1",
@@ -37,6 +42,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.145.0",
-    "dataflow-core": "*"
+    "dataflow-core": "*",
+    "typescript": "4.7"
   }
 }
