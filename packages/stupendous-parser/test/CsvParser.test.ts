@@ -86,24 +86,29 @@ describe("CsvParser", function() {
             .pipeThrough(cp.encode({header: true}))
             .pipeTo(outputFile);
 
-        let testBuf = readFileSync(test1File);
-        let tempBuf = readFileSync(tempFile);
-        if (process.platform === "win32") {
-            testBuf = testBuf.slice(0, testBuf.length - 2);
-            tempBuf = tempBuf.slice(0, tempBuf.length - 1);
-        }
+        let expectedBuf = readFileSync(test1File);
+        let outputBuf = readFileSync(tempFile);
 
         console.log("test1File", test1File);
         console.log("tempFile", tempFile);
-        console.log("testBuf", testBuf);
-        console.log("tempBuf", tempBuf);
-        console.log("testBuf.length", testBuf.length);
-        console.log("tempBuf.length", tempBuf.length);
-        console.log("testBuf", testBuf.slice(testBuf.length - 10));
-        console.log("tempBuf", tempBuf.slice(tempBuf.length - 10));
+        console.log("expectedBuf", expectedBuf);
+        console.log("outputBuf", outputBuf);
+        console.log("expectedBuf.length", expectedBuf.length);
+        console.log("outputBuf.length", outputBuf.length);
+        console.log("expectedBuf", expectedBuf.slice(expectedBuf.length - 10));
+        console.log("outputBuf", outputBuf.slice(outputBuf.length - 10));
         // console.log("testBuf.toString", testBuf.toString());
         // console.log("tempBuf.toString", tempBuf.toString());
 
-        assert.isTrue(testBuf.equals(tempBuf));
+        if (process.platform === "win32") {
+            assert.strictEqual(
+                expectedBuf.toString().replaceAll("\r\n", "\n"),
+                outputBuf.toString(),
+            );
+            expectedBuf = expectedBuf.slice(0, expectedBuf.length - 2);
+            outputBuf = outputBuf.slice(0, outputBuf.length - 1);
+        } else {
+            assert.isTrue(expectedBuf.equals(outputBuf));
+        }
     });
 });
