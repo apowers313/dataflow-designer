@@ -15,6 +15,9 @@
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "typedoc": {
     "entryPoint": "./index.ts",
     "readmeFile": "./README.md",
@@ -58,5 +61,6 @@
     "typescript": "4.7",
     "unzip-stream": "^0.3.1",
     "zip-stream": "^4.1.0"
-  }
+  },
+  "gitHead": "a0c02e1a5f5d14f268ed23143e0c0bd05f6bd427"
 }

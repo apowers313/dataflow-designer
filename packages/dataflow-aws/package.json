@@ -15,6 +15,9 @@
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "typedoc": {
     "entryPoint": "./index.ts",
     "readmeFile": "./README.md",
@@ -44,5 +47,6 @@
     "@aws-sdk/client-s3": "^3.145.0",
     "dataflow-core": "*",
     "typescript": "4.7"
-  }
+  },
+  "gitHead": "a0c02e1a5f5d14f268ed23143e0c0bd05f6bd427"
 }
