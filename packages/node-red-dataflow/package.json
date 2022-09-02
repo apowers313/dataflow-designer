@@ -29,8 +29,8 @@
     "node-red-node-test-helper": "^0.2.7"
   },
   "dependencies": {
-    "dataflow-nodered": "*",
-    "dataflow-util": "*"
+    "@dataflow-designer/dataflow-nodered": "*",
+    "@dataflow-designer/dataflow-util": "*"
   },
   "gitHead": "a0c02e1a5f5d14f268ed23143e0c0bd05f6bd427"
 }
