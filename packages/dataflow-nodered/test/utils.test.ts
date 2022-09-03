@@ -1,9 +1,9 @@
 import type * as NodeRed from "node-red";
-import {getInputNodes, getOutputNodes} from "../lib/utils";
+import {getInputNodes, getInputNodesTypes, getOutputNodes, isRedDataflowNode} from "../lib/utils";
+import {helperInit, testSourceNodeFactory} from "./helpers/helpers";
 import type {MonkeyPatchNode} from "../lib/types";
 import {assert} from "chai";
 import helper from "node-red-node-test-helper";
-import {helperInit} from "./helpers/helpers";
 
 let RED: NodeRed.NodeAPI;
 function captureRedApi(r: NodeRed.NodeAPI): void {
@@ -221,6 +221,121 @@ describe("utils", function() {
             assertNodeArrayIncludes(nodes, i1);
             assertNodeArrayIncludes(nodes, i2);
             assertNodeArrayIncludes(nodes, i3);
+        });
+    });
+
+    describe("getInputNodesTypes", function() {
+        it("returns correct list", async function() {
+            const testFlows: helper.TestFlows = [
+                {id: "i1", type: "test-source", name: "input1", wires: [["sink"]]},
+                {id: "i2", type: "helper", name: "input2", wires: [["sink"]]},
+                {id: "i3", type: "test-source", name: "input3", wires: [["sink"]]},
+                {id: "sink", type: "helper"},
+            ];
+            await helper.load([captureRedApi, testSourceNodeFactory], testFlows);
+            const i1 = helper.getNode("i1");
+            const i2 = helper.getNode("i2");
+            const i3 = helper.getNode("i3");
+            const sink = helper.getNode("sink");
+            assert.isNotNull(i1);
+            assert.isNotNull(i2);
+            assert.isNotNull(i3);
+            assert.isNotNull(sink);
+            assert.isObject(RED);
+            assert.isTrue(isRedDataflowNode(i1));
+            assert.isFalse(isRedDataflowNode(i2));
+            assert.isTrue(isRedDataflowNode(i3));
+
+            const types = getInputNodesTypes(RED, sink, false);
+            assert.deepEqual(types, ["dataflow", "nodered", "dataflow"]);
+        });
+
+        it("returns none", async function() {
+            const testFlows: helper.TestFlows = [
+                {id: "sink", type: "helper"},
+            ];
+            await helper.load([captureRedApi, testSourceNodeFactory], testFlows);
+            const sink = helper.getNode("sink");
+            assert.isNotNull(sink);
+            assert.isObject(RED);
+
+            const types = getInputNodesTypes(RED, sink, true);
+            assert.deepEqual(types, "none");
+        });
+
+        it("returns dataflow", async function() {
+            const testFlows: helper.TestFlows = [
+                {id: "i1", type: "test-source", name: "input1", wires: [["sink"]]},
+                {id: "i2", type: "test-source", name: "input2", wires: [["sink"]]},
+                {id: "i3", type: "test-source", name: "input3", wires: [["sink"]]},
+                {id: "sink", type: "helper"},
+            ];
+            await helper.load([captureRedApi, testSourceNodeFactory], testFlows);
+            const i1 = helper.getNode("i1");
+            const i2 = helper.getNode("i2");
+            const i3 = helper.getNode("i3");
+            const sink = helper.getNode("sink");
+            assert.isNotNull(i1);
+            assert.isNotNull(i2);
+            assert.isNotNull(i3);
+            assert.isNotNull(sink);
+            assert.isObject(RED);
+            assert.isTrue(isRedDataflowNode(i1));
+            assert.isTrue(isRedDataflowNode(i2));
+            assert.isTrue(isRedDataflowNode(i3));
+
+            const types = getInputNodesTypes(RED, sink, true);
+            assert.deepEqual(types, "dataflow");
+        });
+
+        it("returns nodered", async function() {
+            const testFlows: helper.TestFlows = [
+                {id: "i1", type: "helper", name: "input1", wires: [["sink"]]},
+                {id: "i2", type: "helper", name: "input2", wires: [["sink"]]},
+                {id: "i3", type: "helper", name: "input3", wires: [["sink"]]},
+                {id: "sink", type: "helper"},
+            ];
+            await helper.load([captureRedApi, testSourceNodeFactory], testFlows);
+            const i1 = helper.getNode("i1");
+            const i2 = helper.getNode("i2");
+            const i3 = helper.getNode("i3");
+            const sink = helper.getNode("sink");
+            assert.isNotNull(i1);
+            assert.isNotNull(i2);
+            assert.isNotNull(i3);
+            assert.isNotNull(sink);
+            assert.isObject(RED);
+            assert.isFalse(isRedDataflowNode(i1));
+            assert.isFalse(isRedDataflowNode(i2));
+            assert.isFalse(isRedDataflowNode(i3));
+
+            const types = getInputNodesTypes(RED, sink, true);
+            assert.deepEqual(types, "nodered");
+        });
+
+        it("returns mixed", async function() {
+            const testFlows: helper.TestFlows = [
+                {id: "i1", type: "test-source", name: "input1", wires: [["sink"]]},
+                {id: "i2", type: "helper", name: "input2", wires: [["sink"]]},
+                {id: "i3", type: "test-source", name: "input3", wires: [["sink"]]},
+                {id: "sink", type: "helper"},
+            ];
+            await helper.load([captureRedApi, testSourceNodeFactory], testFlows);
+            const i1 = helper.getNode("i1");
+            const i2 = helper.getNode("i2");
+            const i3 = helper.getNode("i3");
+            const sink = helper.getNode("sink");
+            assert.isNotNull(i1);
+            assert.isNotNull(i2);
+            assert.isNotNull(i3);
+            assert.isNotNull(sink);
+            assert.isObject(RED);
+            assert.isTrue(isRedDataflowNode(i1));
+            assert.isFalse(isRedDataflowNode(i2));
+            assert.isTrue(isRedDataflowNode(i3));
+
+            const types = getInputNodesTypes(RED, sink, true);
+            assert.deepEqual(types, "mixed");
         });
     });
 });
