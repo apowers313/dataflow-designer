@@ -4,6 +4,7 @@ import {assert} from "chai";
 import {dataflowComplete} from "../lib/nodeFactoryCreator";
 import helper from "node-red-node-test-helper";
 import {nodeFactoryCreator} from "../index";
+import stdMocks from "std-mocks";
 
 describe("nodeFactoryCreator", function() {
     before(function() {
@@ -127,9 +128,9 @@ describe("nodeFactoryCreator", function() {
     it("this");
 
     describe("logging", function() {
-        it.skip("uses default logger", async function() {
+        it.only("uses default logger", async function() {
             const flow = [
-                {id: "n1", type: "test-source", name: "Test Source", enableLogging: true, wires: [["n2"]]},
+                {id: "n1", type: "test-source", name: "Test Source", enableLogging: true, switchLogger: true, wires: [["n2"]]},
                 {id: "n2", type: "test-sink"},
             ];
 
@@ -141,29 +142,27 @@ describe("nodeFactoryCreator", function() {
             const sinkNode = helper.getNode("n2");
             assert.isNotNull(sinkNode);
 
+            stdMocks.use();
             srcNode.receive({payload: {testTrigger: "true"}});
 
             await dataflowComplete(srcNode);
+            stdMocks.restore();
 
-            assert.strictEqual(sinkSpy.callCount, 11);
-            assert.deepEqual(sinkSpy.firstCall.args[0], {type: "data", data: {count: 0}});
-            assert.deepEqual(sinkSpy.lastCall.args[0], {type: "data", data: {count: 10}});
-            console.log("log", (srcNode.log as Sinon.SinonSpy).callCount);
-            console.log("error", (srcNode.error as Sinon.SinonSpy).callCount);
-            console.log("warn", (srcNode.warn as Sinon.SinonSpy).callCount);
-            console.log("trace", (srcNode.trace as Sinon.SinonSpy).callCount);
-            console.log("debug", (srcNode.debug as Sinon.SinonSpy).callCount);
-
-            console.log("sinkNode log", (sinkNode.log as Sinon.SinonSpy).callCount);
-            console.log("sinkNode error", (sinkNode.error as Sinon.SinonSpy).callCount);
-            console.log("sinkNode warn", (sinkNode.warn as Sinon.SinonSpy).callCount);
-            console.log("sinkNode trace", (sinkNode.trace as Sinon.SinonSpy).callCount);
-            console.log("sinkNode debug", (sinkNode.debug as Sinon.SinonSpy).callCount);
-
-            // console.log("info", (srcNode.info as Sinon.SinonSpy).callCount);
-            // console.log("fatal", (srcNode.fatal as Sinon.SinonSpy).callCount);
-
-            assert.strictEqual((srcNode.log as Sinon.SinonSpy).callCount, 11);
+            const output = stdMocks.flush();
+            // console.log("output", output);
+            assert.strictEqual(output.stderr.length, 0);
+            assert.strictEqual(output.stdout.length, 11);
+            assert.strictEqual(output.stdout[0], "[log] TestSource sending: { count: 0 }\n");
+            assert.strictEqual(output.stdout[1], "[error] TestSource sending: { count: 1 }\n");
+            assert.strictEqual(output.stdout[2], "[warn] TestSource sending: { count: 2 }\n");
+            assert.strictEqual(output.stdout[3], "[trace] TestSource sending: { count: 3 }\n");
+            assert.strictEqual(output.stdout[4], "[debug] TestSource sending: { count: 4 }\n");
+            assert.strictEqual(output.stdout[5], "[log] TestSource sending: { count: 5 }\n");
+            assert.strictEqual(output.stdout[6], "[error] TestSource sending: { count: 6 }\n");
+            assert.strictEqual(output.stdout[7], "[warn] TestSource sending: { count: 7 }\n");
+            assert.strictEqual(output.stdout[8], "[trace] TestSource sending: { count: 8 }\n");
+            assert.strictEqual(output.stdout[9], "[debug] TestSource sending: { count: 9 }\n");
+            assert.strictEqual(output.stdout[10], "[log] TestSource sending: { count: 10 }\n");
         });
 
         it("can specify logger");

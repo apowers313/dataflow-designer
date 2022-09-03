@@ -24,6 +24,7 @@ export interface TestSourceOpts {
     delay?: number;
     sendNum?: number;
     enableLogging?: boolean;
+    switchLogger?: boolean;
 }
 
 export class TestSource extends Source {
@@ -32,6 +33,7 @@ export class TestSource extends Source {
     sendNum: number;
     count: number;
     enableLogging: boolean;
+    switchLogger: boolean;
 
     constructor(opt: TestSourceOpts = {}) {
         super({
@@ -42,6 +44,7 @@ export class TestSource extends Source {
         });
 
         this.enableLogging = opt.enableLogging ?? false;
+        this.switchLogger = opt.switchLogger ?? false;
         this.countBy = opt.countBy ?? 1;
         this.delay = opt.delay ?? 0;
         this.sendNum = opt.sendNum ?? 10;
@@ -64,12 +67,38 @@ export class TestSource extends Source {
 
         const next = Chunk.create({type: "data", data: {count: this.count}});
         this.count += this.countBy;
-
-        if (this.enableLogging) {
-            this.logger.log("TestSource sending:", (next as any).data);
-        }
+        this.tryLog(next);
 
         await methods.send(0, next);
+    }
+
+    tryLog(next: any): void {
+        if (!this.enableLogging) {
+            return;
+        }
+
+        if (this.switchLogger) {
+            switch (next.data.count % 5) {
+            case 0:
+                this.logger.log("[log] TestSource sending:", next.data);
+                return;
+            case 1:
+                this.logger.error("[error] TestSource sending:", next.data);
+                return;
+            case 2:
+                this.logger.warn("[warn] TestSource sending:", next.data);
+                return;
+            case 3:
+                this.logger.trace("[trace] TestSource sending:", next.data);
+                return;
+            case 4:
+                this.logger.debug("[debug] TestSource sending:", next.data);
+                return;
+            default: break;
+            }
+        }
+
+        this.logger.log("TestSource sending:", next.data);
     }
 
     async init(): Promise<void> {
@@ -79,12 +108,14 @@ export class TestSource extends Source {
 
 interface TestSourceConfig extends NodeRed.NodeDef {
     enableLogging?: boolean;
+    switchLogger?: boolean;
 }
 
 export const testSourceNodeFactory = nodeFactoryCreator(function testSourceFactory(_node, nodeCfg): Component {
     const cfg = (nodeCfg ?? {}) as TestSourceConfig;
     return new TestSource({
         enableLogging: cfg.enableLogging ?? false,
+        switchLogger: cfg.switchLogger ?? false,
     });
 }, {register: "test-source"});
 
