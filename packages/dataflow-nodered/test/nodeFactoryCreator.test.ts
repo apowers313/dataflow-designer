@@ -25,10 +25,9 @@ describe("nodeFactoryCreator", function() {
 
     it("gets created", async function() {
         const flow = [{id: "src", type: "test-source", name: "test name"}];
-        await helper.load(testSourceNodeFactory, flow, function() {
-            const srcNode = helper.getNode("src");
-            srcNode.should.have.property("name", "test name");
-        });
+        await helper.load(testSourceNodeFactory, flow);
+        const srcNode = helper.getNode("src");
+        srcNode.should.have.property("name", "test name");
     });
 
     it("streams data", async function() {
