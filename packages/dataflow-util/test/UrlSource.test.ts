@@ -1,4 +1,4 @@
-import {Sink} from "dataflow-core";
+import {Sink} from "@dataflow-designer/dataflow-core";
 import {UrlSource} from "../index";
 import {assert} from "chai";
 import {setMockUrl} from "./helpers/helpers";

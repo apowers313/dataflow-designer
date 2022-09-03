@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/no-explicit-any */
 import * as NodeRed from "node-red";
-import {Chunk, ChunkData, Component, ThroughMethods, WriteMethods, isSink} from "dataflow-core";
+import {Chunk, ChunkData, Component, ThroughMethods, WriteMethods, isSink} from "@dataflow-designer/dataflow-core";
 
 interface InterceptCfg {
     node: NodeRed.Node;

@@ -1,10 +1,8 @@
 import {FileSink} from "../index";
 import {assert} from "chai";
-import {Sink} from "dataflow-core";
-import {spy} from "sinon";
-import {TestSource, objectSource} from "./helpers/helpers";
-import temp from "temp";
+import {objectSource} from "./helpers/helpers";
 import {readFileSync} from "fs";
+import temp from "temp";
 
 describe("FileSink", function() {
     it("is function", function() {

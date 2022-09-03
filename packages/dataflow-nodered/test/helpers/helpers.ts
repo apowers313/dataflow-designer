@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import * as NodeRed from "node-red";
-import {Chunk, Component, Sink, Source, SourceMethods, ThroughMethods} from "dataflow-core";
+import {Chunk, Component, Sink, Source, SourceMethods, ThroughMethods} from "@dataflow-designer/dataflow-core";
 import Sinon, {spy} from "sinon";
 import helper from "node-red-node-test-helper";
 import {nodeFactoryCreator} from "../../index";

@@ -1,5 +1,5 @@
 import {FileSource} from "../index";
-import {Sink} from "dataflow-core";
+import {Sink} from "@dataflow-designer/dataflow-core";
 import {assert} from "chai";
 import path from "node:path";
 import {spy} from "sinon";

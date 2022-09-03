@@ -1,5 +1,5 @@
 import type * as NodeRed from "node-red";
-import type {Component} from "dataflow-core";
+import type {Component} from "@dataflow-designer/dataflow-core";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RedEventCallback = (this: NodeRed.Node, ... args: any[]) => unknown;
@@ -8,7 +8,7 @@ export type RedMsg = Record<string | number | symbol, unknown>;
 export type RedChannelizedOutput = Array<RedMsg>;
 export type RedChannelizedMultiOutput = Array<RedMsg | Array<RedMsg>>;
 export type RedSendData = RedMsg | RedChannelizedOutput | RedChannelizedMultiOutput;
-export type ComponentResolveFn = (c: Component) => void
+export type ComponentResolveFn = (c: Component) => void;
 
 export interface DataflowComponentMsg extends NodeRed.NodeMessage {
     payload: DataflowPipingMsg;

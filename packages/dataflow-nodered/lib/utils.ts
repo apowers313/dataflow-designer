@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import type * as NodeRed from "node-red";
-import {Component, isComponent} from "dataflow-core";
+import {Component, isComponent} from "@dataflow-designer/dataflow-core";
 import type {ComponentResolveFn, MonkeyPatchNode} from "./types";
 
 const RedDataflowSymbol = Symbol("red-dataflow");

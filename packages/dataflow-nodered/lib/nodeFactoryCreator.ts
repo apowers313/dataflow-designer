@@ -1,5 +1,5 @@
 import * as NodeRed from "node-red";
-import {Component, Logger, LoggerConstructor, Sink, StatusReporter, StatusReporterConstructor, Through, isComponent, isSink, isSource, isThrough} from "dataflow-core";
+import {Component, Logger, LoggerConstructor, Sink, StatusReporter, StatusReporterConstructor, Through, isComponent, isSink, isSource, isThrough} from "@dataflow-designer/dataflow-core";
 import type {DataflowComponentMsg, DataflowPipingMsg, GenericFactoryFn, MonkeyPatchNode, RedEventCallback} from "./types";
 import {getDataflowFromNode, getInputNodes, getOutputNodes, isRedDataflowNode, isSinkNode, setDataflowOnNode, tagAsRedDataflowNode} from "./utils";
 import {format} from "node:util";

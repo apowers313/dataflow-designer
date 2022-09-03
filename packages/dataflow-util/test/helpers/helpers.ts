@@ -1,7 +1,7 @@
-import {Chunk, DataChunk, Source, SourceMethods} from "dataflow-core";
+import {Chunk, DataChunk, Source, SourceMethods} from "@dataflow-designer/dataflow-core";
 import {MockAgent, setGlobalDispatcher} from "undici";
-import {readFileSync} from "fs";
 import path from "node:path";
+import {readFileSync} from "fs";
 
 const debug = false;
 let debugf: typeof console.log;

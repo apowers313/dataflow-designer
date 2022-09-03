@@ -1,12 +1,11 @@
-import {Chunk, Source, SourceMethods, SourceOpts} from "dataflow-core";
-import {Parser, ParserDecodeOpts} from "stupendous-parser";
+import {Chunk, Source, SourceMethods, SourceOpts} from "@dataflow-designer/dataflow-core";
+import {Parser, ParserDecodeOpts} from "@dataflow-designer/stupendous-parser";
 import {RequestInfo, fetch} from "undici";
-import {TransformStream} from "node:stream/web";
 
 // interface UrlSourceOpts extends SourceOpts {}
 interface UrlSourceOpts extends Omit<SourceOpts, "pull"> {
-    request: RequestInfo
-    parserOpts?: ParserDecodeOpts
+    request: RequestInfo;
+    parserOpts?: ParserDecodeOpts;
 }
 
 export class UrlSource extends Source {

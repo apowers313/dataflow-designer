@@ -4,7 +4,6 @@ import {assert} from "chai";
 import {dataflowComplete} from "../lib/nodeFactoryCreator";
 import helper from "node-red-node-test-helper";
 import {nodeFactoryCreator} from "../index";
-import stdMocks from "std-mocks";
 
 describe("nodeFactoryCreator", function() {
     before(function() {

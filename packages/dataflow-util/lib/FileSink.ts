@@ -1,5 +1,5 @@
-import {Chunk, ChunkCollection, Sink, SinkMethods, SinkOpts} from "dataflow-core";
-import {Parser, ParserEncodeOpts} from "stupendous-parser";
+import {Chunk, ChunkCollection, Sink, SinkMethods, SinkOpts} from "@dataflow-designer/dataflow-core";
+import {Parser, ParserEncodeOpts} from "@dataflow-designer/stupendous-parser";
 import {TransformStream} from "node:stream/web";
 import {Writable} from "node:stream";
 import {createWriteStream} from "fs";
