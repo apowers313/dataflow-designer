@@ -128,7 +128,7 @@ describe("nodeFactoryCreator", function() {
     it("this");
 
     describe("logging", function() {
-        it.only("uses default logger", async function() {
+        it("uses default logger", async function() {
             const flow = [
                 {id: "n1", type: "test-source", name: "Test Source", enableLogging: true, switchLogger: true, wires: [["n2"]]},
                 {id: "n2", type: "test-sink"},
