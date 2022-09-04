@@ -1,15 +1,34 @@
 import {Chunk, ChunkCollection} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
-import {DeferredPromise, Interlock} from "./utils";
 import {ReadMethods, ReadableComponent, ReadableOpts} from "./Readable";
 import {WritableComponent, WritableOpts, WriteMethods} from "./Writable";
+import {Interlock} from "./utils";
 
 export type ThroughMethods = ReadMethods & WriteMethods;
 export type ThroughFn = (chunk: Chunk, methods: ThroughMethods) => Promise<void>;
-export interface ThroughOpts extends Omit<ReadableOpts, "pull">, Omit<WritableOpts, "push"> {
-    catchAll?: boolean;
-    through: ThroughFn;
+
+export type ManualThroughFn = (methods: ManualThroughMethods) => Promise<void>;
+export interface ManualThroughMethods extends ThroughMethods {
+    read: () => Promise<Chunk | null>;
 }
+
+export type ThroughOpts =
+    Omit<ReadableOpts, "pull"> &
+    Omit<WritableOpts, "push"> &
+    (AutomaticThroughOpts | ManualThroughOpts) &
+    {
+        catchAll?: boolean;
+    };
+
+export type AutomaticThroughOpts = {
+    manualRead?: false;
+    through: ThroughFn;
+};
+
+export type ManualThroughOpts = {
+    manualRead: true;
+    through: ManualThroughFn;
+};
 
 type ThroughSuperOpts = ReadableOpts & WritableOpts & ComponentOpts;
 
@@ -18,7 +37,8 @@ type ThroughSuperOpts = ReadableOpts & WritableOpts & ComponentOpts;
  */
 export class Through extends WritableComponent(ReadableComponent(Component)) {
     catchAll: boolean;
-    #through: ThroughFn;
+    #manualRead: boolean;
+    #through: ThroughFn | ManualThroughFn;
     #readWriteInterlock = new Interlock<Chunk>();
 
     /**
@@ -47,6 +67,7 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
 
         this.catchAll = opts.catchAll ?? false;
         this.#through = opts.through;
+        this.#manualRead = opts.manualRead ?? false;
     }
 
     /**
@@ -83,25 +104,53 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @param methods - Functions for manipulating the stream and data
      */
     async #throughPull(methods: ReadMethods): Promise<void> {
-        const chunk = await this.#readWriteInterlock.recv();
-
-        if (!chunk) {
-            this.readableController.close();
+        if (this.#manualRead) {
+            try {
+                await (this.#through as ManualThroughFn)({
+                    ... methods,
+                    read: () => this.#getChunk(),
+                });
+            } catch (err) {
+                await this.handleCaughtError(err, null);
+            }
             return;
         }
 
-        if (chunk.isData() || this.catchAll) {
-            try {
-                await this.#through(chunk, methods);
-            } catch (err) {
-                await this.handleCaughtError(err, chunk);
-            }
-        } else {
-            // pass through metadata and errors on all channels by default
-            const cc = ChunkCollection.broadcast(chunk, this.numChannels);
-            await this.sendMulti(cc);
+        const chunk = await this.#getChunk();
+        if (!chunk) {
+            return;
         }
 
-        this.#readWriteInterlock.reset();
+        try {
+            await (this.#through as ThroughFn)(chunk, methods);
+        } catch (err) {
+            await this.handleCaughtError(err, chunk);
+        }
+    }
+
+    async #getChunk(): Promise<Chunk|null> {
+        let chunk: Chunk | null;
+        let done = false;
+
+        do {
+            chunk = await this.#readWriteInterlock.recv();
+            this.#readWriteInterlock.reset();
+
+            if (chunk && !chunk.isData() && !this.catchAll) {
+                // pass through metadata and errors on all channels by default
+                const cc = ChunkCollection.broadcast(chunk, this.numChannels);
+                await this.sendMulti(cc);
+            } else {
+                done = true;
+            }
+        } while (!done);
+        console.log("#getChunk done:", chunk);
+
+        if (!chunk) {
+            this.readableController.close();
+            return null;
+        }
+
+        return chunk;
     }
 }
