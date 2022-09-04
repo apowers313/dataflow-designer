@@ -3,8 +3,8 @@ import {Component, ComponentOpts} from "./Component";
 import {ReadMethods, ReadableComponent, ReadableOpts} from "./Readable";
 import {DataflowStart} from "./Metadata";
 
-type FinishedFn = () => Promise<void>
-export type SourcePullFn = (methods: SourceMethods) => Promise<void>
+type FinishedFn = () => Promise<void>;
+export type SourcePullFn = (methods: SourceMethods) => Promise<void>;
 
 export interface SourceMethods extends ReadMethods {
     finished: FinishedFn;
@@ -15,7 +15,7 @@ export interface SourceOpts extends Omit<ReadableOpts, "pull"> {
     pull: SourcePullFn;
 }
 
-type SourceSuperOpts = ReadableOpts & ComponentOpts
+type SourceSuperOpts = ReadableOpts & ComponentOpts;
 
 /**
  * Generates data for a pipeline
