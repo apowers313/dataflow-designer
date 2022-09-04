@@ -1,11 +1,11 @@
 import {Chunk, ChunkCollection} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
+import {DeferredPromise, Interlock} from "./utils";
 import {ReadMethods, ReadableComponent, ReadableOpts} from "./Readable";
 import {WritableComponent, WritableOpts, WriteMethods} from "./Writable";
-import {DeferredPromise} from "./utils";
 
 export type ThroughMethods = ReadMethods & WriteMethods;
-export type ThroughFn = (chunk: Chunk, methods: ThroughMethods) => Promise<void>
+export type ThroughFn = (chunk: Chunk, methods: ThroughMethods) => Promise<void>;
 export interface ThroughOpts extends Omit<ReadableOpts, "pull">, Omit<WritableOpts, "push"> {
     catchAll?: boolean;
     through: ThroughFn;
@@ -19,8 +19,7 @@ type ThroughSuperOpts = ReadableOpts & WritableOpts & ComponentOpts;
 export class Through extends WritableComponent(ReadableComponent(Component)) {
     catchAll: boolean;
     #through: ThroughFn;
-    #writePromise = new DeferredPromise<Chunk|ChunkCollection>();
-    #readDone = new DeferredPromise<null>();
+    #readWriteInterlock = new Interlock<Chunk>();
 
     /**
      * Creates a new through stream
@@ -71,10 +70,11 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @param _methods - Not used
      */
     async #throughPush(chunk: Chunk|ChunkCollection, _methods: WriteMethods): Promise<void> {
-        this.#writePromise.resolve(chunk);
-        await this.#readDone.promise;
-        this.#writePromise = new DeferredPromise<Chunk|ChunkCollection>();
-        this.#readDone = new DeferredPromise<null>();
+        if (chunk instanceof ChunkCollection) {
+            throw new Error("Through received ChunkCollection. Why?");
+        }
+
+        await this.#readWriteInterlock.send(chunk);
     }
 
     /**
@@ -83,10 +83,11 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @param methods - Functions for manipulating the stream and data
      */
     async #throughPull(methods: ReadMethods): Promise<void> {
-        const chunk = await this.#writePromise.promise;
+        const chunk = await this.#readWriteInterlock.recv();
 
-        if (chunk instanceof ChunkCollection) {
-            throw new Error("Through received ChunkCollection. Why?");
+        if (!chunk) {
+            this.readableController.close();
+            return;
         }
 
         if (chunk.isData() || this.catchAll) {
@@ -101,6 +102,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             await this.sendMulti(cc);
         }
 
-        this.#readDone.resolve(null);
+        this.#readWriteInterlock.reset();
     }
 }
