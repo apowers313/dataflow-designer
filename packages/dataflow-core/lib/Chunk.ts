@@ -50,6 +50,10 @@ export abstract class Chunk {
         return this.type === "metadata";
     }
 
+    static create(opts: ChunkOptions & { type: "data" }): DataChunk;
+    static create(opts: ChunkOptions & { type: "error" }): ErrorChunk;
+    static create(opts: ChunkOptions & { type: "metadata" }): MetadataChunk;
+
     /**
      * Creates a new Chunk with the specified options
      *
@@ -100,7 +104,7 @@ export class DataChunk extends Chunk {
     /**
      * Creates an identical but different version of this Chunk
      */
-    clone(): Chunk {
+    clone(): DataChunk {
         return Chunk.create({
             type: "data",
             data: structuredClone(this.data),
