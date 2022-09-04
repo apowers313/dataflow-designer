@@ -461,14 +461,10 @@ describe("Through", function() {
             const thru = new Through({
                 manualRead: true,
                 through: async(methods): Promise<void> => {
-                    console.log("seq", seq);
-
                     // eslint-disable-next-line default-case
                     switch (seq % 3) {
                     case 0: {
-                        console.log("case 0, reading");
                         const c = await methods.read();
-                        console.log("read", c);
                         if (!c || !c.isData()) {
                             throw new Error(`ERROR! ${seq}`);
                         }
@@ -476,22 +472,17 @@ describe("Through", function() {
                         chunk = c;
                         ({count} = chunk.data);
                         chunk.data.count = `${count}a`;
-                        console.log("0 sending", chunk.data.count);
                         await methods.send(0, chunk);
                         break;
                     }
                     case 1:
-                        console.log("case 1");
                         chunk = chunk.clone();
                         chunk.data.count = `${count}b`;
-                        console.log("1 sending", chunk.data.count);
                         await methods.send(0, chunk);
                         break;
                     case 2:
-                        console.log("case 2");
                         chunk = chunk.clone();
                         chunk.data.count = `${count}c`;
-                        console.log("2 sending", chunk.data.count);
                         await methods.send(0, chunk);
                         break;
                     }
@@ -505,9 +496,7 @@ describe("Through", function() {
             thru.channels[0].pipe(sink);
             await thru.complete();
 
-            console.log("sinkSpy.callCount", sinkSpy.callCount);
             assert.strictEqual(sinkSpy.callCount, 33);
-            sinkSpy.args.forEach((a, idx) => console.log(`${idx}: `, a));
             assert.deepEqual(sinkSpy.args[0][0].data, {count: "0a"});
             assert.deepEqual(sinkSpy.args[1][0].data, {count: "0b"});
             assert.deepEqual(sinkSpy.args[2][0].data, {count: "0c"});

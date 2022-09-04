@@ -144,7 +144,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
                 done = true;
             }
         } while (!done);
-        console.log("#getChunk done:", chunk);
 
         if (!chunk) {
             this.readableController.close();
