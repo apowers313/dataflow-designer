@@ -151,17 +151,17 @@ describe("nodeFactoryCreator", function() {
             // console.log("output", output);
             assert.strictEqual(output.stderr.length, 0);
             assert.strictEqual(output.stdout.length, 11);
-            assert.strictEqual(output.stdout[0], "[log] TestSource sending: { count: 0 }\n");
-            assert.strictEqual(output.stdout[1], "[error] TestSource sending: { count: 1 }\n");
-            assert.strictEqual(output.stdout[2], "[warn] TestSource sending: { count: 2 }\n");
-            assert.strictEqual(output.stdout[3], "[trace] TestSource sending: { count: 3 }\n");
-            assert.strictEqual(output.stdout[4], "[debug] TestSource sending: { count: 4 }\n");
-            assert.strictEqual(output.stdout[5], "[log] TestSource sending: { count: 5 }\n");
-            assert.strictEqual(output.stdout[6], "[error] TestSource sending: { count: 6 }\n");
-            assert.strictEqual(output.stdout[7], "[warn] TestSource sending: { count: 7 }\n");
-            assert.strictEqual(output.stdout[8], "[trace] TestSource sending: { count: 8 }\n");
-            assert.strictEqual(output.stdout[9], "[debug] TestSource sending: { count: 9 }\n");
-            assert.strictEqual(output.stdout[10], "[log] TestSource sending: { count: 10 }\n");
+            assert.strictEqual(output.stdout[0], "[log] TestSource sending: 0\n");
+            assert.strictEqual(output.stdout[1], "[error] TestSource sending: 1\n");
+            assert.strictEqual(output.stdout[2], "[warn] TestSource sending: 2\n");
+            assert.strictEqual(output.stdout[3], "[trace] TestSource sending: 3\n");
+            assert.strictEqual(output.stdout[4], "[debug] TestSource sending: 4\n");
+            assert.strictEqual(output.stdout[5], "[log] TestSource sending: 5\n");
+            assert.strictEqual(output.stdout[6], "[error] TestSource sending: 6\n");
+            assert.strictEqual(output.stdout[7], "[warn] TestSource sending: 7\n");
+            assert.strictEqual(output.stdout[8], "[trace] TestSource sending: 8\n");
+            assert.strictEqual(output.stdout[9], "[debug] TestSource sending: 9\n");
+            assert.strictEqual(output.stdout[10], "[log] TestSource sending: 10\n");
         });
 
         it("can specify logger");

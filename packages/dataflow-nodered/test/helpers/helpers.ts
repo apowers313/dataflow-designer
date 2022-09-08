@@ -80,19 +80,19 @@ export class TestSource extends Source {
         if (this.switchLogger) {
             switch (next.data.count % 5) {
             case 0:
-                this.logger.log("[log] TestSource sending:", next.data);
+                this.logger.log(`[log] TestSource sending: ${next.data.count}`);
                 return;
             case 1:
-                this.logger.error("[error] TestSource sending:", next.data);
+                this.logger.error(`[error] TestSource sending: ${next.data.count}`);
                 return;
             case 2:
-                this.logger.warn("[warn] TestSource sending:", next.data);
+                this.logger.warn(`[warn] TestSource sending: ${next.data.count}`);
                 return;
             case 3:
-                this.logger.trace("[trace] TestSource sending:", next.data);
+                this.logger.trace(`[trace] TestSource sending: ${next.data.count}`);
                 return;
             case 4:
-                this.logger.debug("[debug] TestSource sending:", next.data);
+                this.logger.debug(`[debug] TestSource sending: ${next.data.count}`);
                 return;
             default: break;
             }
