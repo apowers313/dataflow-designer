@@ -3,6 +3,7 @@ import {MockAgent, setGlobalDispatcher} from "undici";
 import path from "node:path";
 import {readFileSync} from "fs";
 
+const disableMocks = true;
 const debug = false;
 let debugf: typeof console.log;
 if (debug) {
@@ -12,8 +13,10 @@ if (debug) {
 }
 
 const mockAgent = new MockAgent();
-mockAgent.disableNetConnect();
-setGlobalDispatcher(mockAgent);
+if (!disableMocks) {
+    mockAgent.disableNetConnect();
+    setGlobalDispatcher(mockAgent);
+}
 
 export interface MockUrlOpts {
     method?: string;
