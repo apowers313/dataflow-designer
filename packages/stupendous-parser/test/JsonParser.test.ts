@@ -15,9 +15,6 @@ describe("JsonParser", function() {
 
     describe("encode", function() {
         it("ndjson", async function() {
-            this.timeout(250);
-            this.slow(250);
-
             const jp = new JsonParser();
             const inputStream = objectStream([
                 {foo: "bar"},
@@ -120,9 +117,6 @@ describe("JsonParser", function() {
 
     describe("decode", function() {
         it("ndjson", async function() {
-            this.timeout(250);
-            this.slow(250);
-
             const jp = new JsonParser();
             const inputFile = Readable.toWeb(createReadStream(path.resolve(__dirname, "helpers/data/yelp.ndjson")));
             const writeSpy = spy();
