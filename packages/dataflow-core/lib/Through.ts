@@ -53,15 +53,28 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
                 await this.#throughPush(data, methods);
             },
             pull: async(methods): Promise<void> => {
-                await this.#throughPull(methods);
+                if (this.#manualRead) {
+                    await this.#manualThroughPull(methods);
+                } else {
+                    await this.#throughPull(methods);
+                }
             },
+            writeClose: async(): Promise<void> => {
+                console.log("Through write close");
+                if (this.#manualRead) {
+                    await this.#readWriteInterlock.send(null);
+                } else {
+                    this.readableController.close();
+                }
+
+                if (opts.writeClose) {
+                    await opts.writeClose();
+                }
+            },
+            // readClose: async(): Promise<void> => {
+            //     console.log("Through read close");
+            // },
             writeAll: true,
-        };
-        inputOpts.writeClose = async(): Promise<void> => {
-            this.readableController.close();
-            if (opts.writeClose) {
-                await opts.writeClose();
-            }
         };
         super(inputOpts);
 
@@ -104,18 +117,7 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @param methods - Functions for manipulating the stream and data
      */
     async #throughPull(methods: ReadMethods): Promise<void> {
-        if (this.#manualRead) {
-            try {
-                await (this.#through as ManualThroughFn)({
-                    ... methods,
-                    read: () => this.#getChunk(),
-                });
-            } catch (err) {
-                await this.handleCaughtError(err, null);
-            }
-            return;
-        }
-
+        console.log("#throughPull");
         const chunk = await this.#getChunk();
         if (!chunk) {
             return;
@@ -128,7 +130,21 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         }
     }
 
+    async #manualThroughPull(methods: ReadMethods): Promise<void> {
+        console.log("#manualThroughPull");
+        try {
+            await (this.#through as ManualThroughFn)({
+                ... methods,
+                read: () => this.#getChunk(),
+            });
+        } catch (err) {
+            await this.handleCaughtError(err, null);
+        }
+    }
+
     async #getChunk(): Promise<Chunk|null> {
+        console.log("Through #getChunk");
+
         let chunk: Chunk | null;
         let done = false;
 
@@ -146,10 +162,12 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         } while (!done);
 
         if (!chunk) {
+            console.log("#getChunk done");
             this.readableController.close();
             return null;
         }
 
+        console.log("Through #getChunk returning", chunk);
         return chunk;
     }
 }
