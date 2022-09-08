@@ -29,5 +29,5 @@ Parser.registerMime("application/x-tar", ["tar"]);
 Parser.registerMime("text/csv", ["csv"]);
 
 export {Parser, CsvParser, GzParser, JsonParser, TarParser, ZipParser};
-export {DataCollection} from "./lib/DataCollection";
+export {DataCollection, DataCollectionEntry, DataCollectionEncodeCfg, DataCollectionDecodeCfg, DataCollectionEntryCfg} from "./lib/DataCollection";
 export {ParserOpts, ParserDecodeOpts, ParserEncodeOpts} from "./lib/ParserOpts";
