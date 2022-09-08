@@ -70,7 +70,6 @@ export class ZipParser extends DataCollection {
             },
         });
 
-        // TODO: is there a way of doing this with collectionStream.pipeThrough(super.decode())?
         const readable = collectionStream.readable.pipeThrough(super.decode({... opts}));
         const {writable} = collectionStream;
 
