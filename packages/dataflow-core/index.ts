@@ -2,11 +2,11 @@ export {Chunk, ChunkData, ChunkCollection, DataChunk, ErrorChunk, MetadataChunk}
 export {Component} from "./lib/Component";
 export {isSource, isSink, isThrough, isComponent} from "./lib/types";
 export {Source, SourceMethods, SourceOpts} from "./lib/Source";
-export {Through, ThroughMethods, ThroughOpts} from "./lib/Through";
+export {Through, ThroughMethods, ManualThroughMethods, ThroughOpts} from "./lib/Through";
 export {Sink, SinkMethods, SinkOpts} from "./lib/Sink";
 export {MetadataCollection, MetadataType, DataflowEnd, DataflowStart, MetadataRegistry} from "./lib/Metadata";
-export {Readable, ReadableType, ReadMethods} from "./lib/Readable";
-export {Writable, WritableType, WriteMethods} from "./lib/Writable";
+export {ReadableComponent as Readable, ReadableType, ReadMethods} from "./lib/Readable";
+export {WritableComponent as Writable, WritableType, WriteMethods} from "./lib/Writable";
 export {StatusReporter, StatusReporterConstructor} from "./lib/Status";
 export {Logger, LoggerConstructor} from "./lib/Logger";
 export * as utils from "./lib/utils";
