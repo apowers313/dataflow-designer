@@ -69,6 +69,23 @@ export class JsonParser extends Parser {
             }));
         }
 
+        let chunkCnt = 0;
+        // let firstThrow = true;
+        readable = readable.pipeThrough(new TransformStream({
+            transform: (chunk, controller): void => {
+                chunkCnt++;
+                controller.enqueue(chunk);
+            },
+            flush: () => {
+                // if (chunkCnt === 0 && firstThrow) {
+                if (chunkCnt === 0) {
+                    // firstThrow = false;
+                    console.warn("Stream ending and no chunks sent. Did you specify the right JSON path?");
+                    // throw new Error("Stream ending and no chunks sent. Did you specify the right JSON path?");
+                }
+            },
+        }));
+
         return {writable, readable};
     }
 }
