@@ -61,10 +61,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
                 }
             },
             writeClose: async(): Promise<void> => {
-                if (!this.#manualRead) {
-                    this.readableController.close();
-                }
-
                 if (opts.writeClose) {
                     await opts.writeClose();
                 }
