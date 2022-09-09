@@ -99,12 +99,10 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             throw new Error("Through received ChunkCollection. Why?");
         }
 
+        await this.#readWriteInterlock.send(chunk);
         if (chunk.isMetadata() && chunk.metadata.get("dataflow", "end")) {
             await this.#readWriteInterlock.send(null);
-            return;
         }
-
-        await this.#readWriteInterlock.send(chunk);
     }
 
     /**
@@ -146,13 +144,14 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             chunk = await this.#readWriteInterlock.recv();
             this.#readWriteInterlock.reset();
 
-            // TODO: remove?
             const isMetadataEnd = chunk?.isMetadata() && chunk.metadata.has("dataflow", "end");
+            console.log("chunk", chunk);
+            console.log("isMetadataEnd", isMetadataEnd);
             if (chunk && !chunk.isData() && !this.catchAll && !isMetadataEnd) {
                 // pass through metadata and errors on all channels by default
                 const cc = ChunkCollection.broadcast(chunk, this.numChannels);
                 await this.sendMulti(cc);
-            } else {
+            } else if (!isMetadataEnd || (isMetadataEnd && this.catchAll)) { // don't pass through end metadata unless catchAll
                 done = true;
             }
         } while (!done);
