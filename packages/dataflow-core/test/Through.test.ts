@@ -453,7 +453,7 @@ describe("Through", function() {
     });
 
     describe("manualRead", function() {
-        it.only("reads from source", async function() {
+        it("reads from source", async function() {
             let seq = 0;
             let chunk: DataChunk;
             let count: any = 0;
