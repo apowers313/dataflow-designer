@@ -218,7 +218,6 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
         }
 
         readableFinished(): void {
-            console.log("!!! readableFinished", this.name);
             this.done = true;
             const md = Chunk.create({type: "metadata"});
             md.metadata.add(new DataflowEnd());
