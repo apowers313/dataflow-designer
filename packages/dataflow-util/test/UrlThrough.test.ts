@@ -30,9 +30,20 @@ describe("UrlThrough", function() {
         thru.channels[0].pipe(sink);
         await src.complete();
 
-        console.log("sinkSpy.callCount", sinkSpy.callCount);
         assert.strictEqual(sinkSpy.callCount, 1300);
         console.log("sinkSpy.args[0][0]", sinkSpy.args[0][0]);
+        assert.strictEqual(sinkSpy.args[0][0].data.entry_number, 1);
+        assert.strictEqual(sinkSpy.args[0][0].data.pokemon_species.name, "bulbasaur");
+        assert.strictEqual(sinkSpy.args[897][0].data.entry_number, 898);
+        assert.strictEqual(sinkSpy.args[897][0].data.pokemon_species.name, "calyrex");
+        assert.strictEqual(sinkSpy.args[898][0].data.entry_number, 1);
+        assert.strictEqual(sinkSpy.args[898][0].data.pokemon_species.name, "bulbasaur");
+        assert.strictEqual(sinkSpy.args[1048][0].data.entry_number, 151);
+        assert.strictEqual(sinkSpy.args[1048][0].data.pokemon_species.name, "mew");
+        assert.strictEqual(sinkSpy.args[1049][0].data.entry_number, 1);
+        assert.strictEqual(sinkSpy.args[1049][0].data.pokemon_species.name, "chikorita");
+        assert.strictEqual(sinkSpy.args[1299][0].data.entry_number, 251);
+        assert.strictEqual(sinkSpy.args[1299][0].data.pokemon_species.name, "celebi");
     });
 
     it("fetches url based on handlebars template");
