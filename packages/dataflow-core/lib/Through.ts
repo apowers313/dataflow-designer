@@ -72,11 +72,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         this.catchAll = opts.catchAll ?? false;
         this.#through = opts.through;
         this.#manualRead = opts.manualRead ?? false;
-        // if (this.#manualRead) {
-        //     console.log("this.manualFinished before", this.manualFinished);
-        //     this.manualFinished = true;
-        //     console.log("this.manualFinished after", this.manualFinished);
-        // }
     }
 
     /**
@@ -105,7 +100,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         }
 
         if (chunk.isMetadata() && chunk.metadata.get("dataflow", "end")) {
-            console.log("*** got metadata::end, sending interlock null", this.name);
             await this.#readWriteInterlock.send(null);
             return;
         }
@@ -153,7 +147,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
 
         do {
             chunk = await this.#readWriteInterlock.recv();
-            console.log("Through #getChunk chunk", chunk);
             this.#readWriteInterlock.reset();
 
             const isMetadataEnd = chunk?.isMetadata() && chunk.metadata.has("dataflow", "end");
