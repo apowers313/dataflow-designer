@@ -79,7 +79,13 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
                         throw new TypeError("Sink: expected write data to be instance of Chunk or ChunkCollection");
                     }
                 },
-                close: cfg.writeClose,
+                close: async(): Promise<void> => {
+                    console.log("Writable closing", this.name);
+                    console.log("calling cfg.writeClose", cfg.writeClose);
+                    if (cfg.writeClose) {
+                        await cfg.writeClose();
+                    }
+                },
                 abort: cfg.writeAbort,
             }, new CountQueuingStrategy({highWaterMark: this.queueSize}));
             this.#writer = this.#writableStream.getWriter();
@@ -148,6 +154,7 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
                 for (let i = results.length - 1; i >= 0; i--) {
                     const chunk = results[i];
                     if (chunk !== null && chunk.isMetadata() && chunk.metadata.has("dataflow", "end")) {
+                        console.log("@@@ got metadata: dataflow::end", this.name);
                         removeReader(i);
                     }
                 }

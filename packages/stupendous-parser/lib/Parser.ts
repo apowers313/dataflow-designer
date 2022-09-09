@@ -1,7 +1,7 @@
 import {ParserOpts} from "./ParserOpts";
 import {TransformStream} from "node:stream/web";
 
-type ParserConstructor = new (... args: any[]) => Parser
+type ParserConstructor = new (... args: any[]) => Parser;
 
 interface SpecificParser {
     parser: ParserConstructor;
@@ -120,6 +120,11 @@ export abstract class Parser {
             let opts: Record<any, any> = {};
             opts = mergeOpts(opts, userOpts[str]);
             opts = mergeOpts(opts, p.parserOpts);
+            // TODO
+            // const opts = {
+            //     ... userOpts,
+            //     ... p.parserOpts,
+            // };
 
             if (type === "decode") {
                 return parser.decode(opts);

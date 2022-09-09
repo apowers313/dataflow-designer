@@ -24,11 +24,11 @@ export class Sink extends WritableComponent(Component) {
      * @returns a promise that resolves when streaming has completed, or rejects on error
      */
     async init(): Promise<void> {
-        if (this.finished) {
-            return this.finished;
+        if (this.initFinished) {
+            return this.initFinished;
         }
 
-        this.finished = super.init();
-        return this.finished;
+        this.initFinished = super.init();
+        return this.initFinished;
     }
 }

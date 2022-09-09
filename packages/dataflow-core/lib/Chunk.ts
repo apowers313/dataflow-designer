@@ -53,6 +53,7 @@ export abstract class Chunk {
     static create(opts: ChunkOptions & { type: "data" }): DataChunk;
     static create(opts: ChunkOptions & { type: "error" }): ErrorChunk;
     static create(opts: ChunkOptions & { type: "metadata" }): MetadataChunk;
+    static create(opts: ChunkOptions): DataChunk;
 
     /**
      * Creates a new Chunk with the specified options

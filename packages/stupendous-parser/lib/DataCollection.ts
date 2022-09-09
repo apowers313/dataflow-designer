@@ -38,8 +38,11 @@ export interface DataCollectionEncodeCfg {
     inMemory?: boolean;
 }
 
+export type CustomParserFn<TMetadata = any> = (entry: TMetadata, parserOpts?: ParserDecodeOpts) => TransformStream | undefined;
+
 export interface DataCollectionDecodeCfg {
     parserOpts?: ParserDecodeOpts;
+    customParserFn?: CustomParserFn;
 }
 
 export abstract class DataCollection extends Parser {
@@ -49,7 +52,7 @@ export abstract class DataCollection extends Parser {
         const inMemory = opt.inMemory ?? false;
         const fc = new FileCache<DataCollectionEntry>({fdLimit: opt.fdLimit, inMemory});
         const filenameProp = opt.filenameProp ?? "filename";
-        const rwConnector = new Interlock<DataCollectionEntry>();
+        const encodeConnector = new Interlock<DataCollectionEntry>();
 
         const writable = new WritableStream({
             write: async(chunk: Record<any, any>, controller): Promise<void> => {
@@ -73,17 +76,17 @@ export abstract class DataCollection extends Parser {
                         metadata: {},
                     });
 
-                    await rwConnector.send(de);
+                    await encodeConnector.send(de);
                 }
 
                 await fc.delete();
-                await rwConnector.send(null);
+                await encodeConnector.send(null);
             },
         });
 
         const readable = new ReadableStream({
             pull: async(controller): Promise<void> => {
-                const cacheEntry = await rwConnector.recv();
+                const cacheEntry = await encodeConnector.recv();
                 if (!cacheEntry) {
                     controller.close();
                     return;
@@ -102,53 +105,96 @@ export abstract class DataCollection extends Parser {
         return {writable, readable};
     }
 
-    decode(cfg: DataCollectionDecodeCfg): TransformStream<DataCollectionEntry> {
+    decode(cfg: DataCollectionDecodeCfg = {}): TransformStream<DataCollectionEntry> {
         let entryReader: ReadableStreamDefaultReader;
-        const rwConnector = new Interlock<DataCollectionEntry>();
+        const decodeConnector = new Interlock<DataCollectionEntry>();
+        const decodeParserGenerator: CustomParserFn = cfg.customParserFn ?? defaultDecodeParserGenerator;
 
         const getNextEntry = async(controller: ReadableStreamController<any>): Promise<boolean> => {
-            const currentEntry = await rwConnector.recv();
+            console.log("getNextEntry");
+            const currentEntry = await decodeConnector.recv();
+            console.log("doing reset...");
+            decodeConnector.reset();
+            console.log("reset done.");
+            console.log("getNextEntry got next entry", currentEntry);
+
             if (!currentEntry) {
+                console.log("DataCollection decode closing current entry");
                 controller.close();
                 return false;
             }
 
-            const fileParser = Parser.getParserStreamForPath(currentEntry.path, "decode", cfg.parserOpts);
+            const fileParser = decodeParserGenerator(currentEntry, cfg.parserOpts);
             if (!fileParser) {
                 throw new Error(`file parser not found for: '${currentEntry.path}'`);
             }
 
-            const s = currentEntry.stream.pipeThrough(fileParser);
+            const s = currentEntry.stream.pipeThrough(fileParser).pipeThrough(new TransformStream({
+                transform: (chunk, controller): void => {
+                    controller.enqueue(chunk);
+                },
+                flush: () => {
+                    console.log("fileParser flush");
+                },
+            }));
+
             entryReader = s.getReader();
             return true;
         };
 
         const writable = new WritableStream<DataCollectionEntry>({
             write: async(chunk): Promise<void> => {
-                await rwConnector.send(chunk);
+                console.log("DataCollection decode writable send", chunk);
+                await decodeConnector.send(chunk);
+                // await timeout(4000);
+                console.log("DataCollection decode done sending", chunk);
             },
             close: async(): Promise<void> => {
-                await rwConnector.send(null);
+                console.log("DataCollection decode writable close");
+                await decodeConnector.send(null);
             },
         });
 
         const readable = new ReadableStream({
             start: async(controller): Promise<void> => {
-                await getNextEntry(controller);
+                if (!await getNextEntry(controller)) {
+                    throw new Error("failed before we even started");
+                }
             },
-            pull: async(controller): Promise<void> => {
-                let iter: ReadableStreamDefaultReadResult<any>;
-                do {
-                    iter = await entryReader.read();
-                    if (iter.done) {
-                        if (!await getNextEntry(controller)) {
-                            return;
-                        }
+            pull: async function(controller): Promise<void> {
+                console.log("DataCollection decode read");
+                const {done, value} = await entryReader.read();
+                if (done) {
+                    console.log("DataCollection decode entryReader done");
+                    await entryReader.closed;
+                    console.log("DataCollection decode entryReader closed");
+                    const moreAvailable = await getNextEntry(controller);
+                    if (!moreAvailable) {
+                        console.log("DataCollection decode: no more available");
+                    } else {
+                        await this.pull!(controller);
                     }
-                } while (iter.done);
 
-                const entryData = iter.value;
-                controller.enqueue(entryData);
+                    return;
+                }
+
+                controller.enqueue(value);
+
+                // let iter: ReadableStreamDefaultReadResult<any>;
+                // do {
+                //     iter = await entryReader.read();
+                //     // console.log("entryReader.read", iter);
+                //     if (iter.done) {
+                //         console.log("DataCollection decode entryReader done");
+                //         if (!await getNextEntry(controller)) {
+                //             console.log("DataCollection decode: no next entry");
+                //             return;
+                //         }
+                //     }
+                // } while (iter.done);
+
+                // const entryData = iter.value;
+                // controller.enqueue(entryData);
             },
         });
 
@@ -156,3 +202,6 @@ export abstract class DataCollection extends Parser {
     }
 }
 
+function defaultDecodeParserGenerator(entry: DataCollectionEntry, parserOpts?: ParserDecodeOpts): TransformStream | undefined {
+    return Parser.getParserStreamForPath(entry.path, "decode", parserOpts);
+}

@@ -1,6 +1,6 @@
 import {GetObjectCommand, GetObjectCommandOutput, ListBucketsCommand, ListBucketsCommandOutput, ListObjectsCommand, ListObjectsCommandOutput, S3Client} from "@aws-sdk/client-s3";
 import {Readable} from "node:stream";
-import {Source} from "dataflow-core";
+import {Source} from "@dataflow-designer/dataflow-core";
 
 interface S3SourceCfg {
     region: string;

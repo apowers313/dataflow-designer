@@ -3,7 +3,7 @@ import {MockAgent, setGlobalDispatcher} from "undici";
 import path from "node:path";
 import {readFileSync} from "fs";
 
-const disableMocks = true;
+const disableMocks = false;
 const debug = false;
 let debugf: typeof console.log;
 if (debug) {
@@ -75,6 +75,7 @@ export function setMockUrl(urlStr: string, datapath: string, opts: MockUrlOpts =
 export function objectSource(objs: Array<Record<any, any>>): Source {
     let curr = 0;
     return new Source({
+        name: "object-source",
         pull: async(methods): Promise<void> => {
             if (curr > (objs.length - 1)) {
                 await methods.finished();

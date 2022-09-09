@@ -64,7 +64,11 @@ export class JsonParser extends Parser {
         if (!includeKeys) {
             readable = readable.pipeThrough(new TransformStream({
                 transform: function(chunk: Record<any, any>, controller): void {
+                    console.log("JsonParser decode transform");
                     controller.enqueue(chunk.value);
+                },
+                flush: () => {
+                    console.log("JsonParser decode transform flush");
                 },
             }));
         }
@@ -73,10 +77,12 @@ export class JsonParser extends Parser {
         // let firstThrow = true;
         readable = readable.pipeThrough(new TransformStream({
             transform: (chunk, controller): void => {
+                // console.log("JsonParser saftey check");
                 chunkCnt++;
                 controller.enqueue(chunk);
             },
             flush: () => {
+                console.log("JsonParser saftey check done");
                 // if (chunkCnt === 0 && firstThrow) {
                 if (chunkCnt === 0) {
                     // firstThrow = false;

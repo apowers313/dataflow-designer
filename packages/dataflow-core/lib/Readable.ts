@@ -12,7 +12,7 @@ export type PullFn = (methods: ReadMethods) => Promise<void>;
 
 export interface ReadableOpts extends ComponentOpts {
     readStart?: (controller: ReadableStreamController<any>) => Promise<void>;
-    readClose?: () => Promise<void>;
+    // readClose?: () => Promise<void>;
     readCancel?: () => Promise<void>;
     numChannels?: number;
     queueSize?: number;
@@ -42,6 +42,7 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
      * Creates a stream that can be read from
      */
     abstract class Reader extends Base {
+        protected manualFinished: boolean;
         readonly isReadable = true;
         readonly numChannels: number = 1;
         readonly queueSize: number;
@@ -107,6 +108,7 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
                 cancel: cfg.readCancel,
             }, new CountQueuingStrategy({highWaterMark: this.queueSize}));
             this.#reader = this.#readableStream.getReader();
+            // this.manualFinished = false;
         }
 
         /**
@@ -169,6 +171,7 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
          */
         async readFor(dest: Output): Promise<Chunk> {
             if (this.done) {
+                console.log("readFor: done", this.name);
                 const md = Chunk.create({type: "metadata"}) as MetadataChunk;
                 md.metadata.add(new DataflowEnd());
                 return md;
@@ -196,12 +199,13 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
             const readData = await this.#reader.read();
             if (readData.done) {
                 // wrap things up
-                this.done = true;
-                const md = Chunk.create({type: "metadata"}) as MetadataChunk;
-                md.metadata.add(new DataflowEnd());
-                this.#pendingReads.forEach((deferredPromise) => {
-                    deferredPromise.resolve(md);
-                });
+                console.log("Readable readData.done", this.name);
+                console.log("stack", new Error());
+                // console.log("this.manualFinished in Readable", this.manualFinished);
+                // if (!this.manualFinished) {
+                this.readableFinished();
+                // }
+
                 return;
             }
 
@@ -220,6 +224,16 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
                         this.#pendingReads.delete(output);
                         dp.resolve(data);
                     });
+            });
+        }
+
+        readableFinished(): void {
+            console.log("!!! readableFinished", this.name);
+            this.done = true;
+            const md = Chunk.create({type: "metadata"});
+            md.metadata.add(new DataflowEnd());
+            this.#pendingReads.forEach((deferredPromise) => {
+                deferredPromise.resolve(md);
             });
         }
 

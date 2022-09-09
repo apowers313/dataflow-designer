@@ -60,8 +60,8 @@ export class Source extends ReadableComponent(Component) {
      * @returns a promise that resolves when streaming has completed, or rejects on error
      */
     async init(): Promise<void> {
-        if (this.finished) {
-            return this.finished;
+        if (this.initFinished) {
+            return this.initFinished;
         }
 
         if (this.sendStartMetadata) {
@@ -71,7 +71,7 @@ export class Source extends ReadableComponent(Component) {
             this.readableController.enqueue(cc);
         }
 
-        this.finished = super.init();
-        return this.finished;
+        this.initFinished = super.init();
+        return this.initFinished;
     }
 }

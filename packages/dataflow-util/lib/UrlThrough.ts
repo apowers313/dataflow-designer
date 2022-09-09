@@ -26,42 +26,46 @@ export class UrlThrough extends Through {
             writeClose: async() => {
                 console.log("UrlThrough write close");
             },
-            readClose: async() => {
-                console.log("UrlThrough read close");
-            },
         });
 
+        this.name = "url-through";
         this.#parserOpts = opts.parserOpts ?? {};
     }
 
     async through(methods: ManualThroughMethods): Promise<void> {
-        console.log("UrlThrough.through");
+        // console.log("UrlThrough.through");
         if (!this.#outputReader) {
             this.#outputReader = await this.#getDecodeReader(methods);
         }
 
+        console.log("UrlThrough.through reading");
         const {value, done} = await this.#outputReader.read();
+        // console.log("this.#outputReader.read()", done, value);
         if (done) {
             console.log("this.#outputReader done");
             await this.#outputReader.closed;
             console.log("this.#outputReader closed");
             // await timeout(3000);
+            methods.finished();
             return;
         }
 
         const chunk = Chunk.create({type: "data", data: value});
-        console.log("UrlThrough.through chunk", chunk);
+        // console.log("UrlThrough.through chunk", chunk);
         await methods.send(0, chunk);
     }
 
     async #getDecodeReader(methods: ManualThroughMethods): Promise<ReadableStreamDefaultReader> {
         const objSource = new ReadableStream({
             pull: async(controller): Promise<void> => {
+                console.log("objSource chunk reading");
                 const chunk = await methods.read();
+                console.log("objSource chunk", chunk);
 
                 if (!chunk) {
                     console.log("#getDecodeReader close");
-                    // this.readableController.close();
+                    // methods.finished();
+                    controller.close();
                     return;
                 }
 
@@ -80,22 +84,26 @@ export class UrlThrough extends Through {
 
         const udc = new UrlDataCollection();
         const fetchObjStream = udc.decode({parserOpts: this.#parserOpts});
+        let count = 0;
         const parsedStream = objSource
             .pipeThrough(new TransformStream({
                 transform: (chunk, controller): void => {
                     controller.enqueue(chunk);
                 },
                 flush: () => {
-                    console.log("object source stream done, flushing");
+                    console.log("&&& object source stream done, flushing");
                 },
             }))
             .pipeThrough(fetchObjStream)
             .pipeThrough(new TransformStream({
                 transform: (chunk, controller): void => {
+                    console.log("fetchObjStream chunk", chunk);
+                    count++;
                     controller.enqueue(chunk);
                 },
                 flush: () => {
-                    console.log("parser stream done, flushing");
+                    console.log("&&& parser stream done, flushing");
+                    console.log("%%% COUNT", count);
                 },
             }));
         return parsedStream.getReader();
