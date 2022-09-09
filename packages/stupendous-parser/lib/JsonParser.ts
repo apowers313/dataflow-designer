@@ -73,7 +73,6 @@ export class JsonParser extends Parser {
         // let firstThrow = true;
         readable = readable.pipeThrough(new TransformStream({
             transform: (chunk, controller): void => {
-                // console.log("JsonParser saftey check");
                 chunkCnt++;
                 controller.enqueue(chunk);
             },

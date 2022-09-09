@@ -79,11 +79,7 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
                         throw new TypeError("Sink: expected write data to be instance of Chunk or ChunkCollection");
                     }
                 },
-                close: async(): Promise<void> => {
-                    if (cfg.writeClose) {
-                        await cfg.writeClose();
-                    }
-                },
+                close: cfg.writeClose,
                 abort: cfg.writeAbort,
             }, new CountQueuingStrategy({highWaterMark: this.queueSize}));
             this.#writer = this.#writableStream.getWriter();

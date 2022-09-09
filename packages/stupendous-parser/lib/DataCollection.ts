@@ -115,7 +115,6 @@ export abstract class DataCollection extends Parser {
             decodeConnector.reset();
 
             if (!currentEntry) {
-                console.log("DataCollection decode closing current entry");
                 controller.close();
                 return false;
             }
@@ -125,7 +124,11 @@ export abstract class DataCollection extends Parser {
                 throw new Error(`file parser not found for: '${currentEntry.path}'`);
             }
 
-            const s = currentEntry.stream.pipeThrough(fileParser);
+            const s = currentEntry.stream.pipeThrough(fileParser).pipeThrough(new TransformStream({
+                transform: (chunk, controller): void => {
+                    controller.enqueue(chunk);
+                },
+            }));
 
             entryReader = s.getReader();
             return true;

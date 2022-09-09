@@ -25,7 +25,6 @@ export class UrlThrough extends Through {
             through: (methods) => this.through(methods),
         });
 
-        this.name = "url-through";
         this.#parserOpts = opts.parserOpts ?? {};
     }
 

@@ -27,10 +27,20 @@ export class UrlDataEntry extends DataCollectionEntry<UrlMetadata> {
             throw new Error(`error getting URL: ${response.statusText}`);
         }
 
-        const httpStream = response.body;
+        let httpStream = response.body;
         if (!httpStream) {
             throw new Error("HTTP request did not produce a body");
         }
+
+        httpStream = httpStream.pipeThrough(new TransformStream({
+            transform: (chunk, controller) => {
+                console.log("httpStream", chunk);
+                controller.enqueue(chunk);
+            },
+            flush: () => {
+                console.log("httpStream flush", url);
+            },
+        }));
 
         return new UrlDataEntry({
             path: url.toString(),

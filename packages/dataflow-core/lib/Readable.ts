@@ -41,7 +41,6 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
      * Creates a stream that can be read from
      */
     abstract class Reader extends Base {
-        protected manualFinished: boolean;
         readonly isReadable = true;
         readonly numChannels: number = 1;
         readonly queueSize: number;
@@ -107,7 +106,6 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
                 cancel: cfg.readCancel,
             }, new CountQueuingStrategy({highWaterMark: this.queueSize}));
             this.#reader = this.#readableStream.getReader();
-            // this.manualFinished = false;
         }
 
         /**
