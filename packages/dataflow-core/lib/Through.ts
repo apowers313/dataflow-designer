@@ -10,6 +10,7 @@ export type ThroughFn = (chunk: Chunk, methods: ThroughMethods) => Promise<void>
 export type ManualThroughFn = (methods: ManualThroughMethods) => Promise<void>;
 export interface ManualThroughMethods extends ThroughMethods {
     read: () => Promise<Chunk | null>;
+    finished: () => void;
 }
 
 export type ThroughOpts =
@@ -60,10 +61,7 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
                 }
             },
             writeClose: async(): Promise<void> => {
-                console.log("Through write close");
-                if (this.#manualRead) {
-                    await this.#readWriteInterlock.send(null);
-                } else {
+                if (!this.#manualRead) {
                     this.readableController.close();
                 }
 
@@ -71,9 +69,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
                     await opts.writeClose();
                 }
             },
-            // readClose: async(): Promise<void> => {
-            //     console.log("Through read close");
-            // },
             writeAll: true,
         };
         super(inputOpts);
@@ -89,12 +84,12 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @returns a promise that resolves when streaming has completed, or rejects on error
      */
     async init(): Promise<void> {
-        if (this.finished) {
-            return this.finished;
+        if (this.initFinished) {
+            return this.initFinished;
         }
 
-        this.finished = super.init();
-        return this.finished;
+        this.initFinished = super.init();
+        return this.initFinished;
     }
 
     /**
@@ -108,6 +103,11 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             throw new Error("Through received ChunkCollection. Why?");
         }
 
+        if (chunk.isMetadata() && chunk.metadata.get("dataflow", "end")) {
+            await this.#readWriteInterlock.send(null);
+            return;
+        }
+
         await this.#readWriteInterlock.send(chunk);
     }
 
@@ -117,9 +117,9 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @param methods - Functions for manipulating the stream and data
      */
     async #throughPull(methods: ReadMethods): Promise<void> {
-        console.log("#throughPull");
         const chunk = await this.#getChunk();
         if (!chunk) {
+            this.readableController.close();
             return;
         }
 
@@ -131,11 +131,11 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
     }
 
     async #manualThroughPull(methods: ReadMethods): Promise<void> {
-        console.log("#manualThroughPull");
         try {
             await (this.#through as ManualThroughFn)({
                 ... methods,
                 read: () => this.#getChunk(),
+                finished: () => this.readableController.close(),
             });
         } catch (err) {
             await this.handleCaughtError(err, null);
@@ -143,8 +143,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
     }
 
     async #getChunk(): Promise<Chunk|null> {
-        console.log("Through #getChunk");
-
         let chunk: Chunk | null;
         let done = false;
 
@@ -152,7 +150,9 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             chunk = await this.#readWriteInterlock.recv();
             this.#readWriteInterlock.reset();
 
-            if (chunk && !chunk.isData() && !this.catchAll) {
+            // TODO: remove?
+            const isMetadataEnd = chunk?.isMetadata() && chunk.metadata.has("dataflow", "end");
+            if (chunk && !chunk.isData() && !this.catchAll && !isMetadataEnd) {
                 // pass through metadata and errors on all channels by default
                 const cc = ChunkCollection.broadcast(chunk, this.numChannels);
                 await this.sendMulti(cc);
@@ -162,12 +162,10 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         } while (!done);
 
         if (!chunk) {
-            console.log("#getChunk done");
-            this.readableController.close();
+            // this.readableController.close();
             return null;
         }
 
-        console.log("Through #getChunk returning", chunk);
         return chunk;
     }
 }
