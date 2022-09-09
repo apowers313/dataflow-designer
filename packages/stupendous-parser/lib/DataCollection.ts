@@ -125,11 +125,7 @@ export abstract class DataCollection extends Parser {
                 throw new Error(`file parser not found for: '${currentEntry.path}'`);
             }
 
-            const s = currentEntry.stream.pipeThrough(fileParser).pipeThrough(new TransformStream({
-                transform: (chunk, controller): void => {
-                    controller.enqueue(chunk);
-                },
-            }));
+            const s = currentEntry.stream.pipeThrough(fileParser);
 
             entryReader = s.getReader();
             return true;

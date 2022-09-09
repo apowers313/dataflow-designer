@@ -64,11 +64,7 @@ export class JsonParser extends Parser {
         if (!includeKeys) {
             readable = readable.pipeThrough(new TransformStream({
                 transform: function(chunk: Record<any, any>, controller): void {
-                    console.log("JsonParser decode transform");
                     controller.enqueue(chunk.value);
-                },
-                flush: () => {
-                    console.log("JsonParser decode transform flush");
                 },
             }));
         }
