@@ -5,7 +5,7 @@ import {StatusReporter} from "./Status";
 export const DataflowSymbol = Symbol();
 
 export interface ComponentOpts {
-    name?: string
+    name?: string;
     context?: ContextConstructor<any>;
 }
 
@@ -17,7 +17,7 @@ export abstract class Component {
     readonly isWritable: boolean = false;
     initialized = false;
     started: Promise<unknown>;
-    finished?: Promise<void>
+    initFinished?: Promise<void>;
     resolveInit: () => void;
     name = "<undefined>";
     logger!: Logger<any>;
