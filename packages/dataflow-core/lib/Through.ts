@@ -157,8 +157,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             this.#readWriteInterlock.reset();
 
             const isMetadataEnd = chunk?.isMetadata() && chunk.metadata.has("dataflow", "end");
-            console.log("chunk", chunk);
-            console.log("isMetadataEnd", isMetadataEnd);
             if (chunk && !chunk.isData() && !this.catchAll && !isMetadataEnd) {
                 // pass through metadata and errors on all channels by default
                 const cc = ChunkCollection.broadcast(chunk, this.numChannels);
