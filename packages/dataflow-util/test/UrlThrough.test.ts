@@ -9,7 +9,7 @@ describe("UrlThrough", function() {
         assert.isFunction(UrlThrough);
     });
 
-    it.only("fetches url based on object properties", async function() {
+    it("fetches url based on object properties", async function() {
         this.timeout(10 * 1000);
 
         setMockUrl("https://pokeapi.co/api/v2/pokedex/1", "pokedex1.json");
@@ -25,7 +25,6 @@ describe("UrlThrough", function() {
         const sink = new Sink({
             push: sinkSpy,
             name: "test-sink",
-            writeClose: async(): Promise<void> => console.log("Test Sink closed"),
         });
         src.channels[0].pipe(thru);
         thru.channels[0].pipe(sink);

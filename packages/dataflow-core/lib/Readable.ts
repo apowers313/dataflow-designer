@@ -12,7 +12,6 @@ export type PullFn = (methods: ReadMethods) => Promise<void>;
 
 export interface ReadableOpts extends ComponentOpts {
     readStart?: (controller: ReadableStreamController<any>) => Promise<void>;
-    // readClose?: () => Promise<void>;
     readCancel?: () => Promise<void>;
     numChannels?: number;
     queueSize?: number;
@@ -198,13 +197,7 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
         async #doRead(): Promise<void> {
             const readData = await this.#reader.read();
             if (readData.done) {
-                // wrap things up
-                console.log("Readable readData.done", this.name);
-                console.log("stack", new Error());
-                // console.log("this.manualFinished in Readable", this.manualFinished);
-                // if (!this.manualFinished) {
                 this.readableFinished();
-                // }
 
                 return;
             }
@@ -228,7 +221,6 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
         }
 
         readableFinished(): void {
-            console.log("!!! readableFinished", this.name);
             this.done = true;
             const md = Chunk.create({type: "metadata"});
             md.metadata.add(new DataflowEnd());

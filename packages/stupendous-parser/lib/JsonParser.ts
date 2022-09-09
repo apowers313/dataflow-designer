@@ -82,8 +82,6 @@ export class JsonParser extends Parser {
                 controller.enqueue(chunk);
             },
             flush: () => {
-                console.log("JsonParser saftey check done");
-                // if (chunkCnt === 0 && firstThrow) {
                 if (chunkCnt === 0) {
                     // firstThrow = false;
                     console.warn("Stream ending and no chunks sent. Did you specify the right JSON path?");

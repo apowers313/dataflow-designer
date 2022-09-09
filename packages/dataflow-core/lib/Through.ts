@@ -61,23 +61,10 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
                 }
             },
             writeClose: async(): Promise<void> => {
-                console.log("Through write close");
-                // if (this.#manualRead) {
-                //     await this.#readWriteInterlock.send(null);
-                // } else {
-                // this.readableController.close();
-                // }
-                if (!this.#manualRead) {
-                    this.readableController.close();
-                }
-
                 if (opts.writeClose) {
                     await opts.writeClose();
                 }
             },
-            // readClose: async(): Promise<void> => {
-            //     console.log("Through read close");
-            // },
             writeAll: true,
         };
         super(inputOpts);
@@ -124,6 +111,9 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         }
 
         await this.#readWriteInterlock.send(chunk);
+        if (chunk.isMetadata() && chunk.metadata.get("dataflow", "end")) {
+            await this.#readWriteInterlock.send(null);
+        }
     }
 
     /**
@@ -132,7 +122,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
      * @param methods - Functions for manipulating the stream and data
      */
     async #throughPull(methods: ReadMethods): Promise<void> {
-        console.log("#throughPull");
         const chunk = await this.#getChunk();
         if (!chunk) {
             this.readableController.close();
@@ -147,7 +136,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
     }
 
     async #manualThroughPull(methods: ReadMethods): Promise<void> {
-        console.log("#manualThroughPull");
         try {
             await (this.#through as ManualThroughFn)({
                 ... methods,
@@ -160,8 +148,6 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
     }
 
     async #getChunk(): Promise<Chunk|null> {
-        console.log("Through #getChunk");
-
         let chunk: Chunk | null;
         let done = false;
 
@@ -170,25 +156,23 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
             console.log("Through #getChunk chunk", chunk);
             this.#readWriteInterlock.reset();
 
-            // TODO: remove?
             const isMetadataEnd = chunk?.isMetadata() && chunk.metadata.has("dataflow", "end");
+            console.log("chunk", chunk);
+            console.log("isMetadataEnd", isMetadataEnd);
             if (chunk && !chunk.isData() && !this.catchAll && !isMetadataEnd) {
-                console.log(">>> broadcast chunk", chunk);
                 // pass through metadata and errors on all channels by default
                 const cc = ChunkCollection.broadcast(chunk, this.numChannels);
                 await this.sendMulti(cc);
-            } else {
+            } else if (!isMetadataEnd || (isMetadataEnd && this.catchAll)) { // don't pass through end metadata unless catchAll
                 done = true;
             }
         } while (!done);
 
         if (!chunk) {
-            console.log("#getChunk done");
             // this.readableController.close();
             return null;
         }
 
-        console.log("Through #getChunk returning", chunk);
         return chunk;
     }
 }

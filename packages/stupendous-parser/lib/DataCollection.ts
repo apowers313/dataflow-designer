@@ -111,12 +111,8 @@ export abstract class DataCollection extends Parser {
         const decodeParserGenerator: CustomParserFn = cfg.customParserFn ?? defaultDecodeParserGenerator;
 
         const getNextEntry = async(controller: ReadableStreamController<any>): Promise<boolean> => {
-            console.log("getNextEntry");
             const currentEntry = await decodeConnector.recv();
-            console.log("doing reset...");
             decodeConnector.reset();
-            console.log("reset done.");
-            console.log("getNextEntry got next entry", currentEntry);
 
             if (!currentEntry) {
                 console.log("DataCollection decode closing current entry");
@@ -133,9 +129,6 @@ export abstract class DataCollection extends Parser {
                 transform: (chunk, controller): void => {
                     controller.enqueue(chunk);
                 },
-                flush: () => {
-                    console.log("fileParser flush");
-                },
             }));
 
             entryReader = s.getReader();
@@ -144,13 +137,9 @@ export abstract class DataCollection extends Parser {
 
         const writable = new WritableStream<DataCollectionEntry>({
             write: async(chunk): Promise<void> => {
-                console.log("DataCollection decode writable send", chunk);
                 await decodeConnector.send(chunk);
-                // await timeout(4000);
-                console.log("DataCollection decode done sending", chunk);
             },
             close: async(): Promise<void> => {
-                console.log("DataCollection decode writable close");
                 await decodeConnector.send(null);
             },
         });
@@ -162,16 +151,11 @@ export abstract class DataCollection extends Parser {
                 }
             },
             pull: async function(controller): Promise<void> {
-                console.log("DataCollection decode read");
                 const {done, value} = await entryReader.read();
                 if (done) {
-                    console.log("DataCollection decode entryReader done");
                     await entryReader.closed;
-                    console.log("DataCollection decode entryReader closed");
                     const moreAvailable = await getNextEntry(controller);
-                    if (!moreAvailable) {
-                        console.log("DataCollection decode: no more available");
-                    } else {
+                    if (moreAvailable) {
                         await this.pull!(controller);
                     }
 
