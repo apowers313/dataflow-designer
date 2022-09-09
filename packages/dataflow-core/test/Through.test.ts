@@ -465,8 +465,13 @@ describe("Through", function() {
                     switch (seq % 3) {
                     case 0: {
                         const c = await methods.read();
+                        if (c === null) {
+                            methods.finished();
+                            return;
+                        }
+
                         if (!c || !c.isData()) {
-                            throw new Error(`ERROR! ${seq}`);
+                            throw new Error(`CHUNK ERROR IN TEST! ${seq}`);
                         }
 
                         chunk = c;
