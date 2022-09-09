@@ -12,7 +12,6 @@ export type PullFn = (methods: ReadMethods) => Promise<void>;
 
 export interface ReadableOpts extends ComponentOpts {
     readStart?: (controller: ReadableStreamController<any>) => Promise<void>;
-    readClose?: () => Promise<void>;
     readCancel?: () => Promise<void>;
     numChannels?: number;
     queueSize?: number;
@@ -195,13 +194,8 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
         async #doRead(): Promise<void> {
             const readData = await this.#reader.read();
             if (readData.done) {
-                // wrap things up
-                this.done = true;
-                const md = Chunk.create({type: "metadata"}) as MetadataChunk;
-                md.metadata.add(new DataflowEnd());
-                this.#pendingReads.forEach((deferredPromise) => {
-                    deferredPromise.resolve(md);
-                });
+                this.readableFinished();
+
                 return;
             }
 
@@ -220,6 +214,16 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
                         this.#pendingReads.delete(output);
                         dp.resolve(data);
                     });
+            });
+        }
+
+        readableFinished(): void {
+            console.log("!!! readableFinished", this.name);
+            this.done = true;
+            const md = Chunk.create({type: "metadata"});
+            md.metadata.add(new DataflowEnd());
+            this.#pendingReads.forEach((deferredPromise) => {
+                deferredPromise.resolve(md);
             });
         }
 
