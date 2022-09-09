@@ -80,8 +80,6 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
                     }
                 },
                 close: async(): Promise<void> => {
-                    console.log("Writable closing", this.name);
-                    console.log("calling cfg.writeClose", cfg.writeClose);
                     if (cfg.writeClose) {
                         await cfg.writeClose();
                     }
@@ -154,7 +152,6 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
                 for (let i = results.length - 1; i >= 0; i--) {
                     const chunk = results[i];
                     if (chunk !== null && chunk.isMetadata() && chunk.metadata.has("dataflow", "end")) {
-                        console.log("@@@ got metadata: dataflow::end", this.name);
                         removeReader(i);
                     }
                 }
