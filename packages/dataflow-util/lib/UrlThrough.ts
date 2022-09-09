@@ -34,9 +34,7 @@ export class UrlThrough extends Through {
             this.#outputReader = await this.#getDecodeReader(methods);
         }
 
-        console.log("UrlThrough.through reading");
         const {value, done} = await this.#outputReader.read();
-        // console.log("this.#outputReader.read()", done, value);
         if (done) {
             await this.#outputReader.closed;
             methods.finished();
@@ -50,9 +48,7 @@ export class UrlThrough extends Through {
     async #getDecodeReader(methods: ManualThroughMethods): Promise<ReadableStreamDefaultReader> {
         const objSource = new ReadableStream({
             pull: async(controller): Promise<void> => {
-                console.log("objSource chunk reading");
                 const chunk = await methods.read();
-                console.log("objSource chunk", chunk);
 
                 if (!chunk) {
                     controller.close();

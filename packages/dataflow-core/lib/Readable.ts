@@ -170,7 +170,6 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
          */
         async readFor(dest: Output): Promise<Chunk> {
             if (this.done) {
-                console.log("readFor: done", this.name);
                 const md = Chunk.create({type: "metadata"}) as MetadataChunk;
                 md.metadata.add(new DataflowEnd());
                 return md;
