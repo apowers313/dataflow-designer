@@ -9,7 +9,7 @@ describe("UrlThrough", function() {
         assert.isFunction(UrlThrough);
     });
 
-    it.only("fetches url based on object properties", async function() {
+    it("fetches url based on object properties", async function() {
         this.timeout(10 * 1000);
 
         setMockUrl("https://pokeapi.co/api/v2/pokedex/1", "pokedex1.json");
@@ -22,13 +22,16 @@ describe("UrlThrough", function() {
         ]);
         const thru = new UrlThrough({parserOpts: {json: {path: "pokemon_entries", outputType: "array"}}});
         const sinkSpy = spy();
-        const sink = new Sink({push: sinkSpy});
+        const sink = new Sink({
+            push: sinkSpy,
+            name: "test-sink",
+        });
         src.channels[0].pipe(thru);
         thru.channels[0].pipe(sink);
         await src.complete();
 
         console.log("sinkSpy.callCount", sinkSpy.callCount);
-        assert.strictEqual(sinkSpy.callCount, 1297);
+        assert.strictEqual(sinkSpy.callCount, 1300);
         console.log("sinkSpy.args[0][0]", sinkSpy.args[0][0]);
     });
 
