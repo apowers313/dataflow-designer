@@ -1,7 +1,8 @@
+import {objectSource, setMockUrl} from "./helpers/helpers";
+import {Request} from "undici";
 import {Sink} from "@dataflow-designer/dataflow-core";
 import {UrlThrough} from "../index";
 import {assert} from "chai";
-import {objectSource, setMockUrl} from "./helpers/helpers";
 import {spy} from "sinon";
 
 describe("UrlThrough", function() {
@@ -20,7 +21,10 @@ describe("UrlThrough", function() {
             {url: "https://pokeapi.co/api/v2/pokedex/2"},
             {url: "https://pokeapi.co/api/v2/pokedex/3"},
         ]);
-        const thru = new UrlThrough({parserOpts: {json: {path: "pokemon_entries", outputType: "array"}}});
+        const thru = new UrlThrough({
+            url: "{{data.url}}",
+            parserOpts: {json: {path: "pokemon_entries", outputType: "array"}},
+        });
         const sinkSpy = spy();
         const sink = new Sink({
             push: sinkSpy,
@@ -46,7 +50,6 @@ describe("UrlThrough", function() {
         assert.strictEqual(sinkSpy.args[1299][0].data.pokemon_species.name, "celebi");
     });
 
-    it("fetches url based on handlebars template");
     it("sets method based on object");
     it("sets methods based on config");
     it("sets headers based on object");

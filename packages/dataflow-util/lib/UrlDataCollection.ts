@@ -1,6 +1,6 @@
 import {DataCollection, DataCollectionDecodeCfg, DataCollectionEncodeCfg, DataCollectionEntry, DataCollectionEntryCfg, Parser, ParserDecodeOpts} from "@dataflow-designer/stupendous-parser";
-import {ReadableStream, TransformStream, WritableStream} from "node:stream/web";
-import {RequestInfo, Response, fetch} from "undici";
+import {RequestInfo, Response} from "undici";
+import {TransformStream} from "node:stream/web";
 
 export interface UrlMetadata {
     request: RequestInfo;
@@ -14,33 +14,6 @@ export class UrlDataEntry extends DataCollectionEntry<UrlMetadata> {
     discard(): void { /* ignored */ }
     // eslint-disable-next-line jsdoc/require-jsdoc
     done(): void { /* ignored */ }
-
-    static async create(url: RequestInfo): Promise<UrlDataEntry> {
-        // chunk.data.url
-        // chunk.data.body
-        // chunk.data.query
-        // chunk.data.method
-
-        const response = await fetch(url);
-
-        if (response.status < 200 || response.status > 299) {
-            throw new Error(`error getting URL: ${response.statusText}`);
-        }
-
-        const httpStream = response.body;
-        if (!httpStream) {
-            throw new Error("HTTP request did not produce a body");
-        }
-
-        return new UrlDataEntry({
-            path: url.toString(),
-            stream: httpStream,
-            metadata: {
-                response: response,
-                request: url,
-            },
-        });
-    }
 }
 
 export interface UrlDataCollectionEncodeOpts extends DataCollectionEncodeCfg {}
