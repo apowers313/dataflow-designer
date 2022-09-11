@@ -1,1 +1,1 @@
-export * from "./lib/main";
+export { {{fclass}} } from "./lib/{{fclass}}";
