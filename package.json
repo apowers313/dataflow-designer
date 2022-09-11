@@ -9,10 +9,12 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "build": "lerna run build",
-    "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test"
+    "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
+    "create": "plop --plopfile .plopfile.js create"
   },
   "devDependencies": {
     "lerna": "^5.4.3",
-    "nx": "^14.6.3"
+    "nx": "^14.6.3",
+    "plop": "^3.1.1"
   }
 }
