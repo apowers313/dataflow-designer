@@ -14,3 +14,4 @@ coverage
 tmp/
 build/
 docs/
+packages/*/package-lock.json
