@@ -1,1 +1,1 @@
-export {GraphQLSource} from "./lib/GraphQlSource";
+export {GraphQLSource} from "./lib/GraphQLSource";
