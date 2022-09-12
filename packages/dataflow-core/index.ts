@@ -10,3 +10,4 @@ export {WritableComponent as Writable, WritableType, WriteMethods} from "./lib/W
 export {StatusReporter, StatusReporterConstructor} from "./lib/Status";
 export {Logger, LoggerConstructor} from "./lib/Logger";
 export * as utils from "./lib/utils";
+export * as helpers from "./test/helpers/helpers";

@@ -19,17 +19,17 @@ export interface TestSourceOpts {
     countBy?: number;
     delay?: number;
     sendNum?: number;
-    includeId?: boolean;
+    enableLogging?: boolean;
+    switchLogger?: boolean;
 }
 
-let cnt = 0;
 export class TestSource extends Source {
     countBy: number;
     delay: number;
     sendNum: number;
     count: number;
-    id: number;
-    includeId: boolean;
+    enableLogging: boolean;
+    switchLogger: boolean;
 
     constructor(opt: TestSourceOpts = {}) {
         super({
@@ -39,8 +39,8 @@ export class TestSource extends Source {
             name: "test-source",
         });
 
-        this.id = cnt++;
-        this.includeId = opt.includeId ?? false;
+        this.enableLogging = opt.enableLogging ?? false;
+        this.switchLogger = opt.switchLogger ?? false;
         this.countBy = opt.countBy ?? 1;
         this.delay = opt.delay ?? 0;
         this.sendNum = opt.sendNum ?? 10;
@@ -61,13 +61,40 @@ export class TestSource extends Source {
             return;
         }
 
-        const next = Chunk.create({type: "data", data: {count: this.count}}) as DataChunk;
-        if (this.includeId) {
-            next.data.id = this.id;
+        const next = Chunk.create({type: "data", data: {count: this.count}});
+        this.count += this.countBy;
+        this.tryLog(next);
+
+        await methods.send(0, next);
+    }
+
+    tryLog(next: any): void {
+        if (!this.enableLogging) {
+            return;
         }
 
-        this.count += this.countBy;
-        await methods.send(0, next);
+        if (this.switchLogger) {
+            switch (next.data.count % 5) {
+            case 0:
+                this.logger.log(`[log] TestSource sending: ${next.data.count}`);
+                return;
+            case 1:
+                this.logger.error(`[error] TestSource sending: ${next.data.count}`);
+                return;
+            case 2:
+                this.logger.warn(`[warn] TestSource sending: ${next.data.count}`);
+                return;
+            case 3:
+                this.logger.trace(`[trace] TestSource sending: ${next.data.count}`);
+                return;
+            case 4:
+                this.logger.debug(`[debug] TestSource sending: ${next.data.count}`);
+                return;
+            default: break;
+            }
+        }
+
+        this.logger.log("TestSource sending:", next.data);
     }
 }
 
@@ -145,3 +172,23 @@ export class TestMetadata extends MetadataType {
         super({namespace: "testspace", name: "test"});
     }
 }
+
+export function objectSource(objs: Array<Record<any, any>>): Source {
+    let curr = 0;
+    return new Source({
+        name: "object-source",
+        pull: async(methods): Promise<void> => {
+            if (curr > (objs.length - 1)) {
+                await methods.finished();
+                return;
+            }
+
+            const next = objs[curr];
+            curr++;
+
+            const chunk = Chunk.create({type: "data", data: next});
+            await methods.send(0, chunk);
+        },
+    });
+}
+

@@ -35,7 +35,6 @@ describe("UrlThrough", function() {
         await src.complete();
 
         assert.strictEqual(sinkSpy.callCount, 1300);
-        console.log("sinkSpy.args[0][0]", sinkSpy.args[0][0]);
         assert.strictEqual(sinkSpy.args[0][0].data.entry_number, 1);
         assert.strictEqual(sinkSpy.args[0][0].data.pokemon_species.name, "bulbasaur");
         assert.strictEqual(sinkSpy.args[897][0].data.entry_number, 898);

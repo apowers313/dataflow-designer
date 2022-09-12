@@ -1,8 +1,9 @@
 import {FileSink} from "../index";
 import {assert} from "chai";
-import {objectSource} from "./helpers/helpers";
+import {helpers} from "@dataflow-designer/dataflow-core";
 import {readFileSync} from "fs";
 import temp from "temp";
+const {objectSource} = helpers;
 
 describe("FileSink", function() {
     it("is function", function() {
