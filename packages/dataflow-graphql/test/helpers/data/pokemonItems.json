@@ -1,0 +1,6434 @@
+{
+    "data": {
+        "result": [
+            {
+                "name": "master-ball",
+                "cost": 0
+            },
+            {
+                "name": "ultra-ball",
+                "cost": 800
+            },
+            {
+                "name": "great-ball",
+                "cost": 600
+            },
+            {
+                "name": "poke-ball",
+                "cost": 200
+            },
+            {
+                "name": "safari-ball",
+                "cost": 0
+            },
+            {
+                "name": "net-ball",
+                "cost": 1000
+            },
+            {
+                "name": "dive-ball",
+                "cost": 1000
+            },
+            {
+                "name": "nest-ball",
+                "cost": 1000
+            },
+            {
+                "name": "repeat-ball",
+                "cost": 1000
+            },
+            {
+                "name": "timer-ball",
+                "cost": 1000
+            },
+            {
+                "name": "luxury-ball",
+                "cost": 3000
+            },
+            {
+                "name": "premier-ball",
+                "cost": 20
+            },
+            {
+                "name": "dusk-ball",
+                "cost": 1000
+            },
+            {
+                "name": "heal-ball",
+                "cost": 300
+            },
+            {
+                "name": "quick-ball",
+                "cost": 1000
+            },
+            {
+                "name": "cherish-ball",
+                "cost": 0
+            },
+            {
+                "name": "potion",
+                "cost": 200
+            },
+            {
+                "name": "antidote",
+                "cost": 200
+            },
+            {
+                "name": "burn-heal",
+                "cost": 200
+            },
+            {
+                "name": "ice-heal",
+                "cost": 200
+            },
+            {
+                "name": "awakening",
+                "cost": 200
+            },
+            {
+                "name": "paralyze-heal",
+                "cost": 200
+            },
+            {
+                "name": "full-restore",
+                "cost": 3000
+            },
+            {
+                "name": "max-potion",
+                "cost": 2500
+            },
+            {
+                "name": "hyper-potion",
+                "cost": 1500
+            },
+            {
+                "name": "super-potion",
+                "cost": 700
+            },
+            {
+                "name": "full-heal",
+                "cost": 400
+            },
+            {
+                "name": "revive",
+                "cost": 2000
+            },
+            {
+                "name": "max-revive",
+                "cost": 4000
+            },
+            {
+                "name": "fresh-water",
+                "cost": 200
+            },
+            {
+                "name": "soda-pop",
+                "cost": 300
+            },
+            {
+                "name": "lemonade",
+                "cost": 400
+            },
+            {
+                "name": "moomoo-milk",
+                "cost": 600
+            },
+            {
+                "name": "energy-powder",
+                "cost": 500
+            },
+            {
+                "name": "energy-root",
+                "cost": 1200
+            },
+            {
+                "name": "heal-powder",
+                "cost": 300
+            },
+            {
+                "name": "revival-herb",
+                "cost": 2800
+            },
+            {
+                "name": "ether",
+                "cost": 1200
+            },
+            {
+                "name": "max-ether",
+                "cost": 2000
+            },
+            {
+                "name": "elixir",
+                "cost": 3000
+            },
+            {
+                "name": "max-elixir",
+                "cost": 4500
+            },
+            {
+                "name": "lava-cookie",
+                "cost": 350
+            },
+            {
+                "name": "berry-juice",
+                "cost": 200
+            },
+            {
+                "name": "sacred-ash",
+                "cost": 50000
+            },
+            {
+                "name": "hp-up",
+                "cost": 10000
+            },
+            {
+                "name": "protein",
+                "cost": 10000
+            },
+            {
+                "name": "iron",
+                "cost": 10000
+            },
+            {
+                "name": "carbos",
+                "cost": 10000
+            },
+            {
+                "name": "calcium",
+                "cost": 10000
+            },
+            {
+                "name": "rare-candy",
+                "cost": 10000
+            },
+            {
+                "name": "pp-up",
+                "cost": 10000
+            },
+            {
+                "name": "zinc",
+                "cost": 10000
+            },
+            {
+                "name": "pp-max",
+                "cost": 10000
+            },
+            {
+                "name": "old-gateau",
+                "cost": 350
+            },
+            {
+                "name": "guard-spec",
+                "cost": 1500
+            },
+            {
+                "name": "dire-hit",
+                "cost": 1000
+            },
+            {
+                "name": "x-attack",
+                "cost": 1000
+            },
+            {
+                "name": "x-defense",
+                "cost": 2000
+            },
+            {
+                "name": "x-speed",
+                "cost": 1000
+            },
+            {
+                "name": "x-accuracy",
+                "cost": 1000
+            },
+            {
+                "name": "x-sp-atk",
+                "cost": 1000
+            },
+            {
+                "name": "x-sp-def",
+                "cost": 2000
+            },
+            {
+                "name": "poke-doll",
+                "cost": 300
+            },
+            {
+                "name": "fluffy-tail",
+                "cost": 100
+            },
+            {
+                "name": "blue-flute",
+                "cost": 20
+            },
+            {
+                "name": "yellow-flute",
+                "cost": 20
+            },
+            {
+                "name": "red-flute",
+                "cost": 20
+            },
+            {
+                "name": "black-flute",
+                "cost": 20
+            },
+            {
+                "name": "white-flute",
+                "cost": 20
+            },
+            {
+                "name": "shoal-salt",
+                "cost": 20
+            },
+            {
+                "name": "shoal-shell",
+                "cost": 20
+            },
+            {
+                "name": "red-shard",
+                "cost": 1000
+            },
+            {
+                "name": "blue-shard",
+                "cost": 1000
+            },
+            {
+                "name": "yellow-shard",
+                "cost": 1000
+            },
+            {
+                "name": "green-shard",
+                "cost": 1000
+            },
+            {
+                "name": "super-repel",
+                "cost": 700
+            },
+            {
+                "name": "max-repel",
+                "cost": 900
+            },
+            {
+                "name": "escape-rope",
+                "cost": 300
+            },
+            {
+                "name": "repel",
+                "cost": 400
+            },
+            {
+                "name": "sun-stone",
+                "cost": 3000
+            },
+            {
+                "name": "moon-stone",
+                "cost": 3000
+            },
+            {
+                "name": "fire-stone",
+                "cost": 3000
+            },
+            {
+                "name": "thunder-stone",
+                "cost": 3000
+            },
+            {
+                "name": "water-stone",
+                "cost": 3000
+            },
+            {
+                "name": "leaf-stone",
+                "cost": 3000
+            },
+            {
+                "name": "tiny-mushroom",
+                "cost": 500
+            },
+            {
+                "name": "big-mushroom",
+                "cost": 5000
+            },
+            {
+                "name": "pearl",
+                "cost": 2000
+            },
+            {
+                "name": "big-pearl",
+                "cost": 8000
+            },
+            {
+                "name": "stardust",
+                "cost": 3000
+            },
+            {
+                "name": "star-piece",
+                "cost": 12000
+            },
+            {
+                "name": "nugget",
+                "cost": 10000
+            },
+            {
+                "name": "heart-scale",
+                "cost": 100
+            },
+            {
+                "name": "honey",
+                "cost": 900
+            },
+            {
+                "name": "growth-mulch",
+                "cost": 200
+            },
+            {
+                "name": "damp-mulch",
+                "cost": 200
+            },
+            {
+                "name": "stable-mulch",
+                "cost": 200
+            },
+            {
+                "name": "gooey-mulch",
+                "cost": 200
+            },
+            {
+                "name": "root-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "claw-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "helix-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "dome-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "old-amber",
+                "cost": 10000
+            },
+            {
+                "name": "armor-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "skull-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "rare-bone",
+                "cost": 5000
+            },
+            {
+                "name": "shiny-stone",
+                "cost": 3000
+            },
+            {
+                "name": "dusk-stone",
+                "cost": 3000
+            },
+            {
+                "name": "dawn-stone",
+                "cost": 3000
+            },
+            {
+                "name": "oval-stone",
+                "cost": 2000
+            },
+            {
+                "name": "odd-keystone",
+                "cost": 2100
+            },
+            {
+                "name": "adamant-orb",
+                "cost": 0
+            },
+            {
+                "name": "lustrous-orb",
+                "cost": 0
+            },
+            {
+                "name": "grass-mail",
+                "cost": 50
+            },
+            {
+                "name": "flame-mail",
+                "cost": 50
+            },
+            {
+                "name": "bubble-mail",
+                "cost": 50
+            },
+            {
+                "name": "bloom-mail",
+                "cost": 50
+            },
+            {
+                "name": "tunnel-mail",
+                "cost": 50
+            },
+            {
+                "name": "steel-mail",
+                "cost": 50
+            },
+            {
+                "name": "heart-mail",
+                "cost": 50
+            },
+            {
+                "name": "snow-mail",
+                "cost": 50
+            },
+            {
+                "name": "space-mail",
+                "cost": 50
+            },
+            {
+                "name": "air-mail",
+                "cost": 50
+            },
+            {
+                "name": "mosaic-mail",
+                "cost": 50
+            },
+            {
+                "name": "brick-mail",
+                "cost": 50
+            },
+            {
+                "name": "cheri-berry",
+                "cost": 80
+            },
+            {
+                "name": "chesto-berry",
+                "cost": 80
+            },
+            {
+                "name": "pecha-berry",
+                "cost": 80
+            },
+            {
+                "name": "rawst-berry",
+                "cost": 80
+            },
+            {
+                "name": "aspear-berry",
+                "cost": 80
+            },
+            {
+                "name": "leppa-berry",
+                "cost": 80
+            },
+            {
+                "name": "oran-berry",
+                "cost": 80
+            },
+            {
+                "name": "persim-berry",
+                "cost": 80
+            },
+            {
+                "name": "lum-berry",
+                "cost": 80
+            },
+            {
+                "name": "sitrus-berry",
+                "cost": 80
+            },
+            {
+                "name": "figy-berry",
+                "cost": 80
+            },
+            {
+                "name": "wiki-berry",
+                "cost": 80
+            },
+            {
+                "name": "mago-berry",
+                "cost": 80
+            },
+            {
+                "name": "aguav-berry",
+                "cost": 80
+            },
+            {
+                "name": "iapapa-berry",
+                "cost": 80
+            },
+            {
+                "name": "razz-berry",
+                "cost": 200
+            },
+            {
+                "name": "bluk-berry",
+                "cost": 20
+            },
+            {
+                "name": "nanab-berry",
+                "cost": 200
+            },
+            {
+                "name": "wepear-berry",
+                "cost": 20
+            },
+            {
+                "name": "pinap-berry",
+                "cost": 200
+            },
+            {
+                "name": "pomeg-berry",
+                "cost": 80
+            },
+            {
+                "name": "kelpsy-berry",
+                "cost": 80
+            },
+            {
+                "name": "qualot-berry",
+                "cost": 80
+            },
+            {
+                "name": "hondew-berry",
+                "cost": 80
+            },
+            {
+                "name": "grepa-berry",
+                "cost": 80
+            },
+            {
+                "name": "tamato-berry",
+                "cost": 80
+            },
+            {
+                "name": "cornn-berry",
+                "cost": 20
+            },
+            {
+                "name": "magost-berry",
+                "cost": 20
+            },
+            {
+                "name": "rabuta-berry",
+                "cost": 20
+            },
+            {
+                "name": "nomel-berry",
+                "cost": 20
+            },
+            {
+                "name": "spelon-berry",
+                "cost": 20
+            },
+            {
+                "name": "pamtre-berry",
+                "cost": 20
+            },
+            {
+                "name": "watmel-berry",
+                "cost": 20
+            },
+            {
+                "name": "durin-berry",
+                "cost": 20
+            },
+            {
+                "name": "belue-berry",
+                "cost": 20
+            },
+            {
+                "name": "occa-berry",
+                "cost": 80
+            },
+            {
+                "name": "passho-berry",
+                "cost": 80
+            },
+            {
+                "name": "wacan-berry",
+                "cost": 80
+            },
+            {
+                "name": "rindo-berry",
+                "cost": 80
+            },
+            {
+                "name": "yache-berry",
+                "cost": 80
+            },
+            {
+                "name": "chople-berry",
+                "cost": 80
+            },
+            {
+                "name": "kebia-berry",
+                "cost": 80
+            },
+            {
+                "name": "shuca-berry",
+                "cost": 80
+            },
+            {
+                "name": "coba-berry",
+                "cost": 80
+            },
+            {
+                "name": "payapa-berry",
+                "cost": 80
+            },
+            {
+                "name": "tanga-berry",
+                "cost": 80
+            },
+            {
+                "name": "charti-berry",
+                "cost": 80
+            },
+            {
+                "name": "kasib-berry",
+                "cost": 80
+            },
+            {
+                "name": "haban-berry",
+                "cost": 80
+            },
+            {
+                "name": "colbur-berry",
+                "cost": 80
+            },
+            {
+                "name": "babiri-berry",
+                "cost": 80
+            },
+            {
+                "name": "chilan-berry",
+                "cost": 80
+            },
+            {
+                "name": "liechi-berry",
+                "cost": 80
+            },
+            {
+                "name": "ganlon-berry",
+                "cost": 80
+            },
+            {
+                "name": "salac-berry",
+                "cost": 80
+            },
+            {
+                "name": "petaya-berry",
+                "cost": 80
+            },
+            {
+                "name": "apicot-berry",
+                "cost": 80
+            },
+            {
+                "name": "lansat-berry",
+                "cost": 80
+            },
+            {
+                "name": "starf-berry",
+                "cost": 80
+            },
+            {
+                "name": "enigma-berry",
+                "cost": 80
+            },
+            {
+                "name": "micle-berry",
+                "cost": 80
+            },
+            {
+                "name": "custap-berry",
+                "cost": 80
+            },
+            {
+                "name": "jaboca-berry",
+                "cost": 80
+            },
+            {
+                "name": "rowap-berry",
+                "cost": 80
+            },
+            {
+                "name": "bright-powder",
+                "cost": 4000
+            },
+            {
+                "name": "white-herb",
+                "cost": 4000
+            },
+            {
+                "name": "macho-brace",
+                "cost": 3000
+            },
+            {
+                "name": "exp-share",
+                "cost": 0
+            },
+            {
+                "name": "quick-claw",
+                "cost": 4000
+            },
+            {
+                "name": "soothe-bell",
+                "cost": 4000
+            },
+            {
+                "name": "mental-herb",
+                "cost": 4000
+            },
+            {
+                "name": "choice-band",
+                "cost": 4000
+            },
+            {
+                "name": "kings-rock",
+                "cost": 5000
+            },
+            {
+                "name": "silver-powder",
+                "cost": 1000
+            },
+            {
+                "name": "amulet-coin",
+                "cost": 10000
+            },
+            {
+                "name": "cleanse-tag",
+                "cost": 5000
+            },
+            {
+                "name": "soul-dew",
+                "cost": 0
+            },
+            {
+                "name": "deep-sea-tooth",
+                "cost": 2000
+            },
+            {
+                "name": "deep-sea-scale",
+                "cost": 2000
+            },
+            {
+                "name": "smoke-ball",
+                "cost": 4000
+            },
+            {
+                "name": "everstone",
+                "cost": 3000
+            },
+            {
+                "name": "focus-band",
+                "cost": 4000
+            },
+            {
+                "name": "lucky-egg",
+                "cost": 10000
+            },
+            {
+                "name": "scope-lens",
+                "cost": 4000
+            },
+            {
+                "name": "metal-coat",
+                "cost": 2000
+            },
+            {
+                "name": "leftovers",
+                "cost": 4000
+            },
+            {
+                "name": "dragon-scale",
+                "cost": 2000
+            },
+            {
+                "name": "light-ball",
+                "cost": 1000
+            },
+            {
+                "name": "soft-sand",
+                "cost": 1000
+            },
+            {
+                "name": "hard-stone",
+                "cost": 1000
+            },
+            {
+                "name": "miracle-seed",
+                "cost": 1000
+            },
+            {
+                "name": "black-glasses",
+                "cost": 1000
+            },
+            {
+                "name": "black-belt",
+                "cost": 1000
+            },
+            {
+                "name": "magnet",
+                "cost": 1000
+            },
+            {
+                "name": "mystic-water",
+                "cost": 1000
+            },
+            {
+                "name": "sharp-beak",
+                "cost": 1000
+            },
+            {
+                "name": "poison-barb",
+                "cost": 1000
+            },
+            {
+                "name": "never-melt-ice",
+                "cost": 1000
+            },
+            {
+                "name": "spell-tag",
+                "cost": 1000
+            },
+            {
+                "name": "twisted-spoon",
+                "cost": 1000
+            },
+            {
+                "name": "charcoal",
+                "cost": 1000
+            },
+            {
+                "name": "dragon-fang",
+                "cost": 1000
+            },
+            {
+                "name": "silk-scarf",
+                "cost": 1000
+            },
+            {
+                "name": "up-grade",
+                "cost": 2000
+            },
+            {
+                "name": "shell-bell",
+                "cost": 4000
+            },
+            {
+                "name": "sea-incense",
+                "cost": 2000
+            },
+            {
+                "name": "lax-incense",
+                "cost": 5000
+            },
+            {
+                "name": "lucky-punch",
+                "cost": 1000
+            },
+            {
+                "name": "metal-powder",
+                "cost": 1000
+            },
+            {
+                "name": "thick-club",
+                "cost": 1000
+            },
+            {
+                "name": "stick",
+                "cost": 1000
+            },
+            {
+                "name": "red-scarf",
+                "cost": 100
+            },
+            {
+                "name": "blue-scarf",
+                "cost": 100
+            },
+            {
+                "name": "pink-scarf",
+                "cost": 100
+            },
+            {
+                "name": "green-scarf",
+                "cost": 100
+            },
+            {
+                "name": "yellow-scarf",
+                "cost": 100
+            },
+            {
+                "name": "wide-lens",
+                "cost": 4000
+            },
+            {
+                "name": "muscle-band",
+                "cost": 4000
+            },
+            {
+                "name": "wise-glasses",
+                "cost": 4000
+            },
+            {
+                "name": "expert-belt",
+                "cost": 4000
+            },
+            {
+                "name": "light-clay",
+                "cost": 4000
+            },
+            {
+                "name": "life-orb",
+                "cost": 4000
+            },
+            {
+                "name": "power-herb",
+                "cost": 4000
+            },
+            {
+                "name": "toxic-orb",
+                "cost": 4000
+            },
+            {
+                "name": "flame-orb",
+                "cost": 4000
+            },
+            {
+                "name": "quick-powder",
+                "cost": 1000
+            },
+            {
+                "name": "focus-sash",
+                "cost": 4000
+            },
+            {
+                "name": "zoom-lens",
+                "cost": 4000
+            },
+            {
+                "name": "metronome",
+                "cost": 4000
+            },
+            {
+                "name": "iron-ball",
+                "cost": 4000
+            },
+            {
+                "name": "lagging-tail",
+                "cost": 4000
+            },
+            {
+                "name": "destiny-knot",
+                "cost": 4000
+            },
+            {
+                "name": "black-sludge",
+                "cost": 4000
+            },
+            {
+                "name": "icy-rock",
+                "cost": 4000
+            },
+            {
+                "name": "smooth-rock",
+                "cost": 4000
+            },
+            {
+                "name": "heat-rock",
+                "cost": 4000
+            },
+            {
+                "name": "damp-rock",
+                "cost": 4000
+            },
+            {
+                "name": "grip-claw",
+                "cost": 4000
+            },
+            {
+                "name": "choice-scarf",
+                "cost": 4000
+            },
+            {
+                "name": "sticky-barb",
+                "cost": 4000
+            },
+            {
+                "name": "power-bracer",
+                "cost": 3000
+            },
+            {
+                "name": "power-belt",
+                "cost": 3000
+            },
+            {
+                "name": "power-lens",
+                "cost": 3000
+            },
+            {
+                "name": "power-band",
+                "cost": 3000
+            },
+            {
+                "name": "power-anklet",
+                "cost": 3000
+            },
+            {
+                "name": "power-weight",
+                "cost": 3000
+            },
+            {
+                "name": "shed-shell",
+                "cost": 4000
+            },
+            {
+                "name": "big-root",
+                "cost": 4000
+            },
+            {
+                "name": "choice-specs",
+                "cost": 4000
+            },
+            {
+                "name": "flame-plate",
+                "cost": 1000
+            },
+            {
+                "name": "splash-plate",
+                "cost": 1000
+            },
+            {
+                "name": "zap-plate",
+                "cost": 1000
+            },
+            {
+                "name": "meadow-plate",
+                "cost": 1000
+            },
+            {
+                "name": "icicle-plate",
+                "cost": 1000
+            },
+            {
+                "name": "fist-plate",
+                "cost": 1000
+            },
+            {
+                "name": "toxic-plate",
+                "cost": 1000
+            },
+            {
+                "name": "earth-plate",
+                "cost": 1000
+            },
+            {
+                "name": "sky-plate",
+                "cost": 1000
+            },
+            {
+                "name": "mind-plate",
+                "cost": 1000
+            },
+            {
+                "name": "insect-plate",
+                "cost": 1000
+            },
+            {
+                "name": "stone-plate",
+                "cost": 1000
+            },
+            {
+                "name": "spooky-plate",
+                "cost": 1000
+            },
+            {
+                "name": "draco-plate",
+                "cost": 1000
+            },
+            {
+                "name": "dread-plate",
+                "cost": 1000
+            },
+            {
+                "name": "iron-plate",
+                "cost": 1000
+            },
+            {
+                "name": "odd-incense",
+                "cost": 2000
+            },
+            {
+                "name": "rock-incense",
+                "cost": 2000
+            },
+            {
+                "name": "full-incense",
+                "cost": 5000
+            },
+            {
+                "name": "wave-incense",
+                "cost": 2000
+            },
+            {
+                "name": "rose-incense",
+                "cost": 2000
+            },
+            {
+                "name": "luck-incense",
+                "cost": 11000
+            },
+            {
+                "name": "pure-incense",
+                "cost": 6000
+            },
+            {
+                "name": "protector",
+                "cost": 2000
+            },
+            {
+                "name": "electirizer",
+                "cost": 2000
+            },
+            {
+                "name": "magmarizer",
+                "cost": 2000
+            },
+            {
+                "name": "dubious-disc",
+                "cost": 2000
+            },
+            {
+                "name": "reaper-cloth",
+                "cost": 2000
+            },
+            {
+                "name": "razor-claw",
+                "cost": 5000
+            },
+            {
+                "name": "razor-fang",
+                "cost": 5000
+            },
+            {
+                "name": "tm01",
+                "cost": 40000
+            },
+            {
+                "name": "tm02",
+                "cost": 1000
+            },
+            {
+                "name": "tm03",
+                "cost": 50000
+            },
+            {
+                "name": "tm04",
+                "cost": 50000
+            },
+            {
+                "name": "tm05",
+                "cost": 50000
+            },
+            {
+                "name": "tm06",
+                "cost": 1000
+            },
+            {
+                "name": "tm07",
+                "cost": 1000
+            },
+            {
+                "name": "tm08",
+                "cost": 50000
+            },
+            {
+                "name": "tm09",
+                "cost": 50000
+            },
+            {
+                "name": "tm10",
+                "cost": 1000
+            },
+            {
+                "name": "tm11",
+                "cost": 1000
+            },
+            {
+                "name": "tm12",
+                "cost": 50000
+            },
+            {
+                "name": "tm13",
+                "cost": 10000
+            },
+            {
+                "name": "tm14",
+                "cost": 1000
+            },
+            {
+                "name": "tm15",
+                "cost": 1000
+            },
+            {
+                "name": "tm16",
+                "cost": 1000
+            },
+            {
+                "name": "tm17",
+                "cost": 10000
+            },
+            {
+                "name": "tm18",
+                "cost": 10000
+            },
+            {
+                "name": "tm19",
+                "cost": 10000
+            },
+            {
+                "name": "tm20",
+                "cost": 100000
+            },
+            {
+                "name": "tm21",
+                "cost": 1000
+            },
+            {
+                "name": "tm22",
+                "cost": 1000
+            },
+            {
+                "name": "tm23",
+                "cost": 10000
+            },
+            {
+                "name": "tm24",
+                "cost": 1000
+            },
+            {
+                "name": "tm25",
+                "cost": 10000
+            },
+            {
+                "name": "tm26",
+                "cost": 1000
+            },
+            {
+                "name": "tm27",
+                "cost": 1000
+            },
+            {
+                "name": "tm28",
+                "cost": 100000
+            },
+            {
+                "name": "tm29",
+                "cost": 1000
+            },
+            {
+                "name": "tm30",
+                "cost": 1000
+            },
+            {
+                "name": "tm31",
+                "cost": 1000
+            },
+            {
+                "name": "tm32",
+                "cost": 10000
+            },
+            {
+                "name": "tm33",
+                "cost": 10000
+            },
+            {
+                "name": "tm34",
+                "cost": 10000
+            },
+            {
+                "name": "tm35",
+                "cost": 10000
+            },
+            {
+                "name": "tm36",
+                "cost": 1000
+            },
+            {
+                "name": "tm37",
+                "cost": 1000
+            },
+            {
+                "name": "tm38",
+                "cost": 1000
+            },
+            {
+                "name": "tm39",
+                "cost": 1000
+            },
+            {
+                "name": "tm40",
+                "cost": 1000
+            },
+            {
+                "name": "tm41",
+                "cost": 10000
+            },
+            {
+                "name": "tm42",
+                "cost": 1000
+            },
+            {
+                "name": "tm43",
+                "cost": 1000
+            },
+            {
+                "name": "tm44",
+                "cost": 100000
+            },
+            {
+                "name": "tm45",
+                "cost": 1000
+            },
+            {
+                "name": "tm46",
+                "cost": 30000
+            },
+            {
+                "name": "tm47",
+                "cost": 1000
+            },
+            {
+                "name": "tm48",
+                "cost": 1000
+            },
+            {
+                "name": "tm49",
+                "cost": 1000
+            },
+            {
+                "name": "tm50",
+                "cost": 10000
+            },
+            {
+                "name": "tm51",
+                "cost": 1000
+            },
+            {
+                "name": "tm52",
+                "cost": 100000
+            },
+            {
+                "name": "tm53",
+                "cost": 1000
+            },
+            {
+                "name": "tm54",
+                "cost": 1000
+            },
+            {
+                "name": "tm55",
+                "cost": 10000
+            },
+            {
+                "name": "tm56",
+                "cost": 1000
+            },
+            {
+                "name": "tm57",
+                "cost": 1000
+            },
+            {
+                "name": "tm58",
+                "cost": 1000
+            },
+            {
+                "name": "tm59",
+                "cost": 100000
+            },
+            {
+                "name": "tm60",
+                "cost": 30000
+            },
+            {
+                "name": "tm61",
+                "cost": 30000
+            },
+            {
+                "name": "tm62",
+                "cost": 30000
+            },
+            {
+                "name": "tm63",
+                "cost": 50000
+            },
+            {
+                "name": "tm64",
+                "cost": 1000
+            },
+            {
+                "name": "tm65",
+                "cost": 1000
+            },
+            {
+                "name": "tm66",
+                "cost": 30000
+            },
+            {
+                "name": "tm67",
+                "cost": 30000
+            },
+            {
+                "name": "tm68",
+                "cost": 30000
+            },
+            {
+                "name": "tm69",
+                "cost": 1000
+            },
+            {
+                "name": "tm70",
+                "cost": 50000
+            },
+            {
+                "name": "tm71",
+                "cost": 50000
+            },
+            {
+                "name": "tm72",
+                "cost": 50000
+            },
+            {
+                "name": "tm73",
+                "cost": 1000
+            },
+            {
+                "name": "tm74",
+                "cost": 1000
+            },
+            {
+                "name": "tm75",
+                "cost": 1000
+            },
+            {
+                "name": "tm76",
+                "cost": 10000
+            },
+            {
+                "name": "tm77",
+                "cost": 1000
+            },
+            {
+                "name": "tm78",
+                "cost": 1000
+            },
+            {
+                "name": "tm79",
+                "cost": 1000
+            },
+            {
+                "name": "tm80",
+                "cost": 1000
+            },
+            {
+                "name": "tm81",
+                "cost": 1000
+            },
+            {
+                "name": "tm82",
+                "cost": 1000
+            },
+            {
+                "name": "tm83",
+                "cost": 100000
+            },
+            {
+                "name": "tm84",
+                "cost": 1000
+            },
+            {
+                "name": "tm85",
+                "cost": 1000
+            },
+            {
+                "name": "tm86",
+                "cost": 1000
+            },
+            {
+                "name": "tm87",
+                "cost": 1000
+            },
+            {
+                "name": "tm88",
+                "cost": 20000
+            },
+            {
+                "name": "tm89",
+                "cost": 20000
+            },
+            {
+                "name": "tm90",
+                "cost": 20000
+            },
+            {
+                "name": "tm91",
+                "cost": 20000
+            },
+            {
+                "name": "tm92",
+                "cost": 100000
+            },
+            {
+                "name": "hm01",
+                "cost": 0
+            },
+            {
+                "name": "hm02",
+                "cost": 0
+            },
+            {
+                "name": "hm03",
+                "cost": 0
+            },
+            {
+                "name": "hm04",
+                "cost": 0
+            },
+            {
+                "name": "hm05",
+                "cost": 0
+            },
+            {
+                "name": "hm06",
+                "cost": 0
+            },
+            {
+                "name": "hm07",
+                "cost": 0
+            },
+            {
+                "name": "hm08",
+                "cost": 0
+            },
+            {
+                "name": "explorer-kit",
+                "cost": 0
+            },
+            {
+                "name": "loot-sack",
+                "cost": 0
+            },
+            {
+                "name": "rule-book",
+                "cost": 0
+            },
+            {
+                "name": "poke-radar",
+                "cost": 0
+            },
+            {
+                "name": "point-card",
+                "cost": 0
+            },
+            {
+                "name": "journal",
+                "cost": 0
+            },
+            {
+                "name": "seal-case",
+                "cost": 0
+            },
+            {
+                "name": "fashion-case",
+                "cost": 0
+            },
+            {
+                "name": "seal-bag",
+                "cost": 0
+            },
+            {
+                "name": "pal-pad",
+                "cost": 0
+            },
+            {
+                "name": "works-key",
+                "cost": 0
+            },
+            {
+                "name": "old-charm",
+                "cost": 0
+            },
+            {
+                "name": "galactic-key",
+                "cost": 0
+            },
+            {
+                "name": "red-chain",
+                "cost": 0
+            },
+            {
+                "name": "town-map",
+                "cost": 0
+            },
+            {
+                "name": "vs-seeker",
+                "cost": 0
+            },
+            {
+                "name": "coin-case",
+                "cost": 0
+            },
+            {
+                "name": "old-rod",
+                "cost": 0
+            },
+            {
+                "name": "good-rod",
+                "cost": 0
+            },
+            {
+                "name": "super-rod",
+                "cost": 0
+            },
+            {
+                "name": "sprayduck",
+                "cost": 0
+            },
+            {
+                "name": "poffin-case",
+                "cost": 0
+            },
+            {
+                "name": "bicycle",
+                "cost": 0
+            },
+            {
+                "name": "suite-key",
+                "cost": 0
+            },
+            {
+                "name": "oaks-letter",
+                "cost": 0
+            },
+            {
+                "name": "lunar-wing",
+                "cost": 0
+            },
+            {
+                "name": "member-card",
+                "cost": 0
+            },
+            {
+                "name": "azure-flute",
+                "cost": 0
+            },
+            {
+                "name": "ss-ticket",
+                "cost": 0
+            },
+            {
+                "name": "contest-pass",
+                "cost": 0
+            },
+            {
+                "name": "magma-stone",
+                "cost": 0
+            },
+            {
+                "name": "parcel",
+                "cost": 0
+            },
+            {
+                "name": "coupon-1",
+                "cost": 0
+            },
+            {
+                "name": "coupon-2",
+                "cost": 0
+            },
+            {
+                "name": "coupon-3",
+                "cost": 0
+            },
+            {
+                "name": "storage-key",
+                "cost": 0
+            },
+            {
+                "name": "secret-potion",
+                "cost": 0
+            },
+            {
+                "name": "griseous-orb",
+                "cost": 0
+            },
+            {
+                "name": "vs-recorder",
+                "cost": 0
+            },
+            {
+                "name": "gracidea",
+                "cost": 0
+            },
+            {
+                "name": "secret-key",
+                "cost": 0
+            },
+            {
+                "name": "apricorn-box",
+                "cost": 0
+            },
+            {
+                "name": "berry-pots",
+                "cost": 0
+            },
+            {
+                "name": "squirt-bottle",
+                "cost": 0
+            },
+            {
+                "name": "lure-ball",
+                "cost": 0
+            },
+            {
+                "name": "level-ball",
+                "cost": 0
+            },
+            {
+                "name": "moon-ball",
+                "cost": 0
+            },
+            {
+                "name": "heavy-ball",
+                "cost": 0
+            },
+            {
+                "name": "fast-ball",
+                "cost": 0
+            },
+            {
+                "name": "friend-ball",
+                "cost": 0
+            },
+            {
+                "name": "love-ball",
+                "cost": 0
+            },
+            {
+                "name": "park-ball",
+                "cost": 0
+            },
+            {
+                "name": "sport-ball",
+                "cost": 300
+            },
+            {
+                "name": "red-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "blue-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "yellow-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "green-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "pink-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "white-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "black-apricorn",
+                "cost": 200
+            },
+            {
+                "name": "dowsing-machine",
+                "cost": 0
+            },
+            {
+                "name": "rage-candy-bar",
+                "cost": 350
+            },
+            {
+                "name": "red-orb",
+                "cost": 0
+            },
+            {
+                "name": "blue-orb",
+                "cost": 0
+            },
+            {
+                "name": "jade-orb",
+                "cost": 0
+            },
+            {
+                "name": "enigma-stone",
+                "cost": 0
+            },
+            {
+                "name": "unown-report",
+                "cost": 0
+            },
+            {
+                "name": "blue-card",
+                "cost": 0
+            },
+            {
+                "name": "slowpoke-tail",
+                "cost": 0
+            },
+            {
+                "name": "clear-bell",
+                "cost": 0
+            },
+            {
+                "name": "card-key",
+                "cost": 0
+            },
+            {
+                "name": "basement-key",
+                "cost": 0
+            },
+            {
+                "name": "red-scale",
+                "cost": 0
+            },
+            {
+                "name": "lost-item",
+                "cost": 0
+            },
+            {
+                "name": "pass",
+                "cost": 0
+            },
+            {
+                "name": "machine-part",
+                "cost": 0
+            },
+            {
+                "name": "silver-wing",
+                "cost": 0
+            },
+            {
+                "name": "rainbow-wing",
+                "cost": 0
+            },
+            {
+                "name": "mystery-egg",
+                "cost": 0
+            },
+            {
+                "name": "gb-sounds",
+                "cost": 0
+            },
+            {
+                "name": "tidal-bell",
+                "cost": 0
+            },
+            {
+                "name": "data-card-01",
+                "cost": 0
+            },
+            {
+                "name": "data-card-02",
+                "cost": 0
+            },
+            {
+                "name": "data-card-03",
+                "cost": 0
+            },
+            {
+                "name": "data-card-04",
+                "cost": 0
+            },
+            {
+                "name": "data-card-05",
+                "cost": 0
+            },
+            {
+                "name": "data-card-06",
+                "cost": 0
+            },
+            {
+                "name": "data-card-07",
+                "cost": 0
+            },
+            {
+                "name": "data-card-08",
+                "cost": 0
+            },
+            {
+                "name": "data-card-09",
+                "cost": 0
+            },
+            {
+                "name": "data-card-10",
+                "cost": 0
+            },
+            {
+                "name": "data-card-11",
+                "cost": 0
+            },
+            {
+                "name": "data-card-12",
+                "cost": 0
+            },
+            {
+                "name": "data-card-13",
+                "cost": 0
+            },
+            {
+                "name": "data-card-14",
+                "cost": 0
+            },
+            {
+                "name": "data-card-15",
+                "cost": 0
+            },
+            {
+                "name": "data-card-16",
+                "cost": 0
+            },
+            {
+                "name": "data-card-17",
+                "cost": 0
+            },
+            {
+                "name": "data-card-18",
+                "cost": 0
+            },
+            {
+                "name": "data-card-19",
+                "cost": 0
+            },
+            {
+                "name": "data-card-20",
+                "cost": 0
+            },
+            {
+                "name": "data-card-21",
+                "cost": 0
+            },
+            {
+                "name": "data-card-22",
+                "cost": 0
+            },
+            {
+                "name": "data-card-23",
+                "cost": 0
+            },
+            {
+                "name": "data-card-24",
+                "cost": 0
+            },
+            {
+                "name": "data-card-25",
+                "cost": 0
+            },
+            {
+                "name": "data-card-26",
+                "cost": 0
+            },
+            {
+                "name": "data-card-27",
+                "cost": 0
+            },
+            {
+                "name": "lock-capsule",
+                "cost": 0
+            },
+            {
+                "name": "photo-album",
+                "cost": 0
+            },
+            {
+                "name": "orange-mail",
+                "cost": 50
+            },
+            {
+                "name": "harbor-mail",
+                "cost": 50
+            },
+            {
+                "name": "glitter-mail",
+                "cost": 50
+            },
+            {
+                "name": "mech-mail",
+                "cost": 50
+            },
+            {
+                "name": "wood-mail",
+                "cost": 50
+            },
+            {
+                "name": "wave-mail",
+                "cost": 50
+            },
+            {
+                "name": "bead-mail",
+                "cost": 50
+            },
+            {
+                "name": "shadow-mail",
+                "cost": 50
+            },
+            {
+                "name": "tropic-mail",
+                "cost": 50
+            },
+            {
+                "name": "dream-mail",
+                "cost": 50
+            },
+            {
+                "name": "fab-mail",
+                "cost": 50
+            },
+            {
+                "name": "retro-mail",
+                "cost": 0
+            },
+            {
+                "name": "mach-bike",
+                "cost": 0
+            },
+            {
+                "name": "acro-bike",
+                "cost": 0
+            },
+            {
+                "name": "wailmer-pail",
+                "cost": 0
+            },
+            {
+                "name": "devon-goods",
+                "cost": 0
+            },
+            {
+                "name": "soot-sack",
+                "cost": 0
+            },
+            {
+                "name": "pokeblock-case",
+                "cost": 0
+            },
+            {
+                "name": "letter",
+                "cost": 0
+            },
+            {
+                "name": "eon-ticket",
+                "cost": 0
+            },
+            {
+                "name": "scanner",
+                "cost": 0
+            },
+            {
+                "name": "go-goggles",
+                "cost": 0
+            },
+            {
+                "name": "meteorite",
+                "cost": 0
+            },
+            {
+                "name": "rm-1-key",
+                "cost": 0
+            },
+            {
+                "name": "rm-2-key",
+                "cost": 0
+            },
+            {
+                "name": "rm-4-key",
+                "cost": 0
+            },
+            {
+                "name": "rm-6-key",
+                "cost": 0
+            },
+            {
+                "name": "devon-scope",
+                "cost": 0
+            },
+            {
+                "name": "oaks-parcel",
+                "cost": 0
+            },
+            {
+                "name": "poke-flute",
+                "cost": 0
+            },
+            {
+                "name": "bike-voucher",
+                "cost": 0
+            },
+            {
+                "name": "gold-teeth",
+                "cost": 0
+            },
+            {
+                "name": "lift-key",
+                "cost": 0
+            },
+            {
+                "name": "silph-scope",
+                "cost": 0
+            },
+            {
+                "name": "fame-checker",
+                "cost": 0
+            },
+            {
+                "name": "tm-case",
+                "cost": 0
+            },
+            {
+                "name": "berry-pouch",
+                "cost": 0
+            },
+            {
+                "name": "teachy-tv",
+                "cost": 0
+            },
+            {
+                "name": "tri-pass",
+                "cost": 0
+            },
+            {
+                "name": "rainbow-pass",
+                "cost": 0
+            },
+            {
+                "name": "tea",
+                "cost": 0
+            },
+            {
+                "name": "mysticticket",
+                "cost": 0
+            },
+            {
+                "name": "auroraticket",
+                "cost": 0
+            },
+            {
+                "name": "powder-jar",
+                "cost": 0
+            },
+            {
+                "name": "ruby",
+                "cost": 0
+            },
+            {
+                "name": "sapphire",
+                "cost": 0
+            },
+            {
+                "name": "magma-emblem",
+                "cost": 0
+            },
+            {
+                "name": "old-sea-map",
+                "cost": 0
+            },
+            {
+                "name": "douse-drive",
+                "cost": 0
+            },
+            {
+                "name": "shock-drive",
+                "cost": 0
+            },
+            {
+                "name": "burn-drive",
+                "cost": 0
+            },
+            {
+                "name": "chill-drive",
+                "cost": 0
+            },
+            {
+                "name": "sweet-heart",
+                "cost": 3000
+            },
+            {
+                "name": "greet-mail",
+                "cost": 50
+            },
+            {
+                "name": "favored-mail",
+                "cost": 50
+            },
+            {
+                "name": "rsvp-mail",
+                "cost": 50
+            },
+            {
+                "name": "thanks-mail",
+                "cost": 50
+            },
+            {
+                "name": "inquiry-mail",
+                "cost": 50
+            },
+            {
+                "name": "like-mail",
+                "cost": 50
+            },
+            {
+                "name": "reply-mail",
+                "cost": 50
+            },
+            {
+                "name": "bridge-mail-s",
+                "cost": 50
+            },
+            {
+                "name": "bridge-mail-d",
+                "cost": 50
+            },
+            {
+                "name": "bridge-mail-t",
+                "cost": 50
+            },
+            {
+                "name": "bridge-mail-v",
+                "cost": 50
+            },
+            {
+                "name": "bridge-mail-m",
+                "cost": 50
+            },
+            {
+                "name": "prism-scale",
+                "cost": 2000
+            },
+            {
+                "name": "eviolite",
+                "cost": 4000
+            },
+            {
+                "name": "float-stone",
+                "cost": 4000
+            },
+            {
+                "name": "rocky-helmet",
+                "cost": 4000
+            },
+            {
+                "name": "air-balloon",
+                "cost": 4000
+            },
+            {
+                "name": "red-card",
+                "cost": 4000
+            },
+            {
+                "name": "ring-target",
+                "cost": 4000
+            },
+            {
+                "name": "binding-band",
+                "cost": 4000
+            },
+            {
+                "name": "absorb-bulb",
+                "cost": 4000
+            },
+            {
+                "name": "cell-battery",
+                "cost": 4000
+            },
+            {
+                "name": "eject-button",
+                "cost": 4000
+            },
+            {
+                "name": "fire-gem",
+                "cost": 200
+            },
+            {
+                "name": "water-gem",
+                "cost": 200
+            },
+            {
+                "name": "electric-gem",
+                "cost": 200
+            },
+            {
+                "name": "grass-gem",
+                "cost": 200
+            },
+            {
+                "name": "ice-gem",
+                "cost": 200
+            },
+            {
+                "name": "fighting-gem",
+                "cost": 200
+            },
+            {
+                "name": "poison-gem",
+                "cost": 200
+            },
+            {
+                "name": "ground-gem",
+                "cost": 200
+            },
+            {
+                "name": "flying-gem",
+                "cost": 200
+            },
+            {
+                "name": "psychic-gem",
+                "cost": 200
+            },
+            {
+                "name": "bug-gem",
+                "cost": 200
+            },
+            {
+                "name": "rock-gem",
+                "cost": 200
+            },
+            {
+                "name": "ghost-gem",
+                "cost": 200
+            },
+            {
+                "name": "dark-gem",
+                "cost": 200
+            },
+            {
+                "name": "steel-gem",
+                "cost": 200
+            },
+            {
+                "name": "health-wing",
+                "cost": 300
+            },
+            {
+                "name": "muscle-wing",
+                "cost": 300
+            },
+            {
+                "name": "resist-wing",
+                "cost": 300
+            },
+            {
+                "name": "genius-wing",
+                "cost": 300
+            },
+            {
+                "name": "clever-wing",
+                "cost": 300
+            },
+            {
+                "name": "swift-wing",
+                "cost": 300
+            },
+            {
+                "name": "pretty-wing",
+                "cost": 1000
+            },
+            {
+                "name": "cover-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "plume-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "liberty-pass",
+                "cost": 0
+            },
+            {
+                "name": "pass-orb",
+                "cost": 200
+            },
+            {
+                "name": "dream-ball",
+                "cost": 0
+            },
+            {
+                "name": "poke-toy",
+                "cost": 100
+            },
+            {
+                "name": "prop-case",
+                "cost": 0
+            },
+            {
+                "name": "dragon-skull",
+                "cost": 0
+            },
+            {
+                "name": "balm-mushroom",
+                "cost": 15000
+            },
+            {
+                "name": "big-nugget",
+                "cost": 40000
+            },
+            {
+                "name": "pearl-string",
+                "cost": 20000
+            },
+            {
+                "name": "comet-shard",
+                "cost": 25000
+            },
+            {
+                "name": "relic-copper",
+                "cost": 0
+            },
+            {
+                "name": "relic-silver",
+                "cost": 0
+            },
+            {
+                "name": "relic-gold",
+                "cost": 60000
+            },
+            {
+                "name": "relic-vase",
+                "cost": 0
+            },
+            {
+                "name": "relic-band",
+                "cost": 0
+            },
+            {
+                "name": "relic-statue",
+                "cost": 0
+            },
+            {
+                "name": "relic-crown",
+                "cost": 0
+            },
+            {
+                "name": "casteliacone",
+                "cost": 350
+            },
+            {
+                "name": "dire-hit-2",
+                "cost": 0
+            },
+            {
+                "name": "x-speed-2",
+                "cost": 0
+            },
+            {
+                "name": "x-sp-atk-2",
+                "cost": 0
+            },
+            {
+                "name": "x-sp-def-2",
+                "cost": 0
+            },
+            {
+                "name": "x-defense-2",
+                "cost": 0
+            },
+            {
+                "name": "x-attack-2",
+                "cost": 0
+            },
+            {
+                "name": "x-accuracy-2",
+                "cost": 0
+            },
+            {
+                "name": "x-speed-3",
+                "cost": 0
+            },
+            {
+                "name": "x-sp-atk-3",
+                "cost": 0
+            },
+            {
+                "name": "x-sp-def-3",
+                "cost": 0
+            },
+            {
+                "name": "x-defense-3",
+                "cost": 0
+            },
+            {
+                "name": "x-attack-3",
+                "cost": 0
+            },
+            {
+                "name": "x-accuracy-3",
+                "cost": 0
+            },
+            {
+                "name": "x-speed-6",
+                "cost": 0
+            },
+            {
+                "name": "x-sp-atk-6",
+                "cost": 0
+            },
+            {
+                "name": "x-sp-def-6",
+                "cost": 0
+            },
+            {
+                "name": "x-defense-6",
+                "cost": 0
+            },
+            {
+                "name": "x-attack-6",
+                "cost": 0
+            },
+            {
+                "name": "x-accuracy-6",
+                "cost": 0
+            },
+            {
+                "name": "ability-urge",
+                "cost": 0
+            },
+            {
+                "name": "item-drop",
+                "cost": 0
+            },
+            {
+                "name": "item-urge",
+                "cost": 0
+            },
+            {
+                "name": "reset-urge",
+                "cost": 0
+            },
+            {
+                "name": "dire-hit-3",
+                "cost": 0
+            },
+            {
+                "name": "light-stone",
+                "cost": 0
+            },
+            {
+                "name": "dark-stone",
+                "cost": 0
+            },
+            {
+                "name": "tm93",
+                "cost": 1000
+            },
+            {
+                "name": "tm94",
+                "cost": 10000
+            },
+            {
+                "name": "tm95",
+                "cost": 1000
+            },
+            {
+                "name": "xtransceiver",
+                "cost": 0
+            },
+            {
+                "name": "god-stone",
+                "cost": 0
+            },
+            {
+                "name": "gram-1",
+                "cost": 0
+            },
+            {
+                "name": "gram-2",
+                "cost": 0
+            },
+            {
+                "name": "gram-3",
+                "cost": 0
+            },
+            {
+                "name": "dragon-gem",
+                "cost": 200
+            },
+            {
+                "name": "normal-gem",
+                "cost": 4000
+            },
+            {
+                "name": "medal-box",
+                "cost": 0
+            },
+            {
+                "name": "dna-splicers",
+                "cost": 0
+            },
+            {
+                "name": "permit",
+                "cost": 0
+            },
+            {
+                "name": "oval-charm",
+                "cost": 0
+            },
+            {
+                "name": "shiny-charm",
+                "cost": 0
+            },
+            {
+                "name": "plasma-card",
+                "cost": 0
+            },
+            {
+                "name": "grubby-hanky",
+                "cost": 0
+            },
+            {
+                "name": "colress-machine",
+                "cost": 0
+            },
+            {
+                "name": "dropped-item",
+                "cost": 0
+            },
+            {
+                "name": "reveal-glass",
+                "cost": 0
+            },
+            {
+                "name": "weakness-policy",
+                "cost": 1000
+            },
+            {
+                "name": "assault-vest",
+                "cost": 1000
+            },
+            {
+                "name": "pixie-plate",
+                "cost": 1000
+            },
+            {
+                "name": "ability-capsule",
+                "cost": 10000
+            },
+            {
+                "name": "whipped-dream",
+                "cost": 2000
+            },
+            {
+                "name": "sachet",
+                "cost": 2000
+            },
+            {
+                "name": "luminous-moss",
+                "cost": 4000
+            },
+            {
+                "name": "snowball",
+                "cost": 4000
+            },
+            {
+                "name": "safety-goggles",
+                "cost": 4000
+            },
+            {
+                "name": "rich-mulch",
+                "cost": 200
+            },
+            {
+                "name": "surprise-mulch",
+                "cost": 200
+            },
+            {
+                "name": "boost-mulch",
+                "cost": 200
+            },
+            {
+                "name": "amaze-mulch",
+                "cost": 200
+            },
+            {
+                "name": "gengarite",
+                "cost": 0
+            },
+            {
+                "name": "gardevoirite",
+                "cost": 0
+            },
+            {
+                "name": "ampharosite",
+                "cost": 0
+            },
+            {
+                "name": "venusaurite",
+                "cost": 0
+            },
+            {
+                "name": "charizardite-x",
+                "cost": 0
+            },
+            {
+                "name": "blastoisinite",
+                "cost": 0
+            },
+            {
+                "name": "mewtwonite-x",
+                "cost": 0
+            },
+            {
+                "name": "mewtwonite-y",
+                "cost": 0
+            },
+            {
+                "name": "blazikenite",
+                "cost": 0
+            },
+            {
+                "name": "medichamite",
+                "cost": 0
+            },
+            {
+                "name": "houndoominite",
+                "cost": 0
+            },
+            {
+                "name": "aggronite",
+                "cost": 0
+            },
+            {
+                "name": "banettite",
+                "cost": 0
+            },
+            {
+                "name": "tyranitarite",
+                "cost": 0
+            },
+            {
+                "name": "scizorite",
+                "cost": 0
+            },
+            {
+                "name": "pinsirite",
+                "cost": 0
+            },
+            {
+                "name": "aerodactylite",
+                "cost": 0
+            },
+            {
+                "name": "lucarionite",
+                "cost": 0
+            },
+            {
+                "name": "abomasite",
+                "cost": 0
+            },
+            {
+                "name": "kangaskhanite",
+                "cost": 0
+            },
+            {
+                "name": "gyaradosite",
+                "cost": 0
+            },
+            {
+                "name": "absolite",
+                "cost": 0
+            },
+            {
+                "name": "charizardite-y",
+                "cost": 0
+            },
+            {
+                "name": "alakazite",
+                "cost": 0
+            },
+            {
+                "name": "heracronite",
+                "cost": 0
+            },
+            {
+                "name": "mawilite",
+                "cost": 0
+            },
+            {
+                "name": "manectite",
+                "cost": 0
+            },
+            {
+                "name": "garchompite",
+                "cost": 0
+            },
+            {
+                "name": "roseli-berry",
+                "cost": 80
+            },
+            {
+                "name": "kee-berry",
+                "cost": 80
+            },
+            {
+                "name": "maranga-berry",
+                "cost": 80
+            },
+            {
+                "name": "discount-coupon",
+                "cost": 20
+            },
+            {
+                "name": "strange-souvenir",
+                "cost": 3000
+            },
+            {
+                "name": "lumiose-galette",
+                "cost": 350
+            },
+            {
+                "name": "jaw-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "sail-fossil",
+                "cost": 7000
+            },
+            {
+                "name": "fairy-gem",
+                "cost": 200
+            },
+            {
+                "name": "adventure-rules",
+                "cost": 0
+            },
+            {
+                "name": "elevator-key",
+                "cost": 0
+            },
+            {
+                "name": "holo-caster",
+                "cost": 0
+            },
+            {
+                "name": "honor-of-kalos",
+                "cost": 0
+            },
+            {
+                "name": "intriguing-stone",
+                "cost": 0
+            },
+            {
+                "name": "lens-case",
+                "cost": 0
+            },
+            {
+                "name": "looker-ticket",
+                "cost": 0
+            },
+            {
+                "name": "mega-ring",
+                "cost": 0
+            },
+            {
+                "name": "power-plant-pass",
+                "cost": 0
+            },
+            {
+                "name": "profs-letter",
+                "cost": 0
+            },
+            {
+                "name": "roller-skates",
+                "cost": 0
+            },
+            {
+                "name": "sprinklotad",
+                "cost": 0
+            },
+            {
+                "name": "tmv-pass",
+                "cost": 0
+            },
+            {
+                "name": "tm96",
+                "cost": 1000
+            },
+            {
+                "name": "tm97",
+                "cost": 1000
+            },
+            {
+                "name": "tm98",
+                "cost": 1000
+            },
+            {
+                "name": "tm99",
+                "cost": 1000
+            },
+            {
+                "name": "tm100",
+                "cost": 5000
+            },
+            {
+                "name": "latiasite",
+                "cost": 0
+            },
+            {
+                "name": "latiosite",
+                "cost": 0
+            },
+            {
+                "name": "common-stone",
+                "cost": 0
+            },
+            {
+                "name": "makeup-bag",
+                "cost": 0
+            },
+            {
+                "name": "travel-trunk",
+                "cost": 0
+            },
+            {
+                "name": "shalour-sable",
+                "cost": 350
+            },
+            {
+                "name": "mega-charm",
+                "cost": 0
+            },
+            {
+                "name": "mega-glove",
+                "cost": 0
+            },
+            {
+                "name": "devon-parts",
+                "cost": 0
+            },
+            {
+                "name": "pokeblock-kit",
+                "cost": 0
+            },
+            {
+                "name": "key-to-room-1",
+                "cost": 0
+            },
+            {
+                "name": "key-to-room-2",
+                "cost": 0
+            },
+            {
+                "name": "key-to-room-4",
+                "cost": 0
+            },
+            {
+                "name": "key-to-room-6",
+                "cost": 0
+            },
+            {
+                "name": "devon-scuba-gear",
+                "cost": 0
+            },
+            {
+                "name": "contest-costume--jacket",
+                "cost": 0
+            },
+            {
+                "name": "magma-suit",
+                "cost": 0
+            },
+            {
+                "name": "aqua-suit",
+                "cost": 0
+            },
+            {
+                "name": "pair-of-tickets",
+                "cost": 0
+            },
+            {
+                "name": "mega-bracelet",
+                "cost": 0
+            },
+            {
+                "name": "mega-pendant",
+                "cost": 0
+            },
+            {
+                "name": "mega-glasses",
+                "cost": 0
+            },
+            {
+                "name": "mega-anchor",
+                "cost": 0
+            },
+            {
+                "name": "mega-stickpin",
+                "cost": 0
+            },
+            {
+                "name": "mega-tiara",
+                "cost": 0
+            },
+            {
+                "name": "mega-anklet",
+                "cost": 0
+            },
+            {
+                "name": "swampertite",
+                "cost": 0
+            },
+            {
+                "name": "sceptilite",
+                "cost": 0
+            },
+            {
+                "name": "sablenite",
+                "cost": 0
+            },
+            {
+                "name": "altarianite",
+                "cost": 0
+            },
+            {
+                "name": "galladite",
+                "cost": 0
+            },
+            {
+                "name": "audinite",
+                "cost": 0
+            },
+            {
+                "name": "metagrossite",
+                "cost": 0
+            },
+            {
+                "name": "sharpedonite",
+                "cost": 0
+            },
+            {
+                "name": "slowbronite",
+                "cost": 0
+            },
+            {
+                "name": "steelixite",
+                "cost": 0
+            },
+            {
+                "name": "pidgeotite",
+                "cost": 0
+            },
+            {
+                "name": "glalitite",
+                "cost": 0
+            },
+            {
+                "name": "diancite",
+                "cost": 0
+            },
+            {
+                "name": "prison-bottle",
+                "cost": 0
+            },
+            {
+                "name": "mega-cuff",
+                "cost": 0
+            },
+            {
+                "name": "cameruptite",
+                "cost": 0
+            },
+            {
+                "name": "lopunnite",
+                "cost": 0
+            },
+            {
+                "name": "salamencite",
+                "cost": 0
+            },
+            {
+                "name": "beedrillite",
+                "cost": 0
+            },
+            {
+                "name": "key-stone",
+                "cost": 0
+            },
+            {
+                "name": "meteorite-shard",
+                "cost": 0
+            },
+            {
+                "name": "eon-flute",
+                "cost": 0
+            },
+            {
+                "name": "normalium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "firium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "waterium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "electrium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "grassium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "icium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "fightinium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "poisonium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "groundium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "flyinium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "psychium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "buginium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "rockium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "ghostium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "dragonium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "darkinium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "steelium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "fairium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "pikanium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "bottle-cap",
+                "cost": 5000
+            },
+            {
+                "name": "gold-bottle-cap",
+                "cost": 10000
+            },
+            {
+                "name": "z-ring",
+                "cost": 0
+            },
+            {
+                "name": "decidium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "incinium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "primarium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "tapunium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "marshadium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "aloraichium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "snorlium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "eevium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "mewnium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "pikashunium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "forage-bag",
+                "cost": 0
+            },
+            {
+                "name": "fishing-rod",
+                "cost": 0
+            },
+            {
+                "name": "professors-mask",
+                "cost": 0
+            },
+            {
+                "name": "festival-ticket",
+                "cost": 10
+            },
+            {
+                "name": "sparkling-stone",
+                "cost": 0
+            },
+            {
+                "name": "adrenaline-orb",
+                "cost": 4000
+            },
+            {
+                "name": "zygarde-cube",
+                "cost": 0
+            },
+            {
+                "name": "ice-stone",
+                "cost": 3000
+            },
+            {
+                "name": "ride-pager",
+                "cost": 0
+            },
+            {
+                "name": "beast-ball",
+                "cost": 0
+            },
+            {
+                "name": "big-malasada",
+                "cost": 350
+            },
+            {
+                "name": "red-nectar",
+                "cost": 300
+            },
+            {
+                "name": "yellow-nectar",
+                "cost": 300
+            },
+            {
+                "name": "pink-nectar",
+                "cost": 300
+            },
+            {
+                "name": "purple-nectar",
+                "cost": 300
+            },
+            {
+                "name": "sun-flute",
+                "cost": 0
+            },
+            {
+                "name": "moon-flute",
+                "cost": 0
+            },
+            {
+                "name": "enigmatic-card",
+                "cost": 0
+            },
+            {
+                "name": "terrain-extender",
+                "cost": 4000
+            },
+            {
+                "name": "protective-pads",
+                "cost": 4000
+            },
+            {
+                "name": "electric-seed",
+                "cost": 4000
+            },
+            {
+                "name": "psychic-seed",
+                "cost": 4000
+            },
+            {
+                "name": "misty-seed",
+                "cost": 4000
+            },
+            {
+                "name": "grassy-seed",
+                "cost": 4000
+            },
+            {
+                "name": "fighting-memory",
+                "cost": 1000
+            },
+            {
+                "name": "flying-memory",
+                "cost": 1000
+            },
+            {
+                "name": "poison-memory",
+                "cost": 1000
+            },
+            {
+                "name": "ground-memory",
+                "cost": 1000
+            },
+            {
+                "name": "rock-memory",
+                "cost": 1000
+            },
+            {
+                "name": "bug-memory",
+                "cost": 1000
+            },
+            {
+                "name": "ghost-memory",
+                "cost": 1000
+            },
+            {
+                "name": "steel-memory",
+                "cost": 1000
+            },
+            {
+                "name": "fire-memory",
+                "cost": 1000
+            },
+            {
+                "name": "water-memory",
+                "cost": 1000
+            },
+            {
+                "name": "grass-memory",
+                "cost": 1000
+            },
+            {
+                "name": "electric-memory",
+                "cost": 1000
+            },
+            {
+                "name": "psychic-memory",
+                "cost": 1000
+            },
+            {
+                "name": "ice-memory",
+                "cost": 1000
+            },
+            {
+                "name": "dragon-memory",
+                "cost": 1000
+            },
+            {
+                "name": "dark-memory",
+                "cost": 1000
+            },
+            {
+                "name": "fairy-memory",
+                "cost": 1000
+            },
+            {
+                "name": "bike--green",
+                "cost": 0
+            },
+            {
+                "name": "storage-key--galactic-warehouse",
+                "cost": 0
+            },
+            {
+                "name": "basement-key--goldenrod",
+                "cost": 0
+            },
+            {
+                "name": "xtransceiver--red",
+                "cost": 0
+            },
+            {
+                "name": "xtransceiver--yellow",
+                "cost": 0
+            },
+            {
+                "name": "dna-splicers--merge",
+                "cost": 0
+            },
+            {
+                "name": "dna-splicers--split",
+                "cost": 0
+            },
+            {
+                "name": "dropped-item--red",
+                "cost": 0
+            },
+            {
+                "name": "dropped-item--yellow",
+                "cost": 0
+            },
+            {
+                "name": "holo-caster--green",
+                "cost": 0
+            },
+            {
+                "name": "bike--yellow",
+                "cost": 0
+            },
+            {
+                "name": "holo-caster--red",
+                "cost": 0
+            },
+            {
+                "name": "basement-key--new-mauville",
+                "cost": 0
+            },
+            {
+                "name": "storage-key--sea-mauville",
+                "cost": 0
+            },
+            {
+                "name": "ss-ticket--hoenn",
+                "cost": 0
+            },
+            {
+                "name": "contest-costume--dress",
+                "cost": 0
+            },
+            {
+                "name": "meteorite--2",
+                "cost": 0
+            },
+            {
+                "name": "meteorite--3",
+                "cost": 0
+            },
+            {
+                "name": "meteorite--4",
+                "cost": 0
+            },
+            {
+                "name": "normalium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "firium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "waterium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "electrium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "grassium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "icium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "fightinium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "poisonium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "groundium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "flyinium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "psychium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "buginium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "rockium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "ghostium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "dragonium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "darkinium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "steelium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "fairium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "pikanium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "decidium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "incinium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "primarium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "tapunium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "marshadium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "aloraichium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "snorlium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "eevium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "mewnium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "pikashunium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "solganium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "lunalium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "ultranecrozium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "mimikium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "lycanium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "kommonium-z--held",
+                "cost": 0
+            },
+            {
+                "name": "solganium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "lunalium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "ultranecrozium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "mimikium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "lycanium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "kommonium-z--bag",
+                "cost": 0
+            },
+            {
+                "name": "z-power-ring",
+                "cost": 0
+            },
+            {
+                "name": "pink-petal",
+                "cost": 0
+            },
+            {
+                "name": "orange-petal",
+                "cost": 0
+            },
+            {
+                "name": "blue-petal",
+                "cost": 0
+            },
+            {
+                "name": "red-petal",
+                "cost": 0
+            },
+            {
+                "name": "green-petal",
+                "cost": 0
+            },
+            {
+                "name": "yellow-petal",
+                "cost": 0
+            },
+            {
+                "name": "purple-petal",
+                "cost": 0
+            },
+            {
+                "name": "rainbow-flower",
+                "cost": 0
+            },
+            {
+                "name": "surge-badge",
+                "cost": 0
+            },
+            {
+                "name": "n-solarizer--merge",
+                "cost": 0
+            },
+            {
+                "name": "n-lunarizer--merge",
+                "cost": 0
+            },
+            {
+                "name": "n-solarizer--split",
+                "cost": 0
+            },
+            {
+                "name": "n-lunarizer--split",
+                "cost": 0
+            },
+            {
+                "name": "ilimas-normalium-z",
+                "cost": 0
+            },
+            {
+                "name": "left-poke-ball",
+                "cost": 0
+            },
+            {
+                "name": "roto-hatch",
+                "cost": 0
+            },
+            {
+                "name": "roto-bargain",
+                "cost": 0
+            },
+            {
+                "name": "roto-prize-money",
+                "cost": 0
+            },
+            {
+                "name": "roto-exp-points",
+                "cost": 0
+            },
+            {
+                "name": "roto-friendship",
+                "cost": 0
+            },
+            {
+                "name": "roto-encounter",
+                "cost": 0
+            },
+            {
+                "name": "roto-stealth",
+                "cost": 0
+            },
+            {
+                "name": "roto-hp-restore",
+                "cost": 0
+            },
+            {
+                "name": "roto-pp-restore",
+                "cost": 0
+            },
+            {
+                "name": "roto-boost",
+                "cost": 0
+            },
+            {
+                "name": "roto-catch",
+                "cost": 0
+            },
+            {
+                "name": "autograph",
+                "cost": 0
+            },
+            {
+                "name": "pokemon-box",
+                "cost": 0
+            },
+            {
+                "name": "medicine-pocket",
+                "cost": 0
+            },
+            {
+                "name": "candy-jar",
+                "cost": 0
+            },
+            {
+                "name": "power-up-pocket",
+                "cost": 0
+            },
+            {
+                "name": "clothing-trunk",
+                "cost": 0
+            },
+            {
+                "name": "catching-pocket",
+                "cost": 0
+            },
+            {
+                "name": "battle-pocket",
+                "cost": 0
+            },
+            {
+                "name": "silver-razz-berry",
+                "cost": 1000
+            },
+            {
+                "name": "golden-razz-berry",
+                "cost": 5000
+            },
+            {
+                "name": "silver-nanab-berry",
+                "cost": 1000
+            },
+            {
+                "name": "golden-nanab-berry",
+                "cost": 5000
+            },
+            {
+                "name": "silver-pinap-berry",
+                "cost": 1000
+            },
+            {
+                "name": "golden-pinap-berry",
+                "cost": 5000
+            },
+            {
+                "name": "secret-key--letsgo",
+                "cost": 0
+            },
+            {
+                "name": "ss-ticket--letsgo",
+                "cost": 0
+            },
+            {
+                "name": "parcel--letsgo",
+                "cost": 0
+            },
+            {
+                "name": "card-key--letsgo",
+                "cost": 0
+            },
+            {
+                "name": "stretchy-spring",
+                "cost": 20
+            },
+            {
+                "name": "chalky-stone",
+                "cost": 60
+            },
+            {
+                "name": "marble",
+                "cost": 300
+            },
+            {
+                "name": "lone-earring",
+                "cost": 600
+            },
+            {
+                "name": "beach-glass",
+                "cost": 800
+            },
+            {
+                "name": "gold-leaf",
+                "cost": 1000
+            },
+            {
+                "name": "silver-leaf",
+                "cost": 1000
+            },
+            {
+                "name": "polished-mud-ball",
+                "cost": 1200
+            },
+            {
+                "name": "tropical-shell",
+                "cost": 2000
+            },
+            {
+                "name": "leaf-letter--pikachu",
+                "cost": 0
+            },
+            {
+                "name": "leaf-letter--eevee",
+                "cost": 0
+            },
+            {
+                "name": "small-bouquet",
+                "cost": 0
+            },
+            {
+                "name": "lure",
+                "cost": 400
+            },
+            {
+                "name": "super-lure",
+                "cost": 700
+            },
+            {
+                "name": "max-lure",
+                "cost": 900
+            },
+            {
+                "name": "pewter-crunchies",
+                "cost": 250
+            },
+            {
+                "name": "health-candy",
+                "cost": 20
+            },
+            {
+                "name": "mighty-candy",
+                "cost": 20
+            },
+            {
+                "name": "tough-candy",
+                "cost": 20
+            },
+            {
+                "name": "smart-candy",
+                "cost": 20
+            },
+            {
+                "name": "courage-candy",
+                "cost": 20
+            },
+            {
+                "name": "quick-candy",
+                "cost": 20
+            },
+            {
+                "name": "health-candy-l",
+                "cost": 20
+            },
+            {
+                "name": "mighty-candy-l",
+                "cost": 20
+            },
+            {
+                "name": "tough-candy-l",
+                "cost": 20
+            },
+            {
+                "name": "smart-candy-l",
+                "cost": 20
+            },
+            {
+                "name": "courage-candy-l",
+                "cost": 20
+            },
+            {
+                "name": "quick-candy-l",
+                "cost": 20
+            },
+            {
+                "name": "health-candy-xl",
+                "cost": 20
+            },
+            {
+                "name": "mighty-candy-xl",
+                "cost": 20
+            },
+            {
+                "name": "tough-candy-xl",
+                "cost": 20
+            },
+            {
+                "name": "smart-candy-xl",
+                "cost": 20
+            },
+            {
+                "name": "courage-candy-xl",
+                "cost": 20
+            },
+            {
+                "name": "quick-candy-xl",
+                "cost": 20
+            },
+            {
+                "name": "bulbasaur-candy",
+                "cost": 20
+            },
+            {
+                "name": "charmander-candy",
+                "cost": 20
+            },
+            {
+                "name": "squirtle-candy",
+                "cost": 20
+            },
+            {
+                "name": "caterpie-candy",
+                "cost": 20
+            },
+            {
+                "name": "weedle-candy",
+                "cost": 20
+            },
+            {
+                "name": "pidgey-candy",
+                "cost": 20
+            },
+            {
+                "name": "rattata-candy",
+                "cost": 20
+            },
+            {
+                "name": "spearow-candy",
+                "cost": 20
+            },
+            {
+                "name": "ekans-candy",
+                "cost": 20
+            },
+            {
+                "name": "pikachu-candy",
+                "cost": 20
+            },
+            {
+                "name": "sandshrew-candy",
+                "cost": 20
+            },
+            {
+                "name": "nidoran-f-candy",
+                "cost": 20
+            },
+            {
+                "name": "nidoran-m-candy",
+                "cost": 20
+            },
+            {
+                "name": "clefairy-candy",
+                "cost": 20
+            },
+            {
+                "name": "vulpix-candy",
+                "cost": 20
+            },
+            {
+                "name": "jigglypuff-candy",
+                "cost": 20
+            },
+            {
+                "name": "zubat-candy",
+                "cost": 20
+            },
+            {
+                "name": "oddish-candy",
+                "cost": 20
+            },
+            {
+                "name": "paras-candy",
+                "cost": 20
+            },
+            {
+                "name": "venonat-candy",
+                "cost": 20
+            },
+            {
+                "name": "diglett-candy",
+                "cost": 20
+            },
+            {
+                "name": "meowth-candy",
+                "cost": 20
+            },
+            {
+                "name": "psyduck-candy",
+                "cost": 20
+            },
+            {
+                "name": "mankey-candy",
+                "cost": 20
+            },
+            {
+                "name": "growlithe-candy",
+                "cost": 20
+            },
+            {
+                "name": "poliwag-candy",
+                "cost": 20
+            },
+            {
+                "name": "abra-candy",
+                "cost": 20
+            },
+            {
+                "name": "machop-candy",
+                "cost": 20
+            },
+            {
+                "name": "bellsprout-candy",
+                "cost": 20
+            },
+            {
+                "name": "tentacool-candy",
+                "cost": 20
+            },
+            {
+                "name": "geodude-candy",
+                "cost": 20
+            },
+            {
+                "name": "ponyta-candy",
+                "cost": 20
+            },
+            {
+                "name": "slowpoke-candy",
+                "cost": 20
+            },
+            {
+                "name": "magnemite-candy",
+                "cost": 20
+            },
+            {
+                "name": "farfetchd-candy",
+                "cost": 20
+            },
+            {
+                "name": "doduo-candy",
+                "cost": 20
+            },
+            {
+                "name": "seel-candy",
+                "cost": 20
+            },
+            {
+                "name": "grimer-candy",
+                "cost": 20
+            },
+            {
+                "name": "shellder-candy",
+                "cost": 20
+            },
+            {
+                "name": "gastly-candy",
+                "cost": 20
+            },
+            {
+                "name": "onix-candy",
+                "cost": 20
+            },
+            {
+                "name": "drowzee-candy",
+                "cost": 20
+            },
+            {
+                "name": "krabby-candy",
+                "cost": 20
+            },
+            {
+                "name": "voltorb-candy",
+                "cost": 20
+            },
+            {
+                "name": "exeggcute-candy",
+                "cost": 20
+            },
+            {
+                "name": "cubone-candy",
+                "cost": 20
+            },
+            {
+                "name": "hitmonlee-candy",
+                "cost": 20
+            },
+            {
+                "name": "hitmonchan-candy",
+                "cost": 20
+            },
+            {
+                "name": "lickitung-candy",
+                "cost": 20
+            },
+            {
+                "name": "koffing-candy",
+                "cost": 20
+            },
+            {
+                "name": "rhyhorn-candy",
+                "cost": 20
+            },
+            {
+                "name": "chansey-candy",
+                "cost": 20
+            },
+            {
+                "name": "tangela-candy",
+                "cost": 20
+            },
+            {
+                "name": "kangaskhan-candy",
+                "cost": 20
+            },
+            {
+                "name": "horsea-candy",
+                "cost": 20
+            },
+            {
+                "name": "goldeen-candy",
+                "cost": 20
+            },
+            {
+                "name": "staryu-candy",
+                "cost": 20
+            },
+            {
+                "name": "mr-mime-candy",
+                "cost": 20
+            },
+            {
+                "name": "scyther-candy",
+                "cost": 20
+            },
+            {
+                "name": "jynx-candy",
+                "cost": 20
+            },
+            {
+                "name": "electabuzz-candy",
+                "cost": 20
+            },
+            {
+                "name": "pinsir-candy",
+                "cost": 20
+            },
+            {
+                "name": "tauros-candy",
+                "cost": 20
+            },
+            {
+                "name": "magikarp-candy",
+                "cost": 20
+            },
+            {
+                "name": "lapras-candy",
+                "cost": 20
+            },
+            {
+                "name": "ditto-candy",
+                "cost": 20
+            },
+            {
+                "name": "eevee-candy",
+                "cost": 20
+            },
+            {
+                "name": "porygon-candy",
+                "cost": 20
+            },
+            {
+                "name": "omanyte-candy",
+                "cost": 20
+            },
+            {
+                "name": "kabuto-candy",
+                "cost": 20
+            },
+            {
+                "name": "aerodactyl-candy",
+                "cost": 20
+            },
+            {
+                "name": "snorlax-candy",
+                "cost": 20
+            },
+            {
+                "name": "articuno-candy",
+                "cost": 20
+            },
+            {
+                "name": "zapdos-candy",
+                "cost": 20
+            },
+            {
+                "name": "moltres-candy",
+                "cost": 20
+            },
+            {
+                "name": "dratini-candy",
+                "cost": 20
+            },
+            {
+                "name": "mewtwo-candy",
+                "cost": 20
+            },
+            {
+                "name": "mew-candy",
+                "cost": 20
+            },
+            {
+                "name": "meltan-candy",
+                "cost": 20
+            },
+            {
+                "name": "magmar-candy",
+                "cost": 20
+            },
+            {
+                "name": "endorsement",
+                "cost": 0
+            },
+            {
+                "name": "pokemon-box-link",
+                "cost": 0
+            },
+            {
+                "name": "wishing-star",
+                "cost": 0
+            },
+            {
+                "name": "dynamax-band",
+                "cost": 0
+            },
+            {
+                "name": "fishing-rod--galar",
+                "cost": 0
+            },
+            {
+                "name": "rotom-bike",
+                "cost": 0
+            },
+            {
+                "name": "sausages",
+                "cost": 400
+            },
+            {
+                "name": "bobs-food-tin",
+                "cost": 950
+            },
+            {
+                "name": "bachs-food-tin",
+                "cost": 950
+            },
+            {
+                "name": "tin-of-beans",
+                "cost": 400
+            },
+            {
+                "name": "bread",
+                "cost": 150
+            },
+            {
+                "name": "pasta",
+                "cost": 150
+            },
+            {
+                "name": "mixed-mushrooms",
+                "cost": 400
+            },
+            {
+                "name": "smoke-poke-tail",
+                "cost": 2200
+            },
+            {
+                "name": "large-leek",
+                "cost": 2200
+            },
+            {
+                "name": "fancy-apple",
+                "cost": 2200
+            },
+            {
+                "name": "brittle-bones",
+                "cost": 950
+            },
+            {
+                "name": "pack-of-potatoes",
+                "cost": 400
+            },
+            {
+                "name": "pungent-root",
+                "cost": 950
+            },
+            {
+                "name": "salad-mix",
+                "cost": 400
+            },
+            {
+                "name": "fried-food",
+                "cost": 150
+            },
+            {
+                "name": "boiled-egg",
+                "cost": 2200
+            },
+            {
+                "name": "camping-gear",
+                "cost": 0
+            },
+            {
+                "name": "rusted-sword",
+                "cost": 0
+            },
+            {
+                "name": "rusted-shield",
+                "cost": 0
+            },
+            {
+                "name": "fossilized-bird",
+                "cost": 5000
+            },
+            {
+                "name": "fossilized-fish",
+                "cost": 5000
+            },
+            {
+                "name": "fossilized-drake",
+                "cost": 5000
+            },
+            {
+                "name": "fossilized-dino",
+                "cost": 5000
+            },
+            {
+                "name": "strawberry-sweet",
+                "cost": 500
+            },
+            {
+                "name": "love-sweet",
+                "cost": 500
+            },
+            {
+                "name": "berry-sweet",
+                "cost": 500
+            },
+            {
+                "name": "clover-sweet",
+                "cost": 500
+            },
+            {
+                "name": "flower-sweet",
+                "cost": 500
+            },
+            {
+                "name": "star-sweet",
+                "cost": 500
+            },
+            {
+                "name": "ribbon-sweet",
+                "cost": 500
+            },
+            {
+                "name": "sweet-apple",
+                "cost": 2200
+            },
+            {
+                "name": "tart-apple",
+                "cost": 2200
+            },
+            {
+                "name": "throat-spray",
+                "cost": 4000
+            },
+            {
+                "name": "eject-pack",
+                "cost": 4000
+            },
+            {
+                "name": "heavy-duty-boots",
+                "cost": 4000
+            },
+            {
+                "name": "blunder-policy",
+                "cost": 4000
+            },
+            {
+                "name": "room-service",
+                "cost": 4000
+            },
+            {
+                "name": "utility-umbrella",
+                "cost": 4000
+            },
+            {
+                "name": "exp-candy-xs",
+                "cost": 20
+            },
+            {
+                "name": "exp-candy-s",
+                "cost": 240
+            },
+            {
+                "name": "exp-candy-m",
+                "cost": 1000
+            },
+            {
+                "name": "exp-candy-l",
+                "cost": 3000
+            },
+            {
+                "name": "exp-candy-xl",
+                "cost": 10000
+            },
+            {
+                "name": "dynamax-candy",
+                "cost": 0
+            },
+            {
+                "name": "tr00",
+                "cost": 4000
+            },
+            {
+                "name": "tr01",
+                "cost": 6000
+            },
+            {
+                "name": "tr02",
+                "cost": 10000
+            },
+            {
+                "name": "tr03",
+                "cost": 16000
+            },
+            {
+                "name": "tr04",
+                "cost": 10000
+            },
+            {
+                "name": "tr05",
+                "cost": 10000
+            },
+            {
+                "name": "tr06",
+                "cost": 16000
+            },
+            {
+                "name": "tr07",
+                "cost": 6000
+            },
+            {
+                "name": "tr08",
+                "cost": 10000
+            },
+            {
+                "name": "tr09",
+                "cost": 16000
+            },
+            {
+                "name": "tr10",
+                "cost": 16000
+            },
+            {
+                "name": "tr11",
+                "cost": 10000
+            },
+            {
+                "name": "tr12",
+                "cost": 4000
+            },
+            {
+                "name": "tr13",
+                "cost": 2000
+            },
+            {
+                "name": "tr14",
+                "cost": 2000
+            },
+            {
+                "name": "tr15",
+                "cost": 16000
+            },
+            {
+                "name": "tr16",
+                "cost": 6000
+            },
+            {
+                "name": "tr17",
+                "cost": 4000
+            },
+            {
+                "name": "tr18",
+                "cost": 6000
+            },
+            {
+                "name": "tr19",
+                "cost": 4000
+            },
+            {
+                "name": "tr20",
+                "cost": 6000
+            },
+            {
+                "name": "tr21",
+                "cost": 4000
+            },
+            {
+                "name": "tr22",
+                "cost": 10000
+            },
+            {
+                "name": "tr23",
+                "cost": 4000
+            },
+            {
+                "name": "tr24",
+                "cost": 16000
+            },
+            {
+                "name": "tr25",
+                "cost": 6000
+            },
+            {
+                "name": "tr26",
+                "cost": 2000
+            },
+            {
+                "name": "tr27",
+                "cost": 4000
+            },
+            {
+                "name": "tr28",
+                "cost": 16000
+            },
+            {
+                "name": "tr29",
+                "cost": 4000
+            },
+            {
+                "name": "tr30",
+                "cost": 4000
+            },
+            {
+                "name": "tr31",
+                "cost": 10000
+            },
+            {
+                "name": "tr32",
+                "cost": 6000
+            },
+            {
+                "name": "tr33",
+                "cost": 6000
+            },
+            {
+                "name": "tr34",
+                "cost": 6000
+            },
+            {
+                "name": "tr35",
+                "cost": 6000
+            },
+            {
+                "name": "tr36",
+                "cost": 10000
+            },
+            {
+                "name": "tr37",
+                "cost": 4000
+            },
+            {
+                "name": "tr38",
+                "cost": 4000
+            },
+            {
+                "name": "tr39",
+                "cost": 16000
+            },
+            {
+                "name": "tr40",
+                "cost": 2000
+            },
+            {
+                "name": "tr41",
+                "cost": 6000
+            },
+            {
+                "name": "tr42",
+                "cost": 10000
+            },
+            {
+                "name": "tr43",
+                "cost": 16000
+            },
+            {
+                "name": "tr44",
+                "cost": 4000
+            },
+            {
+                "name": "tr45",
+                "cost": 10000
+            },
+            {
+                "name": "tr46",
+                "cost": 4000
+            },
+            {
+                "name": "tr47",
+                "cost": 6000
+            },
+            {
+                "name": "tr48",
+                "cost": 4000
+            },
+            {
+                "name": "tr49",
+                "cost": 4000
+            },
+            {
+                "name": "tr50",
+                "cost": 10000
+            },
+            {
+                "name": "tr51",
+                "cost": 4000
+            },
+            {
+                "name": "tr52",
+                "cost": 6000
+            },
+            {
+                "name": "tr53",
+                "cost": 16000
+            },
+            {
+                "name": "tr54",
+                "cost": 4000
+            },
+            {
+                "name": "tr55",
+                "cost": 16000
+            },
+            {
+                "name": "tr56",
+                "cost": 6000
+            },
+            {
+                "name": "tr57",
+                "cost": 6000
+            },
+            {
+                "name": "tr58",
+                "cost": 6000
+            },
+            {
+                "name": "tr59",
+                "cost": 6000
+            },
+            {
+                "name": "tr60",
+                "cost": 6000
+            },
+            {
+                "name": "tr61",
+                "cost": 10000
+            },
+            {
+                "name": "tr62",
+                "cost": 6000
+            },
+            {
+                "name": "tr63",
+                "cost": 6000
+            },
+            {
+                "name": "tr64",
+                "cost": 16000
+            },
+            {
+                "name": "tr65",
+                "cost": 10000
+            },
+            {
+                "name": "tr66",
+                "cost": 16000
+            },
+            {
+                "name": "tr67",
+                "cost": 10000
+            },
+            {
+                "name": "tr68",
+                "cost": 4000
+            },
+            {
+                "name": "tr69",
+                "cost": 6000
+            },
+            {
+                "name": "tr70",
+                "cost": 10000
+            },
+            {
+                "name": "tr71",
+                "cost": 16000
+            },
+            {
+                "name": "tr72",
+                "cost": 16000
+            },
+            {
+                "name": "tr73",
+                "cost": 16000
+            },
+            {
+                "name": "tr74",
+                "cost": 10000
+            },
+            {
+                "name": "tr75",
+                "cost": 16000
+            },
+            {
+                "name": "tr76",
+                "cost": 6000
+            },
+            {
+                "name": "tr77",
+                "cost": 6000
+            },
+            {
+                "name": "tr78",
+                "cost": 10000
+            },
+            {
+                "name": "tr79",
+                "cost": 6000
+            },
+            {
+                "name": "tr80",
+                "cost": 6000
+            },
+            {
+                "name": "tr81",
+                "cost": 6000
+            },
+            {
+                "name": "tr82",
+                "cost": 4000
+            },
+            {
+                "name": "tr83",
+                "cost": 4000
+            },
+            {
+                "name": "tr84",
+                "cost": 6000
+            },
+            {
+                "name": "tr85",
+                "cost": 2000
+            },
+            {
+                "name": "tr86",
+                "cost": 10000
+            },
+            {
+                "name": "tr87",
+                "cost": 6000
+            },
+            {
+                "name": "tr88",
+                "cost": 6000
+            },
+            {
+                "name": "tr89",
+                "cost": 16000
+            },
+            {
+                "name": "tr90",
+                "cost": 10000
+            },
+            {
+                "name": "tr91",
+                "cost": 4000
+            },
+            {
+                "name": "tr92",
+                "cost": 6000
+            },
+            {
+                "name": "tr93",
+                "cost": 10000
+            },
+            {
+                "name": "tr94",
+                "cost": 10000
+            },
+            {
+                "name": "tr95",
+                "cost": 6000
+            },
+            {
+                "name": "tr96",
+                "cost": 10000
+            },
+            {
+                "name": "tr97",
+                "cost": 10000
+            },
+            {
+                "name": "tr98",
+                "cost": 6000
+            },
+            {
+                "name": "tr99",
+                "cost": 6000
+            },
+            {
+                "name": "tm00",
+                "cost": 10000
+            },
+            {
+                "name": "lonely-mint",
+                "cost": 20
+            },
+            {
+                "name": "adamant-mint",
+                "cost": 20
+            },
+            {
+                "name": "naughty-mint",
+                "cost": 20
+            },
+            {
+                "name": "brave-mint",
+                "cost": 20
+            },
+            {
+                "name": "bold-mint",
+                "cost": 20
+            },
+            {
+                "name": "impish-mint",
+                "cost": 20
+            },
+            {
+                "name": "lax-mint",
+                "cost": 20
+            },
+            {
+                "name": "relaxed-mint",
+                "cost": 20
+            },
+            {
+                "name": "modest-mint",
+                "cost": 20
+            },
+            {
+                "name": "mild-mint",
+                "cost": 20
+            },
+            {
+                "name": "rash-mint",
+                "cost": 20
+            },
+            {
+                "name": "quiet-mint",
+                "cost": 20
+            },
+            {
+                "name": "calm-mint",
+                "cost": 20
+            },
+            {
+                "name": "gentle-mint",
+                "cost": 20
+            },
+            {
+                "name": "careful-mint",
+                "cost": 20
+            },
+            {
+                "name": "sassy-mint",
+                "cost": 20
+            },
+            {
+                "name": "timid-mint",
+                "cost": 20
+            },
+            {
+                "name": "hasty-mint",
+                "cost": 20
+            },
+            {
+                "name": "jolly-mint",
+                "cost": 20
+            },
+            {
+                "name": "naive-mint",
+                "cost": 20
+            },
+            {
+                "name": "serious-mint",
+                "cost": 20
+            },
+            {
+                "name": "wishing-piece",
+                "cost": 20
+            },
+            {
+                "name": "cracked-pot",
+                "cost": 1600
+            },
+            {
+                "name": "chipped-pot",
+                "cost": 38000
+            },
+            {
+                "name": "hi-tech-earbuds",
+                "cost": 0
+            },
+            {
+                "name": "fruit-bunch",
+                "cost": 2200
+            },
+            {
+                "name": "moomoo-cheese",
+                "cost": 2200
+            },
+            {
+                "name": "spice-mix",
+                "cost": 400
+            },
+            {
+                "name": "fresh-cream",
+                "cost": 950
+            },
+            {
+                "name": "packaged-curry",
+                "cost": 950
+            },
+            {
+                "name": "coconut-milk",
+                "cost": 950
+            },
+            {
+                "name": "instant-noodles",
+                "cost": 150
+            },
+            {
+                "name": "precooked-burger",
+                "cost": 150
+            },
+            {
+                "name": "gigantamix",
+                "cost": 15000
+            },
+            {
+                "name": "wishing-chip",
+                "cost": 0
+            },
+            {
+                "name": "rotom-bike--water-mode",
+                "cost": 0
+            },
+            {
+                "name": "catching-charm",
+                "cost": 0
+            },
+            {
+                "name": "old-letter",
+                "cost": 0
+            },
+            {
+                "name": "band-autograph",
+                "cost": 0
+            },
+            {
+                "name": "sonias-book",
+                "cost": 0
+            },
+            {
+                "name": "rotom-catalog",
+                "cost": 0
+            },
+            {
+                "name": "dynamax-crystal-and458",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-and15",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-and337",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-and603",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-and390",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr6879",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr6859",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr6913",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7348",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7121",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr6746",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7194",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7337",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7343",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr6812",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7116",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7264",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sgr7597",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-del7882",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-del7906",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-del7852",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-psc596",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-psc361",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-psc510",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-psc437",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-psc8773",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lep1865",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lep1829",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5340",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5506",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5435",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5602",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5733",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5235",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-boo5351",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-hya3748",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-hya3903",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-hya3418",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-hya3482",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-hya3845",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1084",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri472",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1666",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri897",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1231",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri874",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1298",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1325",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri984",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1464",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri1393",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-eri850",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1409",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1457",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1165",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1791",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1910",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1346",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1373",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tau1412",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2491",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2693",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2294",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2827",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2282",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2618",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2657",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cma2646",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4905",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4301",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma5191",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma5054",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4295",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4660",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4554",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4069",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma3569",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma3323",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4033",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4377",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4375",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma4518",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-uma3594",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir5056",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir4825",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir4932",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir4540",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir4689",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir5338",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir4910",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir5315",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir5359",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir5409",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vir5107",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ari617",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ari553",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ari546",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ari951",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1713",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori2061",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1790",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1903",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1948",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori2004",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1852",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1879",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1899",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ori1543",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas21",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas168",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas403",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas153",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas542",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas219",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cas265",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3572",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3208",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3461",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3449",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3429",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3627",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3268",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cnc3249",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-com4968",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-crv4757",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-crv4623",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-crv4662",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-crv4786",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur1708",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur2088",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur1605",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur2095",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur1577",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur1641",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aur1612",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-pav7790",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cet911",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cet681",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cet188",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cet539",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cet804",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cep8974",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cep8162",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cep8238",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cep8417",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cen5267",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cen5288",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cen551",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cen5459",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cen5460",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cmi2943",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cmi2845",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-equ8131",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vul7405",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-umi424",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-umi5563",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-umi5735",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-umi6789",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-crt4287",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lyr7001",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lyr7178",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lyr7106",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lyr7298",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ara6585",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6134",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6527",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6553",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco5953",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco5984",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6508",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6084",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco5944",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6630",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6027",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6247",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6252",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco5928",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6241",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sco6165",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tri544",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo3982",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo4534",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo4357",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo4057",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo4359",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo4031",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo3852",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo3905",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-leo3773",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gru8425",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gru8636",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gru8353",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lib5685",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lib5531",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lib5787",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-lib5603",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-pup3165",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-pup3185",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-pup3045",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cyg7924",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cyg7417",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cyg7796",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cyg8301",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cyg7949",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cyg7528",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oct7228",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-col1956",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-col2040",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-col2177",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2990",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2891",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2421",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2473",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2216",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2777",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2650",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2286",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2484",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-gem2930",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8775",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8781",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg39",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8308",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8650",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8634",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8684",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8450",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8880",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-peg8905",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oph6556",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oph6378",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oph6603",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oph6149",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oph6056",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-oph6075",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ser5854",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ser7141",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-ser5879",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-her6406",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-her6148",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-her6410",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-her6526",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-her6117",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-her6008",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-per936",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-per1017",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-per1131",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-per1228",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-per834",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-per941",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-phe99",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-phe338",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vel3634",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vel3485",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-vel3734",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8232",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8414",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8709",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8518",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr7950",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8499",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8610",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aqr8264",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cru4853",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cru4730",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cru4763",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cru4700",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cru4656",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-psa8728",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-tra6217",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cap7776",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cap7754",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cap8278",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cap8322",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cap7773",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-sge7479",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-car2326",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-car3685",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-car3307",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-car3699",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra5744",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra5291",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6705",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6536",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra7310",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6688",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra4434",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6370",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra7462",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6396",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6132",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-dra6636",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cvn4915",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cvn4785",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-cvn4846",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aql7595",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aql7557",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aql7525",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aql7602",
+                "cost": 20
+            },
+            {
+                "name": "dynamax-crystal-aql7235",
+                "cost": 20
+            },
+            {
+                "name": "max-honey",
+                "cost": 4000
+            },
+            {
+                "name": "max-mushrooms",
+                "cost": 6000
+            },
+            {
+                "name": "galarica-twig",
+                "cost": 20
+            },
+            {
+                "name": "galarica-cuff",
+                "cost": 3000
+            },
+            {
+                "name": "style-card",
+                "cost": 0
+            },
+            {
+                "name": "armor-pass",
+                "cost": 0
+            },
+            {
+                "name": "rotom-bike--sparkling-white",
+                "cost": 0
+            },
+            {
+                "name": "rotom-bike--glistening-black",
+                "cost": 0
+            },
+            {
+                "name": "exp-charm",
+                "cost": 0
+            },
+            {
+                "name": "armorite-ore",
+                "cost": 20
+            },
+            {
+                "name": "mark-charm",
+                "cost": 0
+            },
+            {
+                "name": "reins-of-unity--merge",
+                "cost": 0
+            },
+            {
+                "name": "reins-of-unity--split",
+                "cost": 0
+            },
+            {
+                "name": "galarica-wreath",
+                "cost": 3000
+            },
+            {
+                "name": "legendary-clue-1",
+                "cost": 0
+            },
+            {
+                "name": "legendary-clue-2",
+                "cost": 0
+            },
+            {
+                "name": "legendary-clue-3",
+                "cost": 0
+            },
+            {
+                "name": "legendary-clue-question",
+                "cost": 0
+            },
+            {
+                "name": "crown-pass",
+                "cost": 0
+            },
+            {
+                "name": "wooden-crown",
+                "cost": 0
+            },
+            {
+                "name": "radiant-petal",
+                "cost": 0
+            },
+            {
+                "name": "white-mane-hair",
+                "cost": 0
+            },
+            {
+                "name": "black-mane-hair",
+                "cost": 0
+            },
+            {
+                "name": "iceroot-carrot",
+                "cost": 0
+            },
+            {
+                "name": "shaderoot-carrot",
+                "cost": 0
+            },
+            {
+                "name": "dynite-ore",
+                "cost": 20
+            },
+            {
+                "name": "carrot-seeds",
+                "cost": 20
+            },
+            {
+                "name": "ability-patch",
+                "cost": 20
+            },
+            {
+                "name": "reins-of-unity",
+                "cost": 0
+            }
+        ]
+    }
+}
