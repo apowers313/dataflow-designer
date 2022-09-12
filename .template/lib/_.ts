@@ -1,4 +1,4 @@
-import {Source} from "dataflow-core";
+import {Source} from "@dataflow-designer/dataflow-core";
 
 /**
  * Just testing
