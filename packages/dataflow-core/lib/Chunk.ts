@@ -3,7 +3,7 @@ import {MetadataCollection} from "./Metadata";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ChunkData = Record<string, unknown>;
 export type ChunkOptions = DataChunkOptions | ErrorChunkOptions | MetadataChunkOptions;
-export type ChunkType = "data" | "error" | "metadata";
+export type ChunkType = ChunkOptions["type"];
 // export type ChunkType = Pick<ChunkOptions, "type">;
 
 /**
