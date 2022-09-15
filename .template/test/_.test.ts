@@ -11,7 +11,7 @@ describe("{{fclass}}", function () {
 
     it("example pipeline", async function () {
         const src = new TestSource();
-        // const src = objectSource([{one: 1, two: 2, three: 3}]);
+        // const src = objectSource([{one: 1}, {two: 2}, {three: 3}]);
         const sinkSpy = spy();
         const sink = new Sink({ push: sinkSpy });
         src.channels[0].pipe(sink);

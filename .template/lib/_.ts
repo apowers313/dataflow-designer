@@ -1,11 +1,11 @@
 import {Chunk, Through, ThroughOpts, ThroughMethods} from "@dataflow-designer/dataflow-core";
 
-interface {{fclass}}Opts extends Omit<ThroughOpts, "through"> {}
+interface {{fclass}}Opts extends Omit<ThroughOpts, "through" | "manualRead"> {}
 
 /**
  * Just testing
  */
-export class {{fclass}} {
+export class {{fclass}} extends Through {
     constructor(opts: {{fclass}}Opts = {}) {
         super({
             ... opts,
@@ -13,7 +13,7 @@ export class {{fclass}} {
         })
     }
 
-    #through(chunk: Chunk, methods: ThroughMethods) {
-        methods.send(0, chunk);
+    async #through(chunk: Chunk, methods: ThroughMethods): Promise<void> {
+        await methods.send(0, chunk);
     }
 }
