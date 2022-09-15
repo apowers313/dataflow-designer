@@ -19,10 +19,12 @@ export interface TestSourceOpts {
     countBy?: number;
     delay?: number;
     sendNum?: number;
+    includeId?: boolean;
     enableLogging?: boolean;
     switchLogger?: boolean;
 }
 
+let cnt = 0;
 export class TestSource extends Source {
     countBy: number;
     delay: number;
@@ -30,6 +32,8 @@ export class TestSource extends Source {
     count: number;
     enableLogging: boolean;
     switchLogger: boolean;
+    id: number;
+    includeId: boolean;
 
     constructor(opt: TestSourceOpts = {}) {
         super({
@@ -39,6 +43,8 @@ export class TestSource extends Source {
             name: "test-source",
         });
 
+        this.id = cnt++;
+        this.includeId = opt.includeId ?? false;
         this.enableLogging = opt.enableLogging ?? false;
         this.switchLogger = opt.switchLogger ?? false;
         this.countBy = opt.countBy ?? 1;
@@ -62,6 +68,10 @@ export class TestSource extends Source {
         }
 
         const next = Chunk.create({type: "data", data: {count: this.count}});
+        if (this.includeId) {
+            next.data.id = this.id;
+        }
+
         this.count += this.countBy;
         this.tryLog(next);
 
