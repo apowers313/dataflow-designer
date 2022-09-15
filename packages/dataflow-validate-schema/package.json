@@ -1,0 +1,51 @@
+{
+  "name": "@dataflow-designer/dataflow-validate-schema",
+  "version": "0.0.1",
+  "description": "A dataflow utility for validating chunks based on a JSON Schema or JSON Type Definition",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "test": "ts-mocha -p ../../tsconfig.json test/**/*.test.ts",
+    "docs": "typedoc",
+    "build": "tsc -p ../../tsconfig.json",
+    "lint": "npx eslint"
+  },
+  "author": "Adam Powers <apowers@ato.ms>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "typedoc": {
+    "entryPoint": "./index.ts",
+    "readmeFile": "./README.md",
+    "displayName": "Dataflow Validate Schema"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.0.2",
+    "@types/sinon": "^10.0.12",
+    "@types/std-mocks": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "chai": "^4.3.6",
+    "eslint": "^7.32.0",
+    "eslint-plugin-jsdoc": "^30.7.13",
+    "eslint-plugin-mocha": "^8.2.0",
+    "eslint-plugin-old-c-programmer": "^1.0.1",
+    "eslint-plugin-tsdoc": "^0.2.16",
+    "mocha": "^10.0.0",
+    "sinon": "^14.0.0",
+    "std-mocks": "^1.0.1",
+    "ts-mocha": "^10.0.0",
+    "typedoc": "^0.23.5",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "ajv": "^8.11.0",
+    "dataflow-core": "*"
+  }
+}
