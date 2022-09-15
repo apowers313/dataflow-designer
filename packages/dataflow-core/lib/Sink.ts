@@ -1,7 +1,7 @@
 import {WritableComponent, WritableOpts, WriteMethods} from "./Writable";
 import {Component} from "./Component";
 
-export interface SinkOpts extends WritableOpts { }
+export type SinkOpts = WritableOpts;
 export interface SinkMethods extends WriteMethods { }
 
 /**

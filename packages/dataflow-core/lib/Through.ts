@@ -50,6 +50,7 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
     constructor(opts: ThroughOpts) {
         const inputOpts: ThroughSuperOpts = {
             ... opts,
+            mode: "fifo",
             push: async(data, methods): Promise<void> => {
                 await this.#throughPush(data, methods);
             },

@@ -7,19 +7,25 @@ import {promiseState} from "./utils";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T = Record<any, any>> = abstract new (... args: any[]) => T;
 
-type PushFn = (data: Chunk | ChunkCollection, methods: WriteMethods) => Promise<void>;
+type PushFn = (data: Chunk, methods: WriteMethods) => Promise<void>;
+type BatchPushFn = (data: ChunkCollection, methods: WriteMethods) => Promise<void>;
 
-export interface WritableOpts extends ComponentOpts {
-    writeStart?: (controller: WritableStreamDefaultController) => void;
-    writeClose?: () => Promise<void>;
-    writeAbort?: (reason?: Error) => Promise<void>;
-    mode?: InputMuxModes;
-    queueSize?: number;
-    writeAll?: boolean;
-    push: PushFn;
-}
+export type WritableOpts = ComponentOpts & WriteMode &
+    {
+        writeStart?: (controller: WritableStreamDefaultController) => void;
+        writeClose?: () => Promise<void>;
+        writeAbort?: (reason?: Error) => Promise<void>;
+        queueSize?: number;
+        writeAll?: boolean;
+    };
 
-export type InputMuxModes = "fifo" | "zipper" | "batch";
+// type DefaultMode = { mode: "fifo" | "zipper", push: PushFn };
+type WritableBatchMode = {mode: "batch", push: BatchPushFn};
+type WritableZipperMode = {mode: "zipper", push: PushFn};
+type WritableFifoMode = {mode?: "fifo", push: PushFn};
+type WriteMode = WritableBatchMode | WritableZipperMode | WritableFifoMode;
+
+export type InputMuxModes = NonNullable<WritableOpts["mode"]>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WriteMethods { }
@@ -34,7 +40,7 @@ export interface WriteMethods { }
 export function WritableComponent<TBase extends Constructor<Component>>(Base: TBase) {
     abstract class Writer extends Base {
         readonly isWritable = true;
-        readonly inputMuxMode: InputMuxModes = "fifo";
+        readonly inputMuxMode: InputMuxModes;
         readonly writeMethods: WriteMethods = {};
         readonly queueSize: number;
 
@@ -42,7 +48,7 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
         inputs: Array<Output> = [];
         writableController?: WritableStreamDefaultController;
 
-        #push: PushFn;
+        #push: PushFn | BatchPushFn;
         #writableStream: WritableStream<Chunk | ChunkCollection>;
         #writer: WritableStreamDefaultWriter<Chunk | ChunkCollection>;
 
@@ -59,7 +65,7 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
 
             this.queueSize = cfg.queueSize ?? 1;
             this.writeAll = cfg.writeAll ?? false;
-            this.inputMuxMode = cfg.mode ?? this.inputMuxMode;
+            this.inputMuxMode = cfg.mode ?? "fifo";
             this.#push = cfg.push;
             this.#writableStream = new WritableStream({
                 start: async(controller): Promise<void> => {
@@ -71,10 +77,10 @@ export function WritableComponent<TBase extends Constructor<Component>>(Base: TB
                 write: async(chunk): Promise<void> => {
                     if (chunk instanceof Chunk) {
                         if (this.writeAll || chunk.isData()) {
-                            await this.#push(chunk, this.writeMethods);
+                            await (this.#push as PushFn)(chunk, this.writeMethods);
                         }
                     } else if (chunk instanceof ChunkCollection) {
-                        await this.#push(chunk, this.writeMethods);
+                        await (this.#push as BatchPushFn)(chunk, this.writeMethods);
                     } else {
                         throw new TypeError("Sink: expected write data to be instance of Chunk or ChunkCollection");
                     }

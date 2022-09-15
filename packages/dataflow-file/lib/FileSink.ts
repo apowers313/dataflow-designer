@@ -18,6 +18,7 @@ export class FileSink extends Sink {
     constructor(opts: FileSinkOpts) {
         super({
             ... opts,
+            mode: "fifo",
             push: (chunk, methods) => this.push(chunk, methods),
             writeClose: async(): Promise<void> => {
                 if (this.#fileWriter) {
