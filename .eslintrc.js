@@ -16,6 +16,7 @@ module.exports = {
         // TODO: uncomment below
         // "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:old-c-programmer/node",
+        "plugin:import/recommended",
     ],
     rules: {
         "@typescript-eslint/member-delimiter-style": ["error", {
