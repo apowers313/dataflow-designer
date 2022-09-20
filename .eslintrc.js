@@ -21,9 +21,10 @@ module.exports = {
     settings: {
         "import/resolver": {
             typescript: {
+                alwaysTryTypes: true,
                 project: [
                     "packages/*/tsconfig.json",
-                    "tsconfig.root.json"
+                    "tsconfig.root.json",
                 ],
             },
             node: true,
