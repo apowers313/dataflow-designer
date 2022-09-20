@@ -1,11 +1,11 @@
+import {default as AjvJsonSchema, ErrorObject, ValidateFunction} from "ajv";
 import {Chunk, DataChunk, Through, ThroughMethods, ThroughOpts} from "@dataflow-designer/dataflow-core";
-import {default as AjvJsonSchema} from "ajv";
 // import {Ajv as AjvJsonType} from "ajv/dist/jtd";
 
 export class ValidationError extends Error {
-    validationErrors: Array<AjvJsonSchema.ErrorObject>;
+    validationErrors: Array<ErrorObject>;
 
-    constructor(chunk: DataChunk, errors: Array<AjvJsonSchema.ErrorObject>) {
+    constructor(chunk: DataChunk, errors: Array<ErrorObject>) {
         super("JSON Schema Validation Error");
         this.validationErrors = errors;
     }
@@ -16,9 +16,9 @@ interface ValidateSchemaOpts extends Omit<ThroughOpts, "through" | "manualRead">
 }
 
 export class ValidateSchema extends Through {
-    #ajv: AjvJsonSchema.Ajv;
+    #ajv: AjvJsonSchema;
     readonly schema: Record<any, any>;
-    readonly validateFn: AjvJsonSchema.ValidateFunction;
+    readonly validateFn: ValidateFunction;
 
     constructor(cfg: ValidateSchemaOpts) {
         super({

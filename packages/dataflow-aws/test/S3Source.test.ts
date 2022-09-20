@@ -16,7 +16,8 @@ describe("S3Source", function() {
         assert.isFunction(S3Source);
     });
 
-    it("delete me", async function() {
+    // eslint-disable-next-line mocha/handle-done-callback
+    it("delete me", async function(this: any) {
         this.timeout(10 * 1000);
         this.slow(10 * 1000);
         const s3 = new S3Source({
