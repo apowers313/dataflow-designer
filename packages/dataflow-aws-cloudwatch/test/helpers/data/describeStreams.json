@@ -1,0 +1,20 @@
+{
+    "$metadata": {
+        "httpStatusCode": 200,
+        "requestId": "4f2b3793-e22e-4574-862c-81bf9d7e05a6",
+        "attempts": 1,
+        "totalRetryDelay": 0
+    },
+    "logStreams": [
+        {
+            "arn": "arn:aws:logs:us-east-1:261228149341:log-group:dataflow-test-group:log-stream:dataflow-test-stream",
+            "creationTime": 1663223935255,
+            "firstEventTimestamp": 1663223939893,
+            "lastEventTimestamp": 1663225163612,
+            "lastIngestionTime": 1663225183941,
+            "logStreamName": "dataflow-test-stream",
+            "storedBytes": 0,
+            "uploadSequenceToken": "49631910358077690901647229196533619702248429457967677586"
+        }
+    ]
+}

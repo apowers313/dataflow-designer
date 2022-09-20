@@ -1,0 +1,37 @@
+{
+    "$metadata": {
+        "httpStatusCode": 200,
+        "requestId": "2a4fc586-7e64-4585-82a0-dd1e7069c838",
+        "attempts": 1,
+        "totalRetryDelay": 0
+    },
+    "events": [
+        {
+            "ingestionTime": 1663225156808,
+            "message": "{\"foo\":\"bat\",\"number\":42}",
+            "timestamp": 1663225156723
+        },
+        {
+            "ingestionTime": 1663225163697,
+            "message": "{\"foo\":\"bar\",\"number\":1}",
+            "timestamp": 1663225163612
+        },
+        {
+            "ingestionTime": 1663225163697,
+            "message": "{\"foo\":\"baz\",\"number\":12}",
+            "timestamp": 1663225163612
+        },
+        {
+            "ingestionTime": 1663225163697,
+            "message": "{\"foo\":\"bat\",\"number\":42}",
+            "timestamp": 1663225163612
+        },
+        {
+            "ingestionTime": 1663225176293,
+            "message": "{\"foo\":\"bar\",\"number\":1}",
+            "timestamp": 1663225176210
+        }
+    ],
+    "nextBackwardToken": "b/37091160427865785425906311470825958680123689571275964418/s",
+    "nextForwardToken": "f/37091160862440407109672564653488737269704772858749386752/s"
+}

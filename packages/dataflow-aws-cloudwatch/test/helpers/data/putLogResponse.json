@@ -1,0 +1,9 @@
+{
+    "$metadata": {
+        "httpStatusCode": 200,
+        "requestId": "f9f817e9-70ce-4965-96c4-66e36d098140",
+        "attempts": 1,
+        "totalRetryDelay": 0
+    },
+    "nextSequenceToken": "49616745684733822699743776244672699367231863295836160930"
+}
