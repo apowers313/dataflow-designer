@@ -68,10 +68,10 @@ describe("ValidateSchema", function() {
         assert.strictEqual(errorSpy.args[1][0].error.validationErrors.length, 1);
         assert.deepEqual(errorSpy.args[1][0].error.validationErrors[0], {
             keyword: "type",
-            dataPath: ".foo",
+            instancePath: "/foo",
             schemaPath: "#/properties/foo/type",
             params: {type: "integer"},
-            message: "should be integer",
+            message: "must be integer",
         });
         assert.deepEqual(errorSpy.args[1][0].data.data, {foo: "nope", bar: "whee"});
         assert.deepEqual(errorSpy.args[2][0].data.data, {foo: 3, bar: 4});
