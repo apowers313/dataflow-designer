@@ -11,7 +11,7 @@ describe("CloudWatchSink", function() {
         assert.isFunction(CloudWatchSink);
     });
 
-    it("example pipeline", async function() {
+    it.skip("example pipeline", async function() {
         // const src = new TestSource();
         const src = objectSource([{one: 1}, {two: 2}, {three: 3}]);
         const sink = new CloudWatchSink({
@@ -29,7 +29,7 @@ describe("CloudWatchSink", function() {
         // assert.deepEqual(sinkSpy.args[10][0].data, {count: 10});
     });
 
-    it("delete me - write logs", async function() {
+    it.skip("delete me - write logs", async function() {
         const client = new CloudWatchLogsClient({
             region: "us-east-1",
             credentials: {
@@ -67,7 +67,7 @@ describe("CloudWatchSink", function() {
         console.log("response", JSON.stringify(response, null, 4));
     });
 
-    it("delete me - read logs", async function() {
+    it.skip("delete me - read logs", async function() {
         const client = new CloudWatchLogsClient({
             region: "us-east-1",
             credentials: {
