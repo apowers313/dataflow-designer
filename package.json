@@ -17,6 +17,7 @@
     "docker:shell": "docker run -it --entrypoint sh -p 1800:1800 -v node_red_data:/data dataflow-designer"
   },
   "devDependencies": {
+    "husky": "^8.0.1",
     "lerna": "^5.4.3",
     "nx": "^14.6.3",
     "plop": "^3.1.1"
