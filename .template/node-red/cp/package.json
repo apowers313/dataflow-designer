@@ -1,0 +1,35 @@
+{
+  "name": "@dataflow-designer/node-red-dataflow-{{name}}",
+  "version": "0.2.1",
+  "description": "{{desc}}",
+  "node-red": {
+    "nodes": {
+      "dataflow-{{name}}": "lib/dataflow-{{name}}.js"
+    }
+  },
+  "scripts": {
+    "test": "true",
+    "build": "true"
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "author": "Adam Powers <apowers@ato.ms>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^30.7.13",
+    "eslint-plugin-mocha": "^8.2.0",
+    "eslint-plugin-old-c-programmer": "^1.0.1",
+    "mocha": "^10.0.0",
+    "node-red": "^3.0.1",
+    "node-red-node-test-helper": "^0.2.7"
+  },
+  "dependencies": {
+    "@dataflow-designer/dataflow-nodered": "^0.2.1"
+  }
+}
