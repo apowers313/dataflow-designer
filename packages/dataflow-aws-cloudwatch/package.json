@@ -31,6 +31,7 @@
     "@types/std-mocks": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
+    "aws-sdk-client-mock": "^2.0.0",
     "chai": "^4.3.6",
     "eslint": "^7.32.0",
     "eslint-import-resolver-typescript": "^3.5.1",
@@ -47,6 +48,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.171.0",
-    "dataflow-core": "*"
+    "@dataflow-designer/dataflow-core": "*"
   }
 }
