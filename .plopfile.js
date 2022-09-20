@@ -23,11 +23,11 @@ module.exports = function (plop) {
         }, {
             type: "add",
             path: "packages/dataflow-{{name}}/lib/{{fclass}}.ts",
-            templateFile: ".template/dataflow/ren/_.ts"
+            templateFile: ".template/dataflow/ren/main.ts"
         }, {
             type: "add",
             path: "packages/dataflow-{{name}}/test/{{fclass}}.test.ts",
-            templateFile: ".template/dataflow/ren/_.test.ts"
+            templateFile: ".template/dataflow/ren/main.test.ts"
         }]
     });
 
