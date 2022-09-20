@@ -8,9 +8,9 @@
     "node": ">=18"
   },
   "scripts": {
-    "test": "ts-mocha -p ../../tsconfig.json test/**/*.test.ts",
+    "test": "ts-mocha -p ./tsconfig.json test/**/*.test.ts",
     "docs": "typedoc",
-    "build": "tsc -p ../../tsconfig.json",
+    "build": "tsc -p ./tsconfig.json",
     "lint": "npx eslint"
   },
   "author": "Adam Powers <apowers@ato.ms>",
@@ -50,7 +50,7 @@
     "tar": "^6.1.11",
     "ts-mocha": "^10.0.0",
     "typedoc": "^0.23.5",
-    "typescript": "^4.7.4"
+    "typescript": "^4.9.0-dev.20220919"
   },
   "dependencies": {
     "archiver": "^5.3.1",

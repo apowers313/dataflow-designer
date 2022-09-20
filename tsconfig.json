@@ -1,11 +1,4 @@
 {
-    "include": [
-        ".eslintrc.js",
-        "packages/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ],
     "compilerOptions": {
         "target": "esnext",
         "module": "commonjs",

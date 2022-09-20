@@ -8,9 +8,9 @@
     "node": ">=18"
   },
   "scripts": {
-    "test": "ts-mocha -p ../../tsconfig.json test/**/*.test.ts",
+    "test": "ts-mocha -p ./tsconfig.json test/**/*.test.ts",
     "docs": "typedoc",
-    "build": "tsc -p ../../tsconfig.json",
+    "build": "tsc -p ./tsconfig.json",
     "lint": "npx eslint"
   },
   "author": "Adam Powers <apowers@ato.ms>",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.1",
+    "@types/jest": "^29.0.3",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.2",
     "@types/sinon": "^10.0.12",
@@ -42,10 +43,10 @@
     "sinon": "^14.0.0",
     "ts-mocha": "^10.0.0",
     "typedoc": "^0.23.5",
-    "typescript": "^4.7.4"
+    "typescript": "^4.9.0-dev.20220919"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.145.0",
+    "@aws-sdk/client-s3": "^3.171.0",
     "@dataflow-designer/dataflow-core": "*"
   },
   "gitHead": "a1b95fa7ac31f9b68f1a26ed49907d9e9a2d87fd"

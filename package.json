@@ -10,7 +10,11 @@
     "lint": "lerna run lint",
     "build": "lerna run build",
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
-    "create": "plop --plopfile .plopfile.js create"
+    "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
+    "create:nodered": "plop --plopfile .plopfile.js create:nodered",
+    "docker:build": "docker build --tag dataflow-designer docker",
+    "docker:run": "docker run -it -p 1800:1800 -v node_red_data:/data dataflow-designer",
+    "docker:shell": "docker run -it --entrypoint sh -p 1800:1800 -v node_red_data:/data dataflow-designer"
   },
   "devDependencies": {
     "lerna": "^5.4.3",
