@@ -1,8 +1,8 @@
 import {Sink, helpers} from "@dataflow-designer/dataflow-core";
-import {ValidateSchema} from "../index";
 import chai, {assert} from "chai";
+import {ValidateSchema} from "../index";
+const {objectSource} = helpers;
 import {spy} from "sinon";
-const {TestSource, objectSource} = helpers;
 chai.config.truncateThreshold = 0;
 
 describe("ValidateSchema", function() {

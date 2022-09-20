@@ -40,6 +40,7 @@
     "adm-zip": "^0.5.9",
     "chai": "^4.3.6",
     "eslint": "^7.32.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^30.7.13",
     "eslint-plugin-mocha": "^8.2.0",

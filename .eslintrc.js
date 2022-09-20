@@ -1,12 +1,11 @@
 module.exports = {
-    root: true,
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        project: "tsconfig.json",
+        project: [
+            "tsconfig.json",
+            "tsconfig.root.json",
+        ],
     },
-    ignorePatterns: [
-        "*.hbs",
-    ],
     plugins: [
         "@typescript-eslint",
         "eslint-plugin-tsdoc",
@@ -17,8 +16,21 @@ module.exports = {
         // "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:old-c-programmer/node",
         "plugin:import/recommended",
+        "plugin:import/typescript",
     ],
+    settings: {
+        "import/resolver": {
+            typescript: {
+                project: [
+                    "packages/*/tsconfig.json",
+                    "tsconfig.root.json"
+                ],
+            },
+            node: true,
+        },
+    },
     rules: {
+        "import/extensions": ["error", "never"],
         "@typescript-eslint/member-delimiter-style": ["error", {
             multiline: {
                 delimiter: "semi",

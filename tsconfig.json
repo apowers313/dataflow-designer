@@ -1,4 +1,8 @@
 {
+    "exclude": [
+        ".template/**/*",
+        ".eslintrc.js"
+    ],
     "compilerOptions": {
         "target": "esnext",
         "module": "commonjs",
