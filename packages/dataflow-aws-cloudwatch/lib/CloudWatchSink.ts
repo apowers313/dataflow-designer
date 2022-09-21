@@ -1,7 +1,6 @@
 import {Chunk, Sink, SinkMethods, SinkOpts} from "@dataflow-designer/dataflow-core";
-import {CloudWatchLogsClient, CreateLogGroupCommand, CreateLogStreamCommand, DescribeLogStreamsCommand, PutLogEventsCommand} from "@aws-sdk/client-cloudwatch-logs";
+import {CloudWatchLogsClient, CreateLogGroupCommand, CreateLogStreamCommand, DescribeLogStreamsCommand, PutLogEventsCommand, PutLogEventsCommandInput, ResourceAlreadyExistsException} from "@aws-sdk/client-cloudwatch-logs";
 
-type PutLogEventsCommandInput = ConstructorParameters<typeof PutLogEventsCommand>[0];
 type LogQueue = NonNullable<PutLogEventsCommandInput["logEvents"]>;
 
 interface CloudWatchSinkOpts extends Omit<SinkOpts, "push"> {
@@ -77,6 +76,7 @@ export class CloudWatchSink extends Sink {
             sequenceToken: this.#sequenceNum,
         });
         const response = await this.#cwClient.send(cmd);
+        console.log("response", response);
 
         // save sequence number
         this.#sequenceNum = response.nextSequenceToken;
@@ -84,11 +84,11 @@ export class CloudWatchSink extends Sink {
         // reset decision-making metrics
         this.#logQueueBytes = 0;
         this.#lastSend = Date.now();
-        this.#logQueue.length = 0;
+        this.#logQueue = [];
     }
 
     async #getSequenceNumber(): Promise<string | undefined> {
-        console.log("#getSequenceNumber");
+        console.log("#getSequenceNumber:", this.#logGroupName);
         const descStrCmd = new DescribeLogStreamsCommand({
             logGroupName: this.#logGroupName,
         });
@@ -103,13 +103,25 @@ export class CloudWatchSink extends Sink {
         if (this.#createGroup) {
             console.log("creating group", this.#logGroupName);
             const logGroupCmd = new CreateLogGroupCommand({logGroupName: this.#logGroupName});
-            await this.#cwClient.send(logGroupCmd);
+            try {
+                await this.#cwClient.send(logGroupCmd);
+            } catch (err) {
+                if (!(err instanceof ResourceAlreadyExistsException)) {
+                    throw err;
+                }
+            }
         }
 
         if (this.#createStream) {
             console.log("creating stream", this.#logStreamName);
             const logStreamCmd = new CreateLogStreamCommand({logGroupName: this.#logGroupName, logStreamName: this.#logStreamName});
-            await this.#cwClient.send(logStreamCmd);
+            try {
+                await this.#cwClient.send(logStreamCmd);
+            } catch (err) {
+                if (!(err instanceof ResourceAlreadyExistsException)) {
+                    throw err;
+                }
+            }
         }
 
         await super.init();

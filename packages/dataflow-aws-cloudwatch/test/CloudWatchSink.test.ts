@@ -1,97 +1,102 @@
-import {CloudWatchLogsClient, DescribeLogStreamsCommand, GetLogEventsCommand, PutLogEventsCommand} from "@aws-sdk/client-cloudwatch-logs";
+import {CloudWatchLogsClient, CreateLogGroupCommand, CreateLogStreamCommand, DescribeLogStreamsCommand, GetLogEventsCommand, PutLogEventsCommand, ServiceInputTypes, ServiceOutputTypes} from "@aws-sdk/client-cloudwatch-logs";
 import {Sink, helpers} from "@dataflow-designer/dataflow-core";
-import {accessKeyId, secretAccessKey} from "./helpers/helpers";
+import {accessKeyId, mockSetup, secretAccessKey} from "./helpers/helpers";
 import {CloudWatchSink} from "../index";
 import {assert} from "chai";
-import {spy} from "sinon";
-const {TestSource, objectSource} = helpers;
+import fs from "node:fs";
+import {AwsStub, mockClient} from "aws-sdk-client-mock";
+const {objectSource} = helpers;
+import path from "node:path";
+import {spy, stub} from "sinon";
 
 describe("CloudWatchSink", function() {
+    let cwMock: AwsStub<ServiceInputTypes, ServiceOutputTypes>;
+
+    before(function() {
+        cwMock = mockSetup();
+    });
+
+    beforeEach(function() {
+        cwMock.reset();
+    });
+
     it("is function", function() {
         assert.isFunction(CloudWatchSink);
     });
 
-    it.skip("example pipeline", async function() {
+    it("simple write", async function() {
         // const src = new TestSource();
         const src = objectSource([{one: 1}, {two: 2}, {three: 3}]);
         const sink = new CloudWatchSink({
-            region: "us-west-2",
+            region: "us-east-1",
             accessKeyId,
             secretAccessKey,
             logGroupName: "test1-group",
             logStreamName: "test1-stream",
         });
+
+        const streamDescJson = fs.readFileSync(path.resolve(__dirname, "helpers/data/describeStreams.json")).toString();
+        cwMock.on(DescribeLogStreamsCommand).resolves(JSON.parse(streamDescJson));
+
+        const resultJson = fs.readFileSync(path.resolve(__dirname, "helpers/data/putLogResponse.json")).toString();
+        const sinkStub = stub();
+        sinkStub.returns(JSON.parse(resultJson));
+        cwMock.on(PutLogEventsCommand).callsFake(sinkStub);
+
         src.channels[0].pipe(sink);
         await src.complete();
 
-        // assert.strictEqual(sinkSpy.callCount, 11);
-        // assert.deepEqual(sinkSpy.args[0][0].data, {count: 0});
-        // assert.deepEqual(sinkSpy.args[10][0].data, {count: 10});
+        assert.strictEqual(sinkStub.callCount, 1);
+        assert.strictEqual(sinkStub.args[0][0].logGroupName, "test1-group");
+        assert.strictEqual(sinkStub.args[0][0].logStreamName, "test1-stream");
+        assert.isArray(sinkStub.args[0][0].logEvents);
+        assert.strictEqual(sinkStub.args[0][0].logEvents.length, 3);
+        assert.deepEqual(sinkStub.args[0][0].logEvents[0].message, "{\"type\":\"data\",\"data\":{\"one\":1}}");
+        assert.deepEqual(sinkStub.args[0][0].logEvents[1].message, "{\"type\":\"data\",\"data\":{\"two\":2}}");
+        assert.deepEqual(sinkStub.args[0][0].logEvents[2].message, "{\"type\":\"data\",\"data\":{\"three\":3}}");
     });
 
-    it.skip("delete me - write logs", async function() {
-        const client = new CloudWatchLogsClient({
+    it("create group", async function() {
+        // const src = new TestSource();
+        const src = objectSource([{one: 1}, {two: 2}, {three: 3}]);
+        const sink = new CloudWatchSink({
             region: "us-east-1",
-            credentials: {
-                accessKeyId,
-                secretAccessKey,
-            },
+            accessKeyId,
+            secretAccessKey,
+            logGroupName: "test1-group",
+            logStreamName: "test1-stream",
+            createGroup: true,
+            createStream: true,
         });
 
-        // get sequence number
-        const descStrCmd = new DescribeLogStreamsCommand({
-            logGroupName: "dataflow-test-group",
-        });
-        const descStrResp = await client.send(descStrCmd);
-        console.log("descStrResp", JSON.stringify(descStrResp, null, 4));
-        const sequenceToken = descStrResp?.logStreams?.[0]?.uploadSequenceToken;
-        console.log("sequenceToken", sequenceToken);
+        const streamDescJson = fs.readFileSync(path.resolve(__dirname, "helpers/data/describeStreams.json")).toString();
+        cwMock.on(DescribeLogStreamsCommand).resolves(JSON.parse(streamDescJson));
+        const cgRespJson = fs.readFileSync(path.resolve(__dirname, "helpers/data/createGroupResponse.json")).toString();
+        cwMock.on(CreateLogGroupCommand).resolves(JSON.parse(cgRespJson));
+        const clRespJson = fs.readFileSync(path.resolve(__dirname, "helpers/data/createStreamResponse.json")).toString();
+        cwMock.on(CreateLogStreamCommand).resolves(JSON.parse(clRespJson));
 
-        // send logs
-        const cmd = new PutLogEventsCommand({
-            logEvents: [{
-                timestamp: Date.now(),
-                message: JSON.stringify({foo: "bar", number: 1}),
-            }, {
-                timestamp: Date.now(),
-                message: JSON.stringify({foo: "baz", number: 12}),
-            }, {
-                timestamp: Date.now(),
-                message: JSON.stringify({foo: "bat", number: 42}),
-            }],
-            logStreamName: "dataflow-test-stream",
-            logGroupName: "dataflow-test-group",
-            sequenceToken,
-        });
-        const response = await client.send(cmd);
-        console.log("response", JSON.stringify(response, null, 4));
+        const resultJson = fs.readFileSync(path.resolve(__dirname, "helpers/data/putLogResponse.json")).toString();
+        const sinkStub = stub();
+        sinkStub.returns(JSON.parse(resultJson));
+        cwMock.on(PutLogEventsCommand).callsFake(sinkStub);
+
+        src.channels[0].pipe(sink);
+        await src.complete();
+
+        assert.strictEqual(sinkStub.callCount, 1);
+        assert.strictEqual(sinkStub.args[0][0].logGroupName, "test1-group");
+        assert.strictEqual(sinkStub.args[0][0].logStreamName, "test1-stream");
+        assert.isArray(sinkStub.args[0][0].logEvents);
+        assert.strictEqual(sinkStub.args[0][0].logEvents.length, 3);
+        assert.deepEqual(sinkStub.args[0][0].logEvents[0].message, "{\"type\":\"data\",\"data\":{\"one\":1}}");
+        assert.deepEqual(sinkStub.args[0][0].logEvents[1].message, "{\"type\":\"data\",\"data\":{\"two\":2}}");
+        assert.deepEqual(sinkStub.args[0][0].logEvents[2].message, "{\"type\":\"data\",\"data\":{\"three\":3}}");
     });
 
-    it.skip("delete me - read logs", async function() {
-        const client = new CloudWatchLogsClient({
-            region: "us-east-1",
-            credentials: {
-                accessKeyId,
-                secretAccessKey,
-            },
-        });
+    it("doesn't fail of creating group exists");
 
-        let cmd = new GetLogEventsCommand({
-            logStreamName: "dataflow-test-stream",
-            logGroupName: "dataflow-test-group",
-            limit: 5,
-        });
+    it("creates stream");
 
-        let resp = await client.send(cmd);
-        console.log("resp1", JSON.stringify(resp, null, 4));
-
-        cmd = new GetLogEventsCommand({
-            logStreamName: "dataflow-test-stream",
-            logGroupName: "dataflow-test-group",
-            limit: 5,
-            nextToken: resp.nextBackwardToken,
-        });
-        resp = await client.send(cmd);
-        console.log("resp2", JSON.stringify(resp, null, 4));
-    });
+    it("doesn't fail of creating stream exists");
 });
