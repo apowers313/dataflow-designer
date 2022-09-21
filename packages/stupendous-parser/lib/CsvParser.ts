@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import {Parser as CParser, Options as CParserOptions, Options as CsvParserOptions, parse} from "csv-parse";
-import {TransformStream} from "node:stream/web";
-import {Duplex, Readable, Writable} from "node:stream";
-import {Stringifier, Options as StringifierOptions, stringify} from "csv-stringify";
+import {Options as CsvParserOptions, parse} from "csv-parse";
+import {Duplex} from "node:stream";
 import {Parser} from "./Parser";
+import {TransformStream} from "node:stream/web";
+import {stringify} from "csv-stringify";
 
 export interface CsvEncodeOpts extends CsvCommonOpts {}
 
@@ -27,9 +27,18 @@ export interface CsvCommonOpts {
     header?: boolean;
 }
 
+/**
+ * An encoder and decoder for Comma Seperated Value (CSV), Tab Separated Value (TSV), or similar files
+ */
 export class CsvParser extends Parser {
     type = "csv";
 
+    /**
+     * Creates an encoder that converts a stream of objects into a byte stream representing a CSV file
+     *
+     * @param opt - Options for the CSV encoder
+     * @returns a TransformStream that consumes a stream of objects and emits a byte stream
+     */
     encode(opt: CsvEncodeOpts = {}): TransformStream {
         // XXX: at the time of this writing, Duplex type is missing experimental toWeb method
         return (Duplex as any).toWeb(stringify({
@@ -38,6 +47,12 @@ export class CsvParser extends Parser {
         }));
     }
 
+    /**
+     * Creates a decoder that converts a byte stream into a stream of objects
+     *
+     * @param opt - Options for the decoder
+     * @returns a TransformStream that consumes a byte stream and parses it into a stream of objects
+     */
     decode(opt: CsvDecodeOpts = {}): TransformStream {
         const opts: CsvParserOptions = {
             columns: opt.header ?? opt.columns ?? false,

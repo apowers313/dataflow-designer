@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import {DataCollection, DataCollectionEncodeCfg, DataCollectionEntry} from "./DataCollection";
 import {TransformStream, WritableStream} from "node:stream/web";
 import {setPromiseHandled, xlatReadableStream} from "./utils";

@@ -1,9 +1,8 @@
-import {Interlock, timeout} from "./utils";
 import {ParserDecodeOpts, ParserEncodeOpts} from "./ParserOpts";
-import {ReadableStream, ReadableStreamDefaultReadResult, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
+import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
 import {FileCache} from "./FileCache";
+import {Interlock} from "./utils";
 import {Parser} from "./Parser";
-import {resolve} from "node:path";
 
 export interface DataCollectionEntryCfg<TMetadata> {
     path: string;
@@ -11,11 +10,19 @@ export interface DataCollectionEntryCfg<TMetadata> {
     metadata: TMetadata;
 }
 
+/**
+ * An abstract class representing a single file or resource stream and it's associated metadata
+ */
 export abstract class DataCollectionEntry<TMetadata extends Record<any, any> = Record<any, any>> {
     metadata: TMetadata;
     stream: ReadableStream;
     path: string;
 
+    /**
+     * Creates a new data entry
+     *
+     * @param cfg - The configuration for creating a new data entry
+     */
     constructor(cfg: DataCollectionEntryCfg<TMetadata>) {
         this.stream = cfg.stream;
         this.path = cfg.path;
@@ -27,8 +34,8 @@ export abstract class DataCollectionEntry<TMetadata extends Record<any, any> = R
 }
 
 class GenericDataCollectionEntry extends DataCollectionEntry {
-    discard(): void {}
-    done(): void {}
+    discard(): void { /* ignored */ }
+    done(): void { /* ignored */ }
 }
 
 export interface DataCollectionEncodeCfg {
@@ -45,9 +52,18 @@ export interface DataCollectionDecodeCfg {
     customParserFn?: CustomParserFn;
 }
 
+/**
+ * An abstract class representing a collection of files, for example a .zip file or a directory of files
+ */
 export abstract class DataCollection extends Parser {
     abstract type: string;
 
+    /**
+     * Encodes a stream of streams into single byte stream representing the data collection
+     *
+     * @param opt - Options for encoding the data collection
+     * @returns a TransformStream that converts a stream of streams into a byte stream
+     */
     encode(opt: DataCollectionEncodeCfg = {}): TransformStream {
         const inMemory = opt.inMemory ?? false;
         const fc = new FileCache<DataCollectionEntry>({fdLimit: opt.fdLimit, inMemory});
@@ -105,6 +121,12 @@ export abstract class DataCollection extends Parser {
         return {writable, readable};
     }
 
+    /**
+     * Decodes a byte stream into a stream of streams, where each stream represents a file or other resource
+     *
+     * @param cfg - Configuration for the decoder
+     * @returns a TransformStream that consumes a byte stream and emits a stream of streams
+     */
     decode(cfg: DataCollectionDecodeCfg = {}): TransformStream<DataCollectionEntry> {
         let entryReader: ReadableStreamDefaultReader;
         const decodeConnector = new Interlock<DataCollectionEntry>();

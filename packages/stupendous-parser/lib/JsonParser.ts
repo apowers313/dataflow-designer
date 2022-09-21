@@ -1,6 +1,6 @@
 import {Duplex, Readable, Transform, Writable} from "node:stream";
-import {Parser} from "./Parser";
 import {ReadableStream, TransformStream, WritableStream} from "node:stream/web";
+import {Parser} from "./Parser";
 import {disassembler} from "stream-json/Disassembler";
 import {parser as jsonParser} from "stream-json";
 import {stringer as jsonStringer} from "stream-json/Stringer";
@@ -27,9 +27,18 @@ export interface JsonCommonOpts {
     ndjson?: boolean;
 }
 
+/**
+ * A encoder and decoder for JSON files. Supports both JSON streams and NDJSON / JSONL files or streams.
+ */
 export class JsonParser extends Parser {
     type = "json";
 
+    /**
+     * Encodes a stream of objects into a JSON file
+     *
+     * @param opt - Options for encoding the JSON file
+     * @returns a byte stream representing a JSON file
+     */
     encode(opt: JsonEncodeOpts = {}): TransformStream {
         let writable: WritableStream;
         let readable: ReadableStream;
@@ -45,6 +54,12 @@ export class JsonParser extends Parser {
         return {writable, readable};
     }
 
+    /**
+     * Decodes a byte stream representing a JSON file into a stream of objects
+     *
+     * @param opt - The options for decoding the JSON file
+     * @returns a TransformStream that consumes a byte stream of a JSON file and emits a stream of decoded objects
+     */
     decode(opt: JsonDecodeOpts = {}): TransformStream {
         let writable: WritableStream;
         let readable: ReadableStream<Record<any, any>>;
@@ -76,7 +91,8 @@ export class JsonParser extends Parser {
                 chunkCnt++;
                 controller.enqueue(chunk);
             },
-            flush: () => {
+            // eslint-disable-next-line jsdoc/require-jsdoc
+            flush: (): void => {
                 if (chunkCnt === 0) {
                     // firstThrow = false;
                     console.warn("Stream ending and no chunks sent. Did you specify the right JSON path?");

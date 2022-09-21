@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import {close, closeSync, createReadStream, fsyncSync, open, write} from "node:fs";
+import {close, closeSync, createReadStream, open, write} from "node:fs";
 import {JsonParser} from "./JsonParser";
 import {Readable} from "node:stream";
 import {ReadableStream} from "node:stream/web";
@@ -197,9 +197,9 @@ export class MemoryCacheEntry<TCacheType extends Record<any, any>> implements Ca
         this.#objList.push(obj);
     }
 
-    async close(): Promise<void> {}
+    async close(): Promise<void> { /* ignored */ }
 
-    async open(): Promise<void> {}
+    async open(): Promise<void> { /* ignored */ }
 
     get isOpen(): boolean {
         return false;
