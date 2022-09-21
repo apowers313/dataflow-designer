@@ -8,9 +8,9 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "test": "ts-mocha -p ../../tsconfig.json test/**/*.test.ts",
+    "test": "ts-mocha -p ./tsconfig.json test/**/*.test.ts",
     "docs": "typedoc",
-    "build": "tsc -p ../../tsconfig.json",
+    "build": "tsc -p ./tsconfig.json",
     "lint": "npx eslint"
   },
   "author": "Adam Powers <apowers@ato.ms>",
@@ -33,6 +33,8 @@
     "@typescript-eslint/parser": "^5.30.5",
     "chai": "^4.3.6",
     "eslint": "^7.32.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^30.7.13",
     "eslint-plugin-mocha": "^8.2.0",
     "eslint-plugin-old-c-programmer": "^1.0.1",
