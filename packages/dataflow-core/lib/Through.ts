@@ -125,6 +125,7 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         }
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #manualThroughPull(methods: ReadMethods): Promise<void> {
         try {
             await (this.#through as ManualThroughFn)({
@@ -137,6 +138,7 @@ export class Through extends WritableComponent(ReadableComponent(Component)) {
         }
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #getChunk(): Promise<Chunk|null> {
         let chunk: Chunk | null;
         let done = false;

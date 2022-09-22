@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "true",
-    "build": "true"
+    "build": "true",
+    "lint": "npx eslint --quiet lib/**/*.js"
   },
   "keywords": [
     "node-red"

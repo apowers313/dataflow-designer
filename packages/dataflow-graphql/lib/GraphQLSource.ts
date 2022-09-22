@@ -10,6 +10,11 @@ interface GraphQLSourceOpts extends Omit<SourceOpts, "pull"> {
     // resultPath: string;
 }
 
+/**
+ * Creates a stream of objects based on a GraphQL query. The array or object at the `result` alias will be transmitted
+ * as a stream of objects. If `result` is an object, the value at each key is emitted as an object in the stream; if
+ * `result` is an array, each member of the array is emitted as an object.
+ */
 export class GraphQLSource extends Source {
     #endpoint: string;
     #query: string;
@@ -18,6 +23,11 @@ export class GraphQLSource extends Source {
     // #resultPath: string;
     // #jsonataTemplate: JsonataTemplate;
 
+    /**
+     * Creates a new GraphQL source
+     *
+     * @param cfg - Configuration for the new GraphQL source
+     */
     constructor(cfg: GraphQLSourceOpts) {
         super({
             ... cfg,
@@ -30,6 +40,7 @@ export class GraphQLSource extends Source {
         // this.#jsonataTemplate = jsonata(this.#resultPath);
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #pull(methods: SourceMethods): Promise<void> {
         // console.log("#pull");
         const {done, value} = this.#dataIterator.next();
@@ -43,7 +54,10 @@ export class GraphQLSource extends Source {
         await methods.send(0, chunk);
     }
 
-    async init() {
+    /**
+     * Typically called by the `.complete()` function from dataflow-core to initialize this component
+     */
+    async init(): Promise<void> {
         this.#data = await request(this.#endpoint, this.#query);
         // this.#data = {
         //     result: {

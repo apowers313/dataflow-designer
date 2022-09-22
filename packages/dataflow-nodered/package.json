@@ -11,8 +11,7 @@
     "test": "ts-mocha -p ./tsconfig.json test/**/*.test.ts",
     "docs": "typedoc",
     "build": "tsc -p ./tsconfig.json",
-    "lint": "npx eslint",
-    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test"
+    "lint": "npx eslint --quiet lib/**/*.ts"
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",

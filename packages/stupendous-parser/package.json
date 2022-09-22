@@ -9,9 +9,9 @@
   },
   "scripts": {
     "test": "ts-mocha -p ./tsconfig.json test/**/*.test.ts",
-    "docs": "typedoc",
+    "docs": "npx typedoc --tsconfig ./tsconfig.json",
     "build": "tsc -p ./tsconfig.json",
-    "lint": "npx eslint lib/**/*.ts"
+    "lint": "npx eslint --quiet lib/**/*.ts"
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",

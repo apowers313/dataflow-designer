@@ -9,6 +9,9 @@ export interface UrlMetadata {
 
 export interface UrlStreamMetadataCfg extends DataCollectionEntryCfg<RequestInfo> {}
 
+/**
+ * A single URL stream and it's associated metadata
+ */
 export class UrlDataEntry extends DataCollectionEntry<UrlMetadata> {
     // eslint-disable-next-line jsdoc/require-jsdoc
     discard(): void { /* ignored */ }
@@ -19,13 +22,27 @@ export class UrlDataEntry extends DataCollectionEntry<UrlMetadata> {
 export interface UrlDataCollectionEncodeOpts extends DataCollectionEncodeCfg {}
 export interface UrlDataCollectionDecodeOpts extends DataCollectionDecodeCfg {}
 
+/**
+ * A collection of URL streams that will be parsed into a stream of corresponding objects
+ */
 export class UrlDataCollection extends DataCollection {
     type = "url";
 
+    /**
+     * Encodes a stream of objects into a byte stream and sends it to the specified URLs. Not currently implemented.
+     *
+     * @param _opts - Not implemented
+     */
     encode(_opts: UrlDataCollectionEncodeOpts = {}): TransformStream {
         throw new Error("encode not implemented");
     }
 
+    /**
+     * Decodes a URL into a stream of objects
+     *
+     * @param opts - Options for decoding the URL
+     * @returns a TransformStream that consumes a byte stream into a stream of objects
+     */
     decode(opts: UrlDataCollectionDecodeOpts = {}): TransformStream<UrlDataEntry> {
         return super.decode({... opts, customParserFn: findUrlDecodeParser});
     }

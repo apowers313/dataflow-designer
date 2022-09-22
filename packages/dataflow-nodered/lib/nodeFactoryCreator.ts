@@ -189,7 +189,7 @@ function coerceNode(RED: NodeRed.NodeAPI, node: MonkeyPatchNode): void {
     attachDataflowToNode({RED, node, config: null, dfFactory});
 }
 
-function sinkWrapperFactory(this: null, node: NodeRed.Node, inputCallbacks: Array<RedEventCallback>, _config: unknown): Component {
+function sinkWrapperFactory(this: null, _node: NodeRed.Node, _inputCallbacks: Array<RedEventCallback>, _config: unknown): Component {
     return new Sink({push: async(): Promise<void> => {
         // console.log("push:", node, inputCallbacks);
     }});

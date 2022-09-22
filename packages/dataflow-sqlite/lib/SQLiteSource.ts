@@ -7,6 +7,9 @@ interface SQLiteSourceOpts extends SQLiteCommonOpts, Omit<SourceOpts, "pull"> {
     mapping?: DatabaseMap;
 }
 
+/**
+ * Streams objects from a SQLite database
+ */
 export class SQLiteSource extends Source {
     #databaseFile: string;
     #tableName: string;
@@ -15,6 +18,11 @@ export class SQLiteSource extends Source {
     #getRow!: Database.Statement;
     #rowIter!: IterableIterator<Record<any, any>>;
 
+    /**
+     * Creates a new SQLite database source
+     *
+     * @param cfg - The options for the new SQLite source
+     */
     constructor(cfg: SQLiteSourceOpts) {
         super({
             ... cfg,
@@ -26,6 +34,7 @@ export class SQLiteSource extends Source {
         this.#mapping = cfg.mapping ?? null;
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #pull(methods: SourceMethods): Promise<void> {
         console.log("#pull");
         const {done, value} = this.#rowIter.next();
@@ -45,6 +54,9 @@ export class SQLiteSource extends Source {
         await methods.send(0, chunk);
     }
 
+    /**
+     * Typically called by the `.complete()` function from dataflow-core to initialize this component
+     */
     async init(): Promise<void> {
         this.#db = new Database(this.#databaseFile, {fileMustExist: true});
         // TODO: select specific fields?

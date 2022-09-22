@@ -1,5 +1,5 @@
 import {Chunk, Source, SourceMethods, SourceOpts} from "@dataflow-designer/dataflow-core";
-import {CloudWatchLogsClient, GetLogEventsCommand, GetLogEventsCommandOutput, PutLogEventsCommand} from "@aws-sdk/client-cloudwatch-logs";
+import {CloudWatchLogsClient, GetLogEventsCommand, GetLogEventsCommandOutput} from "@aws-sdk/client-cloudwatch-logs";
 
 type OutputLogEventList = NonNullable<GetLogEventsCommandOutput["events"]>;
 
@@ -12,6 +12,9 @@ interface CloudWatchSourceOpts extends Omit<SourceOpts, "pull"> {
     batchSize?: number;
 }
 
+/**
+ * Creates a new source component that streams log entries from AWS CloudWatch
+ */
 export class CloudWatchSource extends Source {
     #cwClient: CloudWatchLogsClient;
     #logGroupName: string;
@@ -21,6 +24,11 @@ export class CloudWatchSource extends Source {
     #cache: OutputLogEventList = [];
     #done = false;
 
+    /**
+     * Creates a new CloudWatch source
+     *
+     * @param cfg - The options for the new CloudWatch source
+     */
     constructor(cfg: CloudWatchSourceOpts) {
         super({
             ... cfg,
@@ -40,6 +48,7 @@ export class CloudWatchSource extends Source {
         this.#batchSize = cfg.batchSize ?? 1024;
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #pull(methods: SourceMethods): Promise<void> {
         if (this.#done) {
             await methods.finished();
@@ -75,6 +84,7 @@ export class CloudWatchSource extends Source {
         }
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #fetchBatch(): Promise<void> {
         console.log("#fetchBatch");
         // TODO: startFromHead = true, #nextToken = resp.nextForwardToken

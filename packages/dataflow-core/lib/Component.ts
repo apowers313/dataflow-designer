@@ -52,6 +52,9 @@ export abstract class Component {
         this.resolveInit();
     }
 
+    /**
+     * Sets the operating context for the component. Passed to logger and status.
+     */
     set context(c: any | undefined) {
         this.logger = Logger.getLoggerForType(c);
         this.status = StatusReporter.getStatusReporterForType(c);

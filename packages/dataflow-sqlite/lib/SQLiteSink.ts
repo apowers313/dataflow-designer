@@ -11,6 +11,9 @@ interface SQLiteSinkOpts extends SQLiteCommonOpts, Omit<SinkOpts, "push"> {
     freshTable?: boolean;
 }
 
+/**
+ * A dataflow component to store a stream of objects to a SQLite database
+ */
 export class SQLiteSink extends Sink {
     #databaseFile: string;
     #tableName: string;
@@ -21,6 +24,11 @@ export class SQLiteSink extends Sink {
     dropTable: boolean;
     createTable: boolean;
 
+    /**
+     * Creates a new SQLite sink
+     *
+     * @param cfg - The configuration for the new SQLite sink
+     */
     constructor(cfg: SQLiteSinkOpts) {
         super({
             ... cfg,
@@ -40,6 +48,7 @@ export class SQLiteSink extends Sink {
         }
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #push(chunk: Chunk, _methods: SinkMethods): Promise<void> {
         console.log("push");
         if (!chunk.isData()) {
@@ -51,6 +60,9 @@ export class SQLiteSink extends Sink {
         console.log("row inserted");
     }
 
+    /**
+     * Typically called by the `.complete()` function from dataflow-core to initialize this component
+     */
     async init(): Promise<void> {
         this.#db = new Database(this.#databaseFile, {fileMustExist: this.fileMustExist});
         if (this.dropTable) {

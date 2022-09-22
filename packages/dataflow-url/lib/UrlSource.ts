@@ -8,11 +8,19 @@ interface UrlSourceOpts extends Omit<SourceOpts, "pull"> {
     parserOpts?: ParserDecodeOpts;
 }
 
+/**
+ * Converts a single URL into a stream of objects
+ */
 export class UrlSource extends Source {
     #dataReader: ReadableStreamDefaultReader | null = null;
     request: RequestInfo;
     parserOpts: ParserDecodeOpts;
 
+    /**
+     * Creates a new URL source
+     *
+     * @param opts - Options for decoding the stream
+     */
     constructor(opts: UrlSourceOpts) {
         super({
             pull: (methods) => this.pull(methods),
@@ -21,6 +29,12 @@ export class UrlSource extends Source {
         this.parserOpts = opts.parserOpts ?? {};
     }
 
+    /**
+     * Pulls a single object from the stream. Typically called automatically by ReadableStream
+     *
+     * @param methods - Methods for interacting with the stream, passed in by dataflow-core.
+     * @returns a Promise that resolves when the pull request has completed
+     */
     async pull(methods: SourceMethods): Promise<void> {
         if (!this.#dataReader) {
             await methods.finished();
@@ -38,6 +52,9 @@ export class UrlSource extends Source {
         await methods.send(0, chunk);
     }
 
+    /**
+     * Initializes the source. Typically called automatically by `.complete()`
+     */
     async init(): Promise<void> {
         const response = await fetch(this.request);
         if (response.status < 200 || response.status > 299) {

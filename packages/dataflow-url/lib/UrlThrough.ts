@@ -11,6 +11,11 @@ interface UrlThroughOpts extends Omit<ThroughOpts, "through"> {
     url: string;
 }
 
+/**
+ * Iterates over a set of URLs and produces object streams for each of them. For example, each object stream sent to
+ * through this component could contain a URL, this component will fetch that URL and parse it into an object stream.
+ * This is good for iterating REST APIs where one API call returns a list of URLs that need to be further iterated.
+ */
 export class UrlThrough extends Through {
     #url: string;
     #fetchOpts: RequestInit;
@@ -18,6 +23,11 @@ export class UrlThrough extends Through {
     #parserOpts: ParserDecodeOpts;
     #outputReader: ReadableStreamDefaultReader | undefined;
 
+    /**
+     * Creates a new UrlThrough component
+     *
+     * @param cfg - The configuration for iterating URLs
+     */
     constructor(cfg: UrlThroughOpts) {
         super({
             ... cfg,
@@ -31,6 +41,12 @@ export class UrlThrough extends Through {
         this.#fetchTemplates = createTemplates(cfg.url, this.#fetchOpts);
     }
 
+    /**
+     * Automatically called for each object by the dataflow-core framework
+     *
+     * @param methods - Passed in by dataflow-core
+     * @returns a Promise that resolves when the input data has been processed
+     */
     async through(methods: ManualThroughMethods): Promise<void> {
         if (!this.#outputReader) {
             this.#outputReader = await this.#getDecodeReader(methods);
@@ -47,6 +63,7 @@ export class UrlThrough extends Through {
         await methods.send(0, chunk);
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #getDecodeReader(methods: ManualThroughMethods): Promise<ReadableStreamDefaultReader> {
         const objSource = new ReadableStream({
             pull: async(controller): Promise<void> => {
@@ -73,6 +90,7 @@ export class UrlThrough extends Through {
         return parsedStream.getReader();
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #getUrl(chunk: Chunk): Promise<UrlDataEntry> {
         const {url, opts} = applyTemplates(this.#fetchTemplates, chunk, this.#url, this.#fetchOpts);
 
@@ -102,7 +120,7 @@ interface FetchTemplates {
     url: HandlebarsTemplateFn | null;
 }
 
-function createTemplates(url: string, opts: RequestInit): FetchTemplates {
+function createTemplates(url: string, _opts: RequestInit): FetchTemplates {
     let urlTemplate: HandlebarsTemplateFn | null = null;
 
     url = url.replace("%7B%7B", "{{").replace("%7D%7D", "}}");

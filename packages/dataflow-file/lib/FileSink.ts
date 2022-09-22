@@ -9,17 +9,25 @@ interface FileSinkOpts extends Omit<SinkOpts, "push"> {
     parserOpts?: ParserEncodeOpts;
 }
 
+/**
+ * Converts a stream of objects into a file with the specified encoding
+ */
 export class FileSink extends Sink {
     file: string;
     parserOpts?: ParserEncodeOpts;
     #fileWriter?: WritableStreamDefaultWriter;
     #parserStream?: TransformStream;
 
+    /**
+     * Creates a new file sink
+     *
+     * @param opts - The options for the new file sink
+     */
     constructor(opts: FileSinkOpts) {
         super({
             ... opts,
             mode: "fifo",
-            push: (chunk, methods) => this.push(chunk, methods),
+            push: (chunk, methods) => this.#push(chunk, methods),
             writeClose: async(): Promise<void> => {
                 if (this.#fileWriter) {
                     await this.#fileWriter.close();
@@ -31,7 +39,8 @@ export class FileSink extends Sink {
         this.parserOpts = opts.parserOpts;
     }
 
-    async push(chunk: Chunk | ChunkCollection, _methods: SinkMethods): Promise<void> {
+    // eslint-disable-next-line jsdoc/require-jsdoc
+    async #push(chunk: Chunk | ChunkCollection, _methods: SinkMethods): Promise<void> {
         if (!this.#fileWriter) {
             return;
         }
@@ -47,6 +56,9 @@ export class FileSink extends Sink {
         }
     }
 
+    /**
+     * Typically called by the `.complete()` function from dataflow-core to initialize this component
+     */
     async init(): Promise<void> {
         const fileStream = Writable.toWeb(createWriteStream(this.file));
 

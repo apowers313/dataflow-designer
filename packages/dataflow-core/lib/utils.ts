@@ -143,21 +143,38 @@ export type ContextConstructor<T> = new (... args: any[]) => T;
 
 type ResolveFn = (... args: any[]) => void;
 
+/**
+ * Creates a read / write exchange between a WritableStream and a ReadableStream, like creating a ThroughStream but when
+ * the pieces are in the wrong order.
+ */
 export class Interlock<T> {
     #writeDone!: Promise<T>;
     #writeResolve!: ResolveFn;
     #readDone!: Promise<void>;
     #readResolve!: ResolveFn;
 
+    /**
+     * Creates a new Interlock
+     */
     constructor() {
         this.reset();
     }
 
+    /**
+     * Sends data to the listening stream
+     *
+     * @param data - The data to send
+     */
     async send(data: T | null): Promise<void> {
         this.#writeResolve(data);
         await this.#readDone;
     }
 
+    /**
+     * Receives data from the writing stream
+     *
+     * @returns a Promise that resolves with the data, or null if the stream has completed
+     */
     async recv(): Promise<T | null> {
         const data = await this.#writeDone;
         this.#readResolve();
@@ -165,6 +182,9 @@ export class Interlock<T> {
         return data;
     }
 
+    /**
+     * Called after a single send / recv cycle, indicating that it is okay for the sender to send more data
+     */
     reset(): void {
         this.#writeDone = new Promise((resolve) => {
             this.#writeResolve = resolve;

@@ -11,7 +11,7 @@
     "test": "ts-mocha -p ./tsconfig.json test/**/*.test.ts",
     "docs": "typedoc",
     "build": "tsc -p ./tsconfig.json",
-    "lint": "npx eslint"
+    "lint": "npx eslint --quiet lib/**/*.ts"
   },
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "better-sqlite3": "^7.6.2",
-    "dataflow-core": "*",
+    "@dataflow-designer/dataflow-core": "*",
     "object-path": "^0.11.8",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.0.11"

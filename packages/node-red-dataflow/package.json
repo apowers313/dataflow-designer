@@ -4,12 +4,13 @@
   "description": "Streaming data framework for Node-RED",
   "node-red": {
     "nodes": {
-      "dataflow-file-source": "file/dataflow-file-source.js"
+      "dataflow-file-source": "lib/dataflow-file-source.js"
     }
   },
   "scripts": {
     "test": "true",
-    "build": "true"
+    "build": "true",
+    "lint": "true"
   },
   "keywords": [
     "node-red"

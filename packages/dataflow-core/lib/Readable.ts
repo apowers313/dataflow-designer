@@ -217,6 +217,9 @@ export function ReadableComponent<TBase extends Constructor<Component>>(Base: TB
             });
         }
 
+        /**
+         * Called internally when the readable is done
+         */
         readableFinished(): void {
             this.done = true;
             const md = Chunk.create({type: "metadata"});

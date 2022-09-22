@@ -5,11 +5,20 @@ export interface SampleOpts extends Omit<ThroughOpts, "through"> {
     interval?: number;
 }
 
+/**
+ * Creates a random sampling of the objects that passes through the component. For example, only passes through every
+ * 10th object that it receives. Good for cutting down on the data size for debugging outputs, etc.
+ */
 export class Sample extends Through {
     #count = 0;
     #interval: number;
     #random: boolean;
 
+    /**
+     * Creates a new Sample component
+     *
+     * @param opts - The options for the new Sampling component
+     */
     constructor(opts: SampleOpts = {}) {
         super({
             ... opts,
@@ -29,6 +38,7 @@ export class Sample extends Through {
         }
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #through(methods: ManualThroughMethods): Promise<void> {
         let chunk = await methods.read();
         while (this.#count > 0 && chunk) {
@@ -48,6 +58,7 @@ export class Sample extends Through {
         this.#resetCount();
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     #resetCount(): void {
         if (!this.#random) {
             this.#count = this.#interval - 1;

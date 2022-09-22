@@ -1,8 +1,8 @@
 import {GetObjectCommand, GetObjectCommandOutput, ListBucketsCommand, ListBucketsCommandOutput, ListObjectsCommand, ListObjectsCommandOutput, S3Client} from "@aws-sdk/client-s3";
+import {Source, SourceMethods, SourceOpts} from "@dataflow-designer/dataflow-core";
 import {Readable} from "node:stream";
-import {Source} from "@dataflow-designer/dataflow-core";
 
-interface S3SourceCfg {
+interface S3SourceCfg extends Omit<SourceOpts, "pull"> {
     region: string;
     accessKeyId: string;
     secretAccessKey: string;
@@ -12,11 +12,23 @@ interface S3SourceCfg {
     // creds?
 }
 
-// export class S3Source extends Source {
-export class S3Source {
+/**
+ * Creates a stream of objects from an AWS S3 bucket
+ */
+export class S3Source extends Source {
     s3client: S3Client;
 
+    /**
+     * Creates a new AWS S3 source
+     *
+     * @param cfg - Options for the new AWS S3 source
+     */
     constructor(cfg: S3SourceCfg) {
+        super({
+            ... cfg,
+            pull: (methods) => this.#pull(methods),
+        });
+
         this.s3client = new S3Client({
             region: cfg.region,
             maxAttempts: cfg.maxAttempts ?? 20,
@@ -31,6 +43,12 @@ export class S3Source {
         });
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
+    async #pull(_methods: SourceMethods): Promise<void> {
+        console.log("#pull");
+    }
+
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async listBuckets(): Promise<ListBucketsCommandOutput> {
         const cmd = new ListBucketsCommand({});
         const resp = await this.s3client.send(cmd);
@@ -38,6 +56,7 @@ export class S3Source {
         return resp;
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async listKeys(bucket: string): Promise<ListObjectsCommandOutput> {
         const cmd = new ListObjectsCommand({
             Bucket: bucket,
@@ -47,6 +66,7 @@ export class S3Source {
         return resp;
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async get(bucket: string, key: string): Promise<string> {
         const cmd = new GetObjectCommand({
             Bucket: bucket,

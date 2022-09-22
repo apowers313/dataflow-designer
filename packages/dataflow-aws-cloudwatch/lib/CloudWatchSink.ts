@@ -13,6 +13,9 @@ interface CloudWatchSinkOpts extends Omit<SinkOpts, "push"> {
     createStream?: boolean;
 }
 
+/**
+ * Creates a new dataflow component that writes objects to a CloudWatch log group
+ */
 export class CloudWatchSink extends Sink {
     #cwClient: CloudWatchLogsClient;
     #logQueue: LogQueue = [];
@@ -24,6 +27,11 @@ export class CloudWatchSink extends Sink {
     #createGroup: boolean;
     #createStream: boolean;
 
+    /**
+     * Creates a new CloudWatch sink
+     *
+     * @param cfg - Options for the new CloudWatch sink
+     */
     constructor(cfg: CloudWatchSinkOpts) {
         super({
             ... cfg,
@@ -48,6 +56,7 @@ export class CloudWatchSink extends Sink {
         this.#createStream = cfg.createStream ?? false;
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #push(chunk: Chunk, _methods: SinkMethods): Promise<void> {
         const data = JSON.stringify(chunk);
         this.#logQueueBytes += data.length + 1;
@@ -61,6 +70,7 @@ export class CloudWatchSink extends Sink {
         }
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #sendLogs(): Promise<void> {
         console.log("#sendLogs:", this.#logQueue.length);
         // get sequence number if needed
@@ -87,6 +97,7 @@ export class CloudWatchSink extends Sink {
         this.#logQueue = [];
     }
 
+    // eslint-disable-next-line jsdoc/require-jsdoc
     async #getSequenceNumber(): Promise<string | undefined> {
         console.log("#getSequenceNumber:", this.#logGroupName);
         const descStrCmd = new DescribeLogStreamsCommand({
@@ -99,6 +110,9 @@ export class CloudWatchSink extends Sink {
         return sequenceToken;
     }
 
+    /**
+     * Typically called by the `.complete()` function from dataflow-core to initialize this component
+     */
     async init(): Promise<void> {
         if (this.#createGroup) {
             console.log("creating group", this.#logGroupName);
