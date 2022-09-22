@@ -15,12 +15,15 @@
     "docker:build": "docker build --tag dataflow-designer docker",
     "docker:run": "docker run -it -p 1800:1800 -v node_red_data:/data dataflow-designer",
     "docker:shell": "docker run -it --entrypoint sh -p 1800:1800 -v node_red_data:/data dataflow-designer",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clean": "git clean -fdX"
   },
   "devDependencies": {
     "husky": "^8.0.1",
     "lerna": "^5.4.3",
     "nx": "^14.6.3",
-    "plop": "^3.1.1"
+    "plop": "^3.1.1",
+    "typedoc": "^0.23.15",
+    "typescript": "^4.9.0-dev.20220921"
   }
 }

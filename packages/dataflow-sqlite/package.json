@@ -48,11 +48,11 @@
     "temp": "^0.9.4",
     "ts-mocha": "^10.0.0",
     "typedoc": "^0.23.5",
-    "typescript": "^4.9.0-dev.20220919"
+    "typescript": "^4.9.0-dev.20220921"
   },
   "dependencies": {
-    "better-sqlite3": "^7.6.2",
     "@dataflow-designer/dataflow-core": "*",
+    "better-sqlite3": "^7.6.2",
     "object-path": "^0.11.8",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.0.11"
