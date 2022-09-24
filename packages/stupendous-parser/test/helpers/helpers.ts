@@ -1,4 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
+import {ReadableStream} from "node:stream/web";
+
 export async function timeout(ms: number): Promise<void> {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);

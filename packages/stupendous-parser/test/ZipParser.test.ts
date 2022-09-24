@@ -1,12 +1,13 @@
 import {Readable, Writable} from "node:stream";
 import {createReadStream, createWriteStream} from "node:fs";
 import AdmZip from "adm-zip";
+import {ReadableStream} from "node:stream/web";
 import {ZipParser} from "../index";
 import {assert} from "chai";
 import {objectStream} from "./helpers/helpers";
 import path from "node:path";
 import {spy} from "sinon";
-import temp from "temp";
+import {path as tempPath} from "temp";
 
 describe("ZipParser", function() {
     it("is function", function() {
@@ -118,7 +119,7 @@ describe("ZipParser", function() {
                 {foo: "bat", filename: "file1.json"},
             ]);
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
 
@@ -141,7 +142,7 @@ describe("ZipParser", function() {
                 {foo: "bat", filename: "file3.json"},
             ]);
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             // const writeSpy = spy();
             // const outputFile = new WritableStream({
@@ -167,7 +168,7 @@ describe("ZipParser", function() {
             // console.log("writeSpy", writeSpy);
         });
 
-        it.skip("bulk", async function() {
+        it("bulk", async function() {
             if (process.env.CI === "true") {
                 this.skip();
             }
@@ -194,7 +195,7 @@ describe("ZipParser", function() {
                 },
             });
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             console.log("tempFile", tempFile);
             await inputStream.pipeThrough(zp.encode({inMemory: true})).pipeTo(outputFile);

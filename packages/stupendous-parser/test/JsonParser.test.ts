@@ -6,7 +6,7 @@ import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
 import path from "node:path";
 import {spy} from "sinon";
-import temp from "temp";
+import {path as tempPath} from "temp";
 
 describe("JsonParser", function() {
     it("is function", function() {
@@ -22,7 +22,7 @@ describe("JsonParser", function() {
                 {foo: "bat"},
             ]);
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             await inputStream.pipeThrough(jp.encode({ndjson: true})).pipeTo(outputFile);
 
@@ -44,7 +44,7 @@ describe("JsonParser", function() {
                 {foo: "bat"},
             ]);
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             await inputStream.pipeThrough(jp.encode({makeArray: true})).pipeTo(outputFile);
 

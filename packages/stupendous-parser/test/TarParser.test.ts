@@ -1,12 +1,10 @@
-import {Readable, Writable} from "node:stream";
-import {createReadStream, createWriteStream} from "node:fs";
-import tar from "tar";
+import {FileStat, t} from "tar";
 import {TarParser} from "../index";
+import {Writable} from "node:stream";
 import {assert} from "chai";
+import {createWriteStream} from "node:fs";
 import {objectStream} from "./helpers/helpers";
-import {spy} from "sinon";
-import temp from "temp";
-import {finished} from "node:stream/promises";
+import {path as tempPath} from "temp";
 
 describe("TarParser", function() {
     it("is function", function() {
@@ -23,12 +21,12 @@ describe("TarParser", function() {
                 {foo: "bat", filename: "file1.json"},
             ]);
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             await inputStream.pipeThrough(tp.encode()).pipeTo(outputFile);
 
-            const entries: Array<tar.FileStat> = [];
-            await tar.t({
+            const entries: Array<FileStat> = [];
+            await t({
                 file: tempFile,
                 onentry: (entry) => {
                     entries.push(entry);
@@ -48,12 +46,12 @@ describe("TarParser", function() {
                 {foo: "bat", filename: "file3.json"},
             ]);
 
-            const tempFile = temp.path();
+            const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
             await inputStream.pipeThrough(tp.encode()).pipeTo(outputFile);
 
-            const entries: Array<tar.FileStat> = [];
-            await tar.t({
+            const entries: Array<FileStat> = [];
+            await t({
                 file: tempFile,
                 onentry: (entry) => {
                     entries.push(entry);
