@@ -6,8 +6,8 @@
   ],
   "scripts": {
     "docs": "typedoc",
-    "test": "lerna run test --parallel --concurrency=5",
-    "lint": "lerna run lint --parallel --concurrency=5",
+    "test": "lerna run test --no-sort --parallel --concurrency=5",
+    "lint": "lerna run lint --no-sort --parallel --concurrency=5",
     "build": "lerna run build",
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
