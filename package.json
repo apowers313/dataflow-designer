@@ -6,8 +6,8 @@
   ],
   "scripts": {
     "docs": "typedoc",
-    "test": "lerna run test",
-    "lint": "lerna run lint",
+    "test": "lerna run test --parallel --concurrency=5",
+    "lint": "lerna run lint --parallel --concurrency=5",
     "build": "lerna run build",
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
@@ -16,6 +16,7 @@
     "docker:run": "docker run -it -p 1800:1800 -v node_red_data:/data dataflow-designer",
     "docker:shell": "docker run -it --entrypoint sh -p 1800:1800 -v node_red_data:/data dataflow-designer",
     "prepare": "husky install",
+    "prepublishOnly": "lerna run build",
     "clean": "git clean -fdX"
   },
   "devDependencies": {
