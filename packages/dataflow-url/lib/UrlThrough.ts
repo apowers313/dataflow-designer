@@ -3,6 +3,7 @@ import {RequestInfo, RequestInit, fetch} from "undici";
 import {UrlDataCollection, UrlDataEntry} from "./UrlDataCollection";
 import Handlebars from "handlebars";
 import {ParserDecodeOpts} from "@dataflow-designer/stupendous-parser";
+import {ReadableStream} from "node:stream/web";
 
 interface UrlThroughOpts extends Omit<ThroughOpts, "through"> {
     request?: RequestInfo;
