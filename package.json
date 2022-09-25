@@ -17,8 +17,7 @@
     "docker:shell": "docker run -it --entrypoint sh -p 1800:1800 -v node_red_data:/data dataflow-designer",
     "prepare": "husky install",
     "prepublishOnly": "lerna run build",
-    "clean": "git clean -fdX",
-    "preversion": "rm -f package-lock.json"
+    "clean": "git clean -fdX"
   },
   "devDependencies": {
     "husky": "^8.0.1",
