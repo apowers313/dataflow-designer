@@ -18,7 +18,7 @@
     "prepare": "husky install",
     "prepublishOnly": "lerna run build",
     "clean": "git clean -fdX",
-    "preversion": "echo LERNA HOOK PREVERSION",
+    "preversion": "rm -f package-lock.json",
     "version": "echo LERNA HOOK VERSION",
     "postversion": "echo LERNA HOOK POSTVERSION"
   },
