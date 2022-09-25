@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Git checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -21,20 +21,20 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install
-      run: npm install
+      run: yarn install
 
-    # - name: Security Audit
-    #   run: npm audit --audit-level=high
+    - name: Security Audit
+      run: yarn audit
 
     - name: List Modules
-      run: npm ls
+      run: yarn list
       continue-on-error: true
 
     - name: Lint
-      run: npm run lint
+      run: yarn lint
 
     - name: Build
-      run: npm run build
+      run: yarn build
 
   test:
 
@@ -49,7 +49,7 @@ jobs:
 
     steps:
     - name: Git checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -58,53 +58,53 @@ jobs:
 
     - name: Cache Node Modules
       id: cache-node-modules
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
 
     - name: Install
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm install
+      run: yarn install
 
     - name: Test
-      run: npm test
+      run: yarn test
 
-  # docs:
-  #   needs: test
+  docs:
+    needs: test
 
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Git checkout
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v3
 
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v3
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
 
-  #   - name: Cache Node Modules
-  #     id: cache-node-modules
-  #     uses: actions/cache@v2
-  #     with:
-  #       path: node_modules
-  #       key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: Cache Node Modules
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
 
-  #   - name: Install
-  #     if: steps.cache.outputs.cache-hit != 'true'
-  #     run: npm install
+    - name: Install
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: yarn install
 
-  #   - name: Create Docs
-  #     run: npm run docs
+    - name: Create Docs
+      run: yarn docs
 
-  #   - name: Publish Docs
-  #     uses: JamesIves/github-pages-deploy-action@3.7.1
-  #     with:
-  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       BRANCH: gh-pages
-  #       FOLDER: docs
-  #       CLEAN: true
+    - name: Publish Docs
+      uses: JamesIves/github-pages-deploy-action@4
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: docs
+        CLEAN: true
 
   coverage:
     needs: test
@@ -122,17 +122,17 @@ jobs:
 
     - name: Cache Node Modules
       id: cache-node-modules
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
 
     - name: Install
       if: steps.cache.outputs.cache-hit != 'true'
-      run: npm install
+      run: yarn install
 
     - name: Create Coverage
-      run: npm run coverage
+      run: yarn coverage
 
     - name: Publish Coverage
       uses: coverallsapp/github-action@master
