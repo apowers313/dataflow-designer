@@ -99,12 +99,10 @@ jobs:
       run: yarn docs
 
     - name: Publish Docs
-      uses: JamesIves/github-pages-deploy-action@4
+      uses: JamesIves/github-pages-deploy-action@4.4.0
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: docs
-        CLEAN: true
+        folder: docs
+        clean: true
 
   coverage:
     needs: test
