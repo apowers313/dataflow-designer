@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-sample",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "A dataflow utility to only pass through every Nth chunk",
   "engines": {
     "node": ">=18"
@@ -24,6 +24,6 @@
     "displayName": "Dataflow Sample"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "*"
+    "@dataflow-designer/dataflow-core": "^0.3.0"
   }
 }

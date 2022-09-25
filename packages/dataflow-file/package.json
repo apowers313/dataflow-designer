@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-file",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "File source and sink for dataflow",
   "engines": {
     "node": ">=18"
@@ -24,7 +24,7 @@
     "displayName": "Dataflow File"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "*",
-    "@dataflow-designer/stupendous-parser": "*"
+    "@dataflow-designer/dataflow-core": "^0.3.0",
+    "@dataflow-designer/stupendous-parser": "^0.3.0"
   }
 }

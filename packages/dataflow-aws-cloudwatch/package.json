@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-aws-cloudwatch",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "AWS CloudWatch source and sink for dataflow",
   "engines": {
     "node": ">=18"
@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.171.0",
-    "@dataflow-designer/dataflow-core": "*"
+    "@dataflow-designer/dataflow-core": "^0.3.0"
   }
 }
