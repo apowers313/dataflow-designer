@@ -16,7 +16,7 @@
         "strictNullChecks": true,
         "experimentalDecorators": true,
         "lib": [
-            "es2021"
+            "ESNext"
         ],
         "types": [
             "node",
