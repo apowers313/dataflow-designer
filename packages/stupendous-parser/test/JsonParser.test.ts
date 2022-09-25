@@ -3,6 +3,7 @@ import {Readable, Writable} from "node:stream";
 import {buf2str, objectStream} from "./helpers/helpers";
 import {createReadStream, createWriteStream, readFileSync} from "node:fs";
 import {WritableStream} from "node:stream/web";
+import {TextDecoder} from "node:util";
 import {assert} from "chai";
 import path from "node:path";
 import {spy} from "sinon";

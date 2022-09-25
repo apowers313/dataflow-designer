@@ -1,5 +1,5 @@
 import {ParserDecodeOpts, ParserEncodeOpts} from "./ParserOpts";
-import {ReadableStream, ReadableStreamDefaultReader, TransformStream} from "node:stream/web";
+import {ReadableStream, ReadableStreamController, ReadableStreamDefaultReader, TransformStream, WritableStream} from "node:stream/web";
 import {FileCache} from "./FileCache";
 import {Interlock} from "./utils";
 import {Parser} from "./Parser";

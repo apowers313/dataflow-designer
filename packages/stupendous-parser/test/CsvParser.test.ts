@@ -1,6 +1,7 @@
 import {Readable, Writable} from "node:stream";
 import {createReadStream, createWriteStream, readFileSync} from "node:fs";
 import {CsvParser} from "../index";
+import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
 import path from "node:path";
 import {spy} from "sinon";

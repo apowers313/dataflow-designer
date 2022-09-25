@@ -1,4 +1,5 @@
 import {FileCache} from "../lib/FileCache";
+import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
 import {spy} from "sinon";
 

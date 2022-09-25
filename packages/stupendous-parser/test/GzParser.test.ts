@@ -1,5 +1,6 @@
 import {CsvParser, GzParser} from "../index";
 import {Readable} from "node:stream";
+import {WritableStream} from "node:stream/web";
 import {assert} from "chai";
 import {createReadStream} from "node:fs";
 import path from "node:path";

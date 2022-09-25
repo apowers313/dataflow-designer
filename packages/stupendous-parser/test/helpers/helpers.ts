@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import {ReadableStream} from "node:stream/web";
+import {TextDecoder} from "node:util";
 
 export async function timeout(ms: number): Promise<void> {
     return new Promise((resolve) => {
