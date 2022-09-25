@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@dataflow-designer/dataflow-core": "^0.3.0",
+    "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "jsonata": "^1.8.6"
   }
