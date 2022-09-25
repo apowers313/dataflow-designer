@@ -51,10 +51,10 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js v18
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '18'
 
     - name: Cache Node Modules
       id: cache-node-modules
@@ -79,10 +79,10 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js v18
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '18'
 
     - name: Cache Node Modules
       id: cache-node-modules
