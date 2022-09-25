@@ -1,6 +1,7 @@
 import {Chunk, Source, SourceMethods, SourceOpts} from "@dataflow-designer/dataflow-core";
 import {Parser, ParserDecodeOpts} from "@dataflow-designer/stupendous-parser";
 import {Readable} from "node:stream";
+import {ReadableStreamDefaultReader} from "node:stream/web";
 import {createReadStream} from "node:fs";
 
 interface FileSourceOpts extends Omit<SourceOpts, "pull"> {
