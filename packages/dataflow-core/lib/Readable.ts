@@ -1,6 +1,6 @@
 import {Chunk, ChunkCollection, MetadataChunk} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
-import {CountQueuingStrategy, ReadableStream} from "node:stream/web";
+import {CountQueuingStrategy, ReadableStream, ReadableStreamController, ReadableStreamDefaultController, ReadableStreamDefaultReader} from "node:stream/web";
 import {DataflowError, DeferredPromise} from "./utils";
 import {DataflowEnd} from "./Metadata";
 import type {WritableType} from "./Writable";

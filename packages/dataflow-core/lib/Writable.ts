@@ -1,6 +1,6 @@
 import {Chunk, ChunkCollection} from "./Chunk";
 import {Component, ComponentOpts} from "./Component";
-import {CountQueuingStrategy, WritableStream, WritableStreamDefaultController} from "node:stream/web";
+import {CountQueuingStrategy, WritableStream, WritableStreamDefaultController, WritableStreamDefaultWriter} from "node:stream/web";
 import type {Output, ReadableType} from "./Readable";
 import {promiseState} from "./utils";
 
