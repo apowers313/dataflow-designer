@@ -1,7 +1,7 @@
 import {Readable, Writable} from "node:stream";
+import {ReadableStream, WritableStream} from "node:stream/web";
 import {createReadStream, createWriteStream} from "node:fs";
 import AdmZip from "adm-zip";
-import {WritableStream} from "node:stream/web";
 import {ZipParser} from "../index";
 import {assert} from "chai";
 import {objectStream} from "./helpers/helpers";
