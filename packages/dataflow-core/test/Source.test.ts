@@ -163,17 +163,18 @@ describe("Source", function() {
             assert.strictEqual(sinkSpy.callCount, 22);
         });
 
-        // it("handles multi source with delays", async function() {
-        //     const src1 = new TestSource({delay: 3, countBy: 3, sendNum: 11});
-        //     const src2 = new TestSource({delay: 2, countBy: 2, sendNum: 11});
-        //     const sinkSpy = spy();
-        //     const sink = new Sink({push: sinkSpy, name: "sink1"});
-        //     src1.channels[0].pipe(sink);
-        //     src2.channels[0].pipe(sink);
-        //     await src1.complete();
+        // eslint-disable-next-line mocha/no-skipped-tests
+        it.skip("handles multi source with delays", async function() {
+            const src1 = new TestSource({delay: 3, countBy: 3, sendNum: 11});
+            const src2 = new TestSource({delay: 2, countBy: 2, sendNum: 11});
+            const sinkSpy = spy();
+            const sink = new Sink({push: sinkSpy, name: "sink1"});
+            src1.channels[0].pipe(sink);
+            src2.channels[0].pipe(sink);
+            await src1.complete();
 
-        //     assert.strictEqual(sinkSpy.callCount, 22);
-        // });
+            assert.strictEqual(sinkSpy.callCount, 22);
+        });
 
         it("handles simple tee", async function() {
             const src = new TestSource();
