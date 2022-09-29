@@ -29,7 +29,7 @@ describe("TarParser", function() {
             await t({
                 file: tempFile,
                 onentry: (entry) => {
-                    entries.push(entry);
+                    entries.push(entry as unknown as FileStat);
                 },
             });
             assert.strictEqual(entries.length, 1);
@@ -54,7 +54,7 @@ describe("TarParser", function() {
             await t({
                 file: tempFile,
                 onentry: (entry) => {
-                    entries.push(entry);
+                    entries.push(entry as unknown as FileStat);
                 },
             });
             assert.strictEqual(entries.length, 3);
