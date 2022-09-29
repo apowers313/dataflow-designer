@@ -77,7 +77,7 @@ describe("FileCache", function() {
         const output3 = new WritableStream({write: writeSpy3});
 
         const fc = new FileCache({fdLimit: 1});
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 30; i++) {
             await fc.write(`file${(i % 3) + 1}.json`, {count: i});
         }
 
@@ -87,15 +87,15 @@ describe("FileCache", function() {
         await cacheEntries[1].toStream().pipeTo(output2);
         await cacheEntries[2].toStream().pipeTo(output3);
 
-        assert.strictEqual(writeSpy1.args.length, 20);
-        assert.strictEqual(writeSpy2.args.length, 20);
-        assert.strictEqual(writeSpy3.args.length, 20);
+        assert.strictEqual(writeSpy1.args.length, 10);
+        assert.strictEqual(writeSpy2.args.length, 10);
+        assert.strictEqual(writeSpy3.args.length, 10);
         assert.deepEqual(writeSpy1.args[0][0], {count: 0});
         assert.deepEqual(writeSpy2.args[0][0], {count: 1});
         assert.deepEqual(writeSpy3.args[0][0], {count: 2});
-        assert.deepEqual(writeSpy1.args[19][0], {count: 57});
-        assert.deepEqual(writeSpy2.args[19][0], {count: 58});
-        assert.deepEqual(writeSpy3.args[19][0], {count: 59});
+        assert.deepEqual(writeSpy1.args[9][0], {count: 27});
+        assert.deepEqual(writeSpy2.args[9][0], {count: 28});
+        assert.deepEqual(writeSpy3.args[9][0], {count: 29});
     });
 
     it("pretends to close files over fdLimit in memory", async function() {
