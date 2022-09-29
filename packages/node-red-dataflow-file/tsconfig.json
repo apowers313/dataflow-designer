@@ -1,0 +1,19 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "node_modules/",
+        "build/"
+    ],
+    "assets": [
+        {
+            "include": "**/*.html"
+        }
+    ],
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "outDir": "./build"
+    }
+}
