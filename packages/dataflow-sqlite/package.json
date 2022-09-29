@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-sqlite",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A SQLite source and sink for dataflow",
   "engines": {
     "node": ">=18"
@@ -27,7 +27,7 @@
     "@types/object-path": "^0.11.1"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "^0.4.0",
+    "@dataflow-designer/dataflow-core": "^0.4.1",
     "better-sqlite3": "^7.6.2",
     "object-path": "^0.11.8",
     "sqlite": "^4.1.2",

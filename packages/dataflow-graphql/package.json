@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-graphql",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A GraphQL source for dataflow",
   "engines": {
     "node": ">=18"
@@ -23,7 +23,7 @@
     "displayName": "Dataflow Graphql"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "^0.4.0",
+    "@dataflow-designer/dataflow-core": "^0.4.1",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "jsonata": "^1.8.6"
