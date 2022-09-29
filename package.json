@@ -13,11 +13,13 @@
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
     "create:nodered": "plop --plopfile .plopfile.js create:nodered",
-    "docker:build": "./.createmanifest.sh && docker build --no-cache --tag dataflow-designer docker",
     "docker:run": "docker run -it -p 1880:1880 dataflow-designer",
     "docker:shell": "docker run -it -p 1880:1880 --entrypoint sh dataflow-designer",
+    "docker:build": "docker/build.sh build",
+    "docker:publish": "docker/build.sh publish",
     "prepare": "husky install",
-    "preversion": "lerna run lint && lerna run build && lerna run test",
+    "preversion": "lerna run lint && lerna run build && lerna run test && yarn docker:build",
+    "postpublish": "yarn docker:publish",
     "clean": "git clean -fdX"
   },
   "devDependencies": {
