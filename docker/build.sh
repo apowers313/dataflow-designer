@@ -13,6 +13,7 @@ if [ "$1" = "build" ]; then
     ls -d ../packages/node-red-dataflow* | cut -d/ -f3 > assets/npm_manifest
     docker build --no-cache --tag $LATEST_PACKAGE --tag $VERSION_PACKAGE .
 elif [ "$1" = "publish" ]; then
+    docker login
     docker push $LATEST_PACKAGE
     docker push $VERSION_PACKAGE
 else
