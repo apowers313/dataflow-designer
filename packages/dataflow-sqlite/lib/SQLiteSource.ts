@@ -36,15 +36,12 @@ export class SQLiteSource extends Source {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #pull(methods: SourceMethods): Promise<void> {
-        console.log("#pull");
         const {done, value} = this.#rowIter.next();
         if (done) {
-            console.log("source done");
             await methods.finished();
             return;
         }
 
-        console.log("value", value);
         let data = value;
         if (this.#mapping) {
             data = this.#mapping.rowToObj(value);
@@ -62,12 +59,6 @@ export class SQLiteSource extends Source {
         // TODO: select specific fields?
         this.#getRow = this.#db.prepare(`SELECT * FROM ${this.#tableName}`);
         this.#rowIter = this.#getRow.iterate();
-        // const getPerson = db.prepare("SELECT * FROM person");
-        // const personIter = getPerson.iterate();
-        // const res1 = personIter.next();
-        // console.log("res1", res1);
-        // const res2 = personIter.next();
-        // console.log("res2", res2);
 
         await super.init();
     }

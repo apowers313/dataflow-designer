@@ -55,13 +55,11 @@ export class CloudWatchSource extends Source {
             return;
         }
 
-        console.log("#pull");
         if (this.#cache.length === 0) {
             await this.#fetchBatch();
         }
 
         let count = methods.desiredSize();
-        console.log("#pull count", count);
         if (count === null) {
             throw new Error("desiredSize was null");
         }
@@ -71,8 +69,6 @@ export class CloudWatchSource extends Source {
             if (!data) {
                 throw new Error("unexpectedly ran out of data");
             }
-
-            console.log("sending data", data);
 
             try {
                 const obj = JSON.parse(data.message);
@@ -86,7 +82,6 @@ export class CloudWatchSource extends Source {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #fetchBatch(): Promise<void> {
-        console.log("#fetchBatch");
         // TODO: startFromHead = true, #nextToken = resp.nextForwardToken
         const cmd = new GetLogEventsCommand({
             logGroupName: this.#logGroupName,
@@ -100,7 +95,6 @@ export class CloudWatchSource extends Source {
             this.#done = true;
         }
 
-        console.log("resp", JSON.stringify(resp, null, 4));
         this.#nextToken = resp.nextBackwardToken;
         this.#cache = resp.events ?? [];
         if (this.#cache.length === 0) {

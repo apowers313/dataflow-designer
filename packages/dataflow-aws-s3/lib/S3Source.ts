@@ -45,14 +45,13 @@ export class S3Source extends Source {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #pull(_methods: SourceMethods): Promise<void> {
-        console.log("#pull");
+        return;
     }
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async listBuckets(): Promise<ListBucketsCommandOutput> {
         const cmd = new ListBucketsCommand({});
         const resp = await this.s3client.send(cmd);
-        console.log("bucket list response", resp);
         return resp;
     }
 
@@ -62,7 +61,6 @@ export class S3Source extends Source {
             Bucket: bucket,
         });
         const resp = await this.s3client.send(cmd);
-        console.log("list objects response", resp);
         return resp;
     }
 

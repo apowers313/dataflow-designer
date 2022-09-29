@@ -70,7 +70,7 @@ export class ZipParser extends DataCollection {
                 });
 
                 unzip.on("error", (err) => {
-                    console.log("UNZIP ERROR", err);
+                    // console.log("UNZIP ERROR", err);
                     controller.error(err);
                 });
 

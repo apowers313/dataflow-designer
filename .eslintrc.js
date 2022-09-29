@@ -31,6 +31,7 @@ module.exports = {
         },
     },
     rules: {
+        "no-console": ["error"],
         "import/extensions": ["error", "never"],
         "import/no-extraneous-dependencies": ["error", {devDependencies: true, optionalDependencies: true, peerDependencies: true}],
         "@typescript-eslint/member-delimiter-style": ["error", {

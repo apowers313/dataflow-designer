@@ -7,7 +7,6 @@ interface NodeOpts extends NodeDef {
 }
 
 module.exports = nodeFactoryCreator((_node, nodeCfg: NodeOpts | null) => {
-    console.log("creating file source", nodeCfg);
     if (!nodeCfg) {
         throw new Error("node configuration not optional for FileSource");
     }

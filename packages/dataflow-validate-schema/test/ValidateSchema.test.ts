@@ -41,10 +41,6 @@ describe("ValidateSchema", function() {
         thru.channels[1].pipe(errorSink);
         await src.complete();
 
-        console.log("okSpy", okSpy.args);
-        console.log("okSpy", okSpy.callCount);
-        console.log("errorSpy", errorSpy.args);
-        console.log("errorSpy", errorSpy.callCount);
         assert.strictEqual(okSpy.callCount, 5);
         assert.isTrue(okSpy.args[0][0].isMetadata());
         assert.isTrue(okSpy.args[1][0].isData());
@@ -62,8 +58,6 @@ describe("ValidateSchema", function() {
         assert.isTrue(errorSpy.args[3][0].isError());
         assert.isTrue(errorSpy.args[4][0].isError());
         assert.isTrue(errorSpy.args[5][0].isMetadata());
-        console.log("errorSpy.args[1][0]", errorSpy.args[1][0]);
-        console.log("errorSpy.args[1][0].error.validationErrors", errorSpy.args[1][0].error.validationErrors);
         assert.strictEqual(errorSpy.args[1][0].error.message, "JSON Schema Validation Error");
         assert.strictEqual(errorSpy.args[1][0].error.validationErrors.length, 1);
         assert.deepEqual(errorSpy.args[1][0].error.validationErrors[0], {

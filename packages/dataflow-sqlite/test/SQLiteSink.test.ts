@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 import {DatabaseMap, SQLiteSink} from "../index";
-import {Sink, helpers} from "@dataflow-designer/dataflow-core";
+import Database from "better-sqlite3";
 import {assert} from "chai";
-import {spy} from "sinon";
+import {helpers} from "@dataflow-designer/dataflow-core";
 import temp from "temp";
 const {objectSource} = helpers;
-import Database from "better-sqlite3";
 
 describe("SQLiteSink", function() {
     it("is function", function() {
@@ -21,7 +20,6 @@ describe("SQLiteSink", function() {
             {drink: "vodka", food: "borscht", number: 1.41421},
         ]);
         const dbFile = temp.path();
-        console.log("dbFile", dbFile);
 
         // const dbFile = "/tmp/test.db";
         const tableName = "simple_write";
@@ -39,17 +37,14 @@ describe("SQLiteSink", function() {
         src.channels[0].pipe(sink);
         await src.complete();
 
-        console.log("dbFile", dbFile);
         const db = new Database(dbFile, {fileMustExist: true});
         const tblDesc = db.pragma(`table_info(${tableName})`);
-        console.log("tblDesc", tblDesc);
         assert.deepEqual(tblDesc, [
             {cid: 0, name: "drnk", type: "TEXT", notnull: 0, dflt_value: null, pk: 0},
             {cid: 1, name: "fud", type: "TEXT", notnull: 0, dflt_value: null, pk: 0},
             {cid: 2, name: "num", type: "float", notnull: 0, dflt_value: null, pk: 0},
         ]);
         const rows = db.prepare(`SELECT * FROM ${tableName}`).all();
-        console.log("rows", rows);
         assert.strictEqual(rows.length, 3);
         assert.deepEqual(rows, [
             {drnk: "beer", fud: "burger", num: 3.14159},

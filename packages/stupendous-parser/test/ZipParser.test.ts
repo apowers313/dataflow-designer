@@ -144,19 +144,10 @@ describe("ZipParser", function() {
 
             const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
-            // const writeSpy = spy();
-            // const outputFile = new WritableStream({
-            //     write: writeSpy,
-            // });
-            // console.log("tempFile", tempFile);
             await inputStream.pipeThrough(zp.encode()).pipeTo(outputFile);
 
             const zip = new AdmZip(tempFile);
             const zipEntries = zip.getEntries();
-            // console.log("zipEntries", zipEntries[0]);
-            // console.log("zipEntries data", zipEntries[0].getData().toString());
-            // console.log("zipEntries", zipEntries[0].toJSON());
-            // console.log("zipEntries[0].header", zipEntries[0].header.toJSON());
             assert.strictEqual(zipEntries.length, 3);
             assert.strictEqual(zipEntries[0].entryName, "file1.json");
             assert.strictEqual(zipEntries[0].getData().toString(), "[{\"foo\":\"bar\"}]");
@@ -164,8 +155,6 @@ describe("ZipParser", function() {
             assert.strictEqual(zipEntries[1].getData().toString(), "[{\"foo\":\"baz\"}]");
             assert.strictEqual(zipEntries[2].entryName, "file3.json");
             assert.strictEqual(zipEntries[2].getData().toString(), "[{\"foo\":\"bat\"}]");
-
-            // console.log("writeSpy", writeSpy);
         });
 
         // eslint-disable-next-line mocha/no-skipped-tests
@@ -187,10 +176,6 @@ describe("ZipParser", function() {
                         return;
                     }
 
-                    if (!(count % 100000)) {
-                        console.log("current count:", count);
-                    }
-
                     controller.enqueue({count, filename: `file${(count % 10) + 1}.json`});
                     count++;
                 },
@@ -198,12 +183,10 @@ describe("ZipParser", function() {
 
             const tempFile = tempPath();
             const outputFile = Writable.toWeb(createWriteStream(tempFile, {encoding: "utf8"}));
-            console.log("tempFile", tempFile);
             await inputStream.pipeThrough(zp.encode({inMemory: true})).pipeTo(outputFile);
 
             const zip = new AdmZip(tempFile);
             const zipEntries = zip.getEntries();
-            zipEntries.forEach((e: any, idx) => console.log(`Zip Entry ${idx}:`, e.toJSON()));
             assert.strictEqual(zipEntries.length, 10);
             assert.strictEqual(zipEntries[0].entryName, "file1.json");
             assert.strictEqual(zipEntries[0].header.compressedSize, 25326);

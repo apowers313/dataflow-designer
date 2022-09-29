@@ -140,6 +140,7 @@ function attachDataflowToNode(cfg: AttachConfig): void {
                     done();
                 })
                 .catch((err) => {
+                    // eslint-disable-next-line no-console
                     console.error(err);
                     node.error(err);
                     done(err);
@@ -209,6 +210,7 @@ function throughWrapperFactory(this: null, node: NodeRed.Node, inputCallbacks: A
                 // TODO: calling with 'node' at this could be problematic, might need to shim 'node'
                 const retData = listener.call(fn, chunk.data, fn.send.bind(fn), done);
                 if (retData) {
+                    // eslint-disable-next-line no-console
                     console.log("returned data not handled", retData);
                 }
             });

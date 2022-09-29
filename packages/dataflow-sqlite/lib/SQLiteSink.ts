@@ -50,14 +50,11 @@ export class SQLiteSink extends Sink {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #push(chunk: Chunk, _methods: SinkMethods): Promise<void> {
-        console.log("push");
         if (!chunk.isData()) {
             return;
         }
 
-        console.log("inserting row");
         this.#insertRow.run(this.#mapping.objToParams(chunk.data));
-        console.log("row inserted");
     }
 
     /**
@@ -68,25 +65,14 @@ export class SQLiteSink extends Sink {
         if (this.dropTable) {
             try {
                 this.#db.exec(`DROP TABLE ${this.#tableName}`);
-                console.log("Table dropped");
-            } catch (err) {
-                console.log("Table not dropped");
-            }
+            } catch (err) { /* ignored */ }
         }
 
         if (this.createTable) {
-            console.log("creating table");
             this.#db.exec(`CREATE TABLE ${this.#tableName} (${this.#mapping.tableDesc()})`);
         }
 
-        console.log("preparing statment");
         this.#insertRow = this.#db.prepare(`INSERT INTO ${this.#tableName} VALUES (${this.#mapping.paramsDesc()})`);
-        console.log("statement prepared");
-
-        // const newPerson = db.prepare("INSERT INTO person VALUES (?, ?, ?, ?, ?)");
-        // const args = [0, "Bob", "Smith", "408-555-1212", "bob@gmail.com"];
-        // newPerson.run(...args);
-        // newPerson.run(1, "Jane", "Doe", "925-555-1212", "jane@hotmail.com");
 
         await super.init();
     }

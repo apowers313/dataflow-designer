@@ -72,7 +72,6 @@ export class CloudWatchSink extends Sink {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #sendLogs(): Promise<void> {
-        console.log("#sendLogs:", this.#logQueue.length);
         // get sequence number if needed
         if (!this.#sequenceNum) {
             this.#sequenceNum = await this.#getSequenceNumber();
@@ -86,7 +85,6 @@ export class CloudWatchSink extends Sink {
             sequenceToken: this.#sequenceNum,
         });
         const response = await this.#cwClient.send(cmd);
-        console.log("response", response);
 
         // save sequence number
         this.#sequenceNum = response.nextSequenceToken;
@@ -99,14 +97,11 @@ export class CloudWatchSink extends Sink {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #getSequenceNumber(): Promise<string | undefined> {
-        console.log("#getSequenceNumber:", this.#logGroupName);
         const descStrCmd = new DescribeLogStreamsCommand({
             logGroupName: this.#logGroupName,
         });
         const descStrResp = await this.#cwClient.send(descStrCmd);
-        console.log("descStrResp", JSON.stringify(descStrResp, null, 4));
         const sequenceToken = descStrResp?.logStreams?.[0]?.uploadSequenceToken;
-        console.log("sequenceToken", sequenceToken);
         return sequenceToken;
     }
 
@@ -115,7 +110,6 @@ export class CloudWatchSink extends Sink {
      */
     async init(): Promise<void> {
         if (this.#createGroup) {
-            console.log("creating group", this.#logGroupName);
             const logGroupCmd = new CreateLogGroupCommand({logGroupName: this.#logGroupName});
             try {
                 await this.#cwClient.send(logGroupCmd);
@@ -127,7 +121,6 @@ export class CloudWatchSink extends Sink {
         }
 
         if (this.#createStream) {
-            console.log("creating stream", this.#logStreamName);
             const logStreamCmd = new CreateLogStreamCommand({logGroupName: this.#logGroupName, logStreamName: this.#logStreamName});
             try {
                 await this.#cwClient.send(logStreamCmd);

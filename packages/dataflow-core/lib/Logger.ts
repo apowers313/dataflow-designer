@@ -92,6 +92,7 @@ class DefaultLogger extends Logger<undefined> {
         super({
             context,
             log: function(data, ... args): void {
+                // eslint-disable-next-line no-console
                 console.log(data, ... args);
             },
         });

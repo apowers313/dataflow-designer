@@ -47,7 +47,6 @@ function interceptedSend(this: InterceptCfg, msg?: NodeRed.NodeMessage | Array<N
             data = data ?? {};
             (this.methods as ThroughMethods).send(chNum, Chunk.create({type: "data", data: data as ChunkData}))
                 .catch((err: Error) => {
-                    console.log("ERROR", err);
                     throw err;
                 });
         });

@@ -52,14 +52,11 @@ export class ValidateSchema extends Through {
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     async #through(chunk: Chunk, methods: ThroughMethods): Promise<void> {
-        console.log("#through", chunk);
         if (!chunk.isData()) {
             return;
         }
 
-        const res = await this.validateFn(chunk.data);
-        console.log("res", res);
-        console.log("this.validateFn.errors", this.validateFn.errors);
+        await this.validateFn(chunk.data);
         if (this.validateFn.errors) {
             throw new ValidationError(chunk, this.validateFn.errors);
         }

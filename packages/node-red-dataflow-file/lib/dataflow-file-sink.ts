@@ -15,7 +15,6 @@ module.exports = nodeFactoryCreator((node, nodeCfg: NodeOpts | null) => {
         throw new Error("node configuration for FileSink is missing filename");
     }
 
-    console.log("creating file sink", nodeCfg);
     const ret = new FileSink({file: nodeCfg.filename});
     // dataflowComplete(node)
     //     .then(() => console.log("flow done"))

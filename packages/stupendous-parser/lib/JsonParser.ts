@@ -95,6 +95,7 @@ export class JsonParser extends Parser {
             flush: (): void => {
                 if (chunkCnt === 0) {
                     // firstThrow = false;
+                    // eslint-disable-next-line no-console
                     console.warn("Stream ending and no chunks sent. Did you specify the right JSON path?");
                     // throw new Error("Stream ending and no chunks sent. Did you specify the right JSON path?");
                 }

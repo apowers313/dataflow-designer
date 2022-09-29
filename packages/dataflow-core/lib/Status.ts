@@ -89,6 +89,7 @@ export class DefaultStatusReporter extends StatusReporter<undefined> {
         super({
             context: ctx,
             status: function(type: string, ... args: any[]) {
+                // eslint-disable-next-line no-console
                 console.log(`[${type.toUpperCase()}]:`, ... args);
             },
         });

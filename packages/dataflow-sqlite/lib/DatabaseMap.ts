@@ -113,8 +113,6 @@ export class DatabaseMap {
             }
         });
 
-        console.log("objToRow ret", ret);
-
         return ret;
     }
 
