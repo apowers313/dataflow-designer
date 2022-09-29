@@ -12,9 +12,7 @@
     "build": "true",
     "lint": "npx eslint --quiet lib/**/*.js"
   },
-  "keywords": [
-    "node-red"
-  ],
+  "keywords": [],
   "author": "Adam Powers <apowers@ato.ms>",
   "license": "MIT",
   "publishConfig": {
