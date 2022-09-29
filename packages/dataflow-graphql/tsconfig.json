@@ -1,13 +1,14 @@
 {
     "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "outDir": "./build",
-        "skipLibCheck": true
-    },
     "include": [
         "**/*.ts"
     ],
     "exclude": [
-        "node_modules/"
-    ]
+        "node_modules/",
+        "build/"
+    ],
+    "compilerOptions": {
+        "outDir": "./build",
+        "skipLibCheck": true
+    }
 }
