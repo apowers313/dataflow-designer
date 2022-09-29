@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-core",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A framework for streaming data",
   "engines": {
     "node": ">=18"
