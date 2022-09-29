@@ -10,7 +10,7 @@
     "test": "lerna run test --no-sort --parallel --concurrency=5",
     "lint": "lerna run lint --no-sort --parallel --concurrency=5",
     "build": "lerna run build",
-    "check": "lerna run lint && lerna run build && lerna run test",
+    "validate": "lerna run lint && lerna run build && lerna run test",
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
     "create:nodered": "plop --plopfile .plopfile.js create:nodered",
@@ -19,7 +19,7 @@
     "docker:build": "docker/build.sh build",
     "docker:publish": "docker/build.sh publish",
     "prepare": "husky install",
-    "preversion": "yarn check && yarn docker:build",
+    "preversion": "yarn validate && yarn docker:build",
     "postpublish": "yarn docker:build && yarn docker:publish",
     "clean": "git clean -fdX"
   },
