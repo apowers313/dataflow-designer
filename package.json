@@ -13,7 +13,7 @@
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
     "create:nodered": "plop --plopfile .plopfile.js create:nodered",
-    "docker:build": "./.createmanifest.sh && docker build --tag dataflow-designer docker",
+    "docker:build": "./.createmanifest.sh && docker build --no-cache --tag dataflow-designer docker",
     "docker:run": "docker run -it -p 1880:1880 dataflow-designer",
     "docker:shell": "docker run -it -p 1880:1880 --entrypoint sh dataflow-designer",
     "prepare": "husky install",
