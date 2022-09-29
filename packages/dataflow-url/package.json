@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-url",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "HTTP source, sink, and through tools for getting dataflow data from URLs",
   "engines": {
     "node": ">=18"
@@ -23,8 +23,8 @@
     "displayName": "Dataflow Url"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "^0.4.2",
-    "@dataflow-designer/stupendous-parser": "^0.4.2",
+    "@dataflow-designer/dataflow-core": "^0.4.3",
+    "@dataflow-designer/stupendous-parser": "^0.4.3",
     "handlebars": "^4.7.7",
     "undici": "^5.10.0"
   }

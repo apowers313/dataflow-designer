@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-validate-schema",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A dataflow utility for validating chunks based on a JSON Schema or JSON Type Definition",
   "engines": {
     "node": ">=18"
@@ -23,7 +23,7 @@
     "displayName": "Dataflow Validate Schema"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "^0.4.2",
+    "@dataflow-designer/dataflow-core": "^0.4.3",
     "ajv": "^8.11.0"
   }
 }

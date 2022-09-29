@@ -1,6 +1,6 @@
 {
   "name": "@dataflow-designer/dataflow-limit",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A dataflow utility to limit the number of messages sent",
   "engines": {
     "node": ">=18"
@@ -23,6 +23,6 @@
     "displayName": "Dataflow Limit"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-core": "^0.4.2"
+    "@dataflow-designer/dataflow-core": "^0.4.3"
   }
 }
