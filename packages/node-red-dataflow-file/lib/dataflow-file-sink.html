@@ -10,9 +10,9 @@
         outputs: 1,
         color: "#4be358",
         icon: "db.svg",
-        paletteLabel: "File Sink",
+        paletteLabel: "file sink",
         label: function () {
-            return this.name || "File Sink";
+            return this.name || "file sink";
         }
     });
 </script>
@@ -31,6 +31,9 @@
 </script>
 
 <!-- Help Text -->
-<script type="text/html" data-help-name="dataflow-file-source">
-    <p>An input for data</p>
+<script type="text/markdown" data-help-name="dataflow-file-sink" src="/dataflow-file-sink.md">
+Consumes objects and writes it to a file.
+
+### Outputs
+None
 </script>

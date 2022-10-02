@@ -6,14 +6,20 @@
             name: { value: "" },
             filename: { value: "", required: true },
         },
-        inputs: 1,
-        outputs: 1,
+        // inputs: 1,
+        // outputs: 1,
         color: "#4be358",
         icon: "db.svg",
-        paletteLabel: "File Source",
+        paletteLabel: "file source",
         label: function () {
-            return this.name || "File Source";
-        }
+            return this.name || "file source";
+        },
+        button: {
+            onclick: () => {
+                console.log(this.name, "button click!")
+                // Called when the button is clicked
+            }
+        },
     });
 </script>
 
@@ -32,5 +38,5 @@
 
 <!-- Help Text -->
 <script type="text/html" data-help-name="dataflow-file-source">
-    <p>An input for data</p>
+Converts a file into a stream of objects.
 </script>
