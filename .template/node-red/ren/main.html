@@ -10,9 +10,9 @@
         outputs: 1,
         color: "#4be358",
         icon: "db.svg",
-        paletteLabel: "{{palette-name}}",
+        paletteLabel: "{{lowerCase palette-name}}",
         label: function () {
-            return this.name || "{{palette-name}}";
+            return this.name || "{{lowerCase palette-name}}";
         }
     });
 </script>
