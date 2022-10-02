@@ -7,9 +7,9 @@
   ],
   "scripts": {
     "docs": "typedoc",
-    "test": "lerna run test --no-sort --parallel --concurrency=5",
-    "lint": "lerna run lint --no-sort --parallel --concurrency=5",
-    "build": "lerna run build",
+    "test": "lerna run test --no-sort --parallel --concurrency=8",
+    "lint": "lerna run lint --no-sort --parallel --concurrency=8",
+    "build": "lerna run build --parallel --concurrency=8",
     "validate": "lerna run lint && lerna run build && lerna run test",
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
@@ -21,7 +21,23 @@
     "prepare": "husky install",
     "preversion": "yarn validate && yarn docker:build",
     "postpublish": "yarn docker:build && yarn docker:publish",
-    "clean": "git clean -fdX"
+    "clean": "git clean -fdX",
+    "start": "yarn build && node-red",
+    "dev": "nodemon"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "delay": 300,
+    "ext": "js,ts,md,html,json",
+    "watch": [".", "packages/*/lib", "packages/*/test"],
+    "ignore": ["packages/*/build/**"],
+    "execMap": {
+      "ts": "lerna run build",
+      "js": "lerna run build",
+      "html": "lerna run build",
+      "json": "lerna run build",
+      "md": "lerna run build"
+    }
   },
   "devDependencies": {
     "@types/chai": "^4.3.1",
@@ -43,6 +59,7 @@
     "husky": "^8.0.1",
     "lerna": "^5.4.3",
     "mocha": "^10.0.0",
+    "nodemon": "^2.0.20",
     "nx": "^14.6.3",
     "nyc": "^15.1.0",
     "plop": "^3.1.1",
