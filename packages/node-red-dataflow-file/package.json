@@ -13,7 +13,7 @@
     "build": "yarn build:ts && yarn build:html",
     "build:ts": "yarn tsc -p ./tsconfig.json",
     "build:html": "yarn plop --plopfile ../../.plopfile.js create:nodered:html",
-    "lint": "yarn eslint --quiet lib/**/*.ts"
+    "lint": "yarn eslint --quiet dataflow-*/**/*.ts"
   },
   "keywords": [],
   "author": "Adam Powers <apowers@ato.ms>",
