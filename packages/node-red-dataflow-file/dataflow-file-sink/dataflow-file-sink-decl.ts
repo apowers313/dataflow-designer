@@ -1,5 +1,3 @@
-import * as NodeRed from "node-red";
-
 // TODO: any
 (globalThis as any).RED.nodes.registerType("dataflow-file-sink", {
     category: "dataflow",
