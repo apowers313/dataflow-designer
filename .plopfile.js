@@ -1,3 +1,7 @@
+const path = require("path");
+const fs = require("fs");
+const ts = require("typescript");
+
 module.exports = function (plop) {
     // controller generator
     plop.setGenerator("create:dataflow", {
@@ -69,4 +73,47 @@ module.exports = function (plop) {
             templateFile: ".template/node-red/ren/main.html"
         }],
     });
+
+    plop.setGenerator("create:nodered:html", {
+        prompts: [], // no prompts
+        actions: [
+            async function customAction(answers) {
+                // setup values
+                const packageName = path.basename(process.cwd());
+                const rootDir = plop.getPlopfilePath();
+                const templatePath = path.resolve(rootDir, ".template/node-red-html/template.html");
+                const templateStr = fs.readFileSync(templatePath, "utf8");
+                const packageDir = path.resolve(rootDir, "packages", packageName);
+                const tsconfigPath = path.resolve(packageDir, "tsconfig.json");
+                const buildDir = path.resolve(packageDir, "build");
+
+                // get list of components
+                const packageJson = path.resolve(packageDir, "package.json");
+                const packageJsonContent = require(packageJson);
+                const nodeRedDef = packageJsonContent["node-red"]?.nodes ?? {};
+                const nodeRedNodes = Object.keys(nodeRedDef);
+                // const nodeRedNodes = ["dataflow-file-sink"]
+
+                // build each HTML
+                nodeRedNodes.forEach((nodeName) => {
+                    const nodePath = path.resolve(packageDir, nodeName);
+                    const defaultsFile = path.resolve(nodePath, nodeName + "-decl.ts");
+                    const helpFile = path.resolve(nodePath, nodeName + "-help.md");
+                    const editorFile = path.resolve(nodePath, nodeName + "-editor.html");
+                    // TODO: this could be faster if we did async and Promise.all() for reading files
+                    let defaultsStr = fs.readFileSync(defaultsFile, "utf8");
+                    const helpStr = fs.readFileSync(helpFile, "utf8");
+                    const editorStr = fs.readFileSync(editorFile, "utf8");
+                    defaultsStr = ts.transpile(defaultsStr, tsconfigPath);
+                    const content = plop.renderString(templateStr, {
+                        defaultsJs: defaultsStr,
+                        editorHtml: editorStr,
+                        helpMarkdown: helpStr
+                    });
+                    const outputFile = path.resolve(buildDir, nodeName, nodeName + ".html");
+                    fs.writeFileSync(outputFile, content);
+                });
+            }
+        ]
+    })
 };

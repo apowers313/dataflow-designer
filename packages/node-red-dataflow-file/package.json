@@ -10,7 +10,9 @@
   },
   "scripts": {
     "test": "true",
-    "build": "yarn tsc -p ./tsconfig.json && cp lib/*.html build",
+    "build": "yarn build:ts && yarn build:html",
+    "build:ts": "yarn tsc -p ./tsconfig.json",
+    "build:html": "yarn plop --plopfile ../../.plopfile.js create:nodered:html",
     "lint": "yarn eslint --quiet lib/**/*.ts"
   },
   "keywords": [],
