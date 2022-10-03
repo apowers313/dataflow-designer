@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "dataflow",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Package Name",
+      "x-prompt": "Package Name (dataflow-<name>)?"
+    },
+    "desc": {
+      "type": "string",
+      "description": "Description",
+      "x-prompt": "Package description?"
+    },
+    "fclass": {
+      "type": "string",
+      "description": "First Class",
+      "x-prompt": "First class?"
+    }
+  },
+  "required": [
+    "name",
+    "desc"
+  ]
+}

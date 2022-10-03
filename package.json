@@ -12,7 +12,7 @@
     "build": "lerna run build --parallel --concurrency=8",
     "validate": "lerna run lint && lerna run build && lerna run test",
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
-    "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
+    "create:dataflow": "nx workspace-generator dataflow",
     "create:nodered": "plop --plopfile .plopfile.js create:nodered",
     "docker:run": "docker/build.sh run",
     "docker:shell": "docker/build.sh shell",
@@ -29,8 +29,14 @@
     "verbose": true,
     "delay": 300,
     "ext": "js,ts,md,html,json",
-    "watch": [".", "packages/*/lib", "packages/*/test"],
-    "ignore": ["packages/*/build/**"],
+    "watch": [
+      ".",
+      "packages/*/lib",
+      "packages/*/test"
+    ],
+    "ignore": [
+      "packages/*/build/**"
+    ],
     "execMap": {
       "ts": "lerna run build",
       "js": "lerna run build",
@@ -40,6 +46,8 @@
     }
   },
   "devDependencies": {
+    "@nrwl/devkit": "14.8.2",
+    "@nrwl/nx-plugin": "^14.8.2",
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.2",
@@ -70,5 +78,6 @@
     "ts-mocha": "^10.0.0",
     "typedoc": "^0.23.5",
     "typescript": "4.9.0-dev.20220919"
-  }
+  },
+  "dependencies": {}
 }
