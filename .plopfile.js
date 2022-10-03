@@ -88,27 +88,42 @@ module.exports = function (plop) {
                 const buildDir = path.resolve(packageDir, "build");
 
                 // get list of components
-                const packageJson = path.resolve(packageDir, "package.json");
-                const packageJsonContent = require(packageJson);
+                const packageJsonPath = path.resolve(packageDir, "package.json");
+                const packageJsonContent = require(packageJsonPath);
                 const nodeRedDef = packageJsonContent["node-red"]?.nodes ?? {};
                 const nodeRedNodes = Object.keys(nodeRedDef);
-                // const nodeRedNodes = ["dataflow-file-sink"]
 
                 // build each HTML
                 nodeRedNodes.forEach((nodeName) => {
                     const nodePath = path.resolve(packageDir, nodeName);
-                    const defaultsFile = path.resolve(nodePath, nodeName + "-decl.ts");
-                    const helpFile = path.resolve(nodePath, nodeName + "-help.md");
-                    const editorFile = path.resolve(nodePath, nodeName + "-editor.html");
+                    const declFilePath = path.resolve(nodePath, nodeName + "-decl.ts");
+                    const helpFilePath = path.resolve(nodePath, nodeName + "-help.md");
+                    const editorFilePath = path.resolve(nodePath, nodeName + "-editor.html");
                     // TODO: this could be faster if we did async and Promise.all() for reading files
-                    let defaultsStr = fs.readFileSync(defaultsFile, "utf8");
-                    const helpStr = fs.readFileSync(helpFile, "utf8");
-                    const editorStr = fs.readFileSync(editorFile, "utf8");
-                    defaultsStr = ts.transpile(defaultsStr, tsconfigPath);
+                    let declStr = fs.readFileSync(declFilePath, "utf8");
+                    const helpStr = fs.readFileSync(helpFilePath, "utf8");
+                    const editorStr = fs.readFileSync(editorFilePath, "utf8");
+                    declStr = ts.transpile(declStr, tsconfigPath);
                     const content = plop.renderString(templateStr, {
-                        defaultsJs: defaultsStr,
+                        defaultsJs: declStr,
                         editorHtml: editorStr,
-                        helpMarkdown: helpStr
+                        helpMarkdown: helpStr,
+                        packageName,
+                        rootDir,
+                        templatePath,
+                        templateStr,
+                        packageDir,
+                        tsconfigPath,
+                        buildDir,
+                        packageJsonPath,
+                        packageJsonContent,
+                        nodeRedDef,
+                        nodeRedNodes,
+                        nodeName,
+                        nodePath,
+                        declFilePath,
+                        helpFilePath,
+                        editorFilePath,
                     });
                     const outputFile = path.resolve(buildDir, nodeName, nodeName + ".html");
                     fs.writeFileSync(outputFile, content);
