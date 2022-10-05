@@ -1,16 +1,18 @@
 {
-  "name": "@dataflow-designer/node-red-dataflow-{{name}}",
+  "name": "@dataflow-designer/node-red-dataflow-{{pkgName}}",
   "version": "0.2.1",
   "description": "{{desc}}",
   "node-red": {
     "nodes": {
-      "dataflow-{{name}}": "lib/dataflow-{{name}}.js"
+      "dataflow-{{nodeName}}": "build/dataflow-{{nodeName}}/dataflow-{{nodeName}}.js"
     }
   },
   "scripts": {
     "test": "true",
-    "build": "true",
-    "lint": "npx eslint --quiet lib/**/*.js"
+    "build": "yarn build:ts && yarn build:html",
+    "build:ts": "yarn tsc -p ./tsconfig.json",
+    "build:html": "yarn plop --plopfile ../../.plopfile.js create:nodered:html",
+    "lint": "yarn eslint --quiet dataflow-*/**/*.ts"
   },
   "keywords": [],
   "author": "Adam Powers <apowers@ato.ms>",
@@ -30,6 +32,7 @@
     "node-red-node-test-helper": "^0.2.7"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-nodered": "^0.2.1"
+    "@dataflow-designer/dataflow-nodered": "*",
+    "@dataflow-designer/dataflow-{{dep}}": "*"
   }
 }

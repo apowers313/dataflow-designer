@@ -14,6 +14,7 @@
     "coverage": "nx clear-cache && nyc --reporter=lcov --reporter=html --reporter=text-summary lerna run test",
     "create:dataflow": "plop --plopfile .plopfile.js create:dataflow",
     "create:nodered": "plop --plopfile .plopfile.js create:nodered",
+    "add:nodered": "plop --plopfile .plopfile.js create:nodered:add",
     "docker:run": "docker/build.sh run",
     "docker:shell": "docker/build.sh shell",
     "docker:build": "docker/build.sh build",
