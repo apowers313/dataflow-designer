@@ -1,6 +1,6 @@
 import type * as NodeRed from "node-red";
+import {assertNodeArrayIncludes, assertNodeSameish, helperInit, testSourceNodeFactory} from "./helpers/helpers";
 import {getInputNodes, getInputNodesTypes, getOutputNodes, isRedDataflowNode} from "../lib/utils";
-import {helperInit, testSourceNodeFactory} from "./helpers/helpers";
 import type {MonkeyPatchNode} from "../lib/types";
 import {assert} from "chai";
 import helper from "node-red-node-test-helper";
@@ -8,24 +8,6 @@ import helper from "node-red-node-test-helper";
 let RED: NodeRed.NodeAPI;
 function captureRedApi(r: NodeRed.NodeAPI): void {
     RED = r;
-}
-
-function assertNodeSameish(n1: NodeRed.Node, n2: NodeRed.Node): void {
-    assert.strictEqual(n1.name, n2.name);
-    assert.strictEqual(n1.id, n2.id);
-    assert.strictEqual(n1.type, n2.type);
-    assert.deepEqual((n1 as MonkeyPatchNode).wires, (n2 as MonkeyPatchNode).wires);
-}
-
-function assertNodeArrayIncludes(nodeArray: Array<NodeRed.Node>, n: NodeRed.Node): void {
-    for (let i = 0; i < nodeArray.length; i++) {
-        if (nodeArray[i].id === n.id) {
-            assertNodeSameish(nodeArray[i], n);
-            return;
-        }
-    }
-
-    assert.fail("no matching node found");
 }
 
 describe("utils", function() {

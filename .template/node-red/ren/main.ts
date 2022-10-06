@@ -6,8 +6,6 @@ interface NodeOpts extends NodeDef {
 }
 
 module.exports = nodeFactoryCreator((node, nodeCfg: NodeOpts | null) => {
-    console.log("creating {{nodeName}}", nodeCfg);
-
     if (!nodeCfg) {
         throw new Error("node configuration not optional for FileSink");
     }

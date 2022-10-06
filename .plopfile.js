@@ -91,6 +91,10 @@ module.exports = function (plop) {
             type: "add",
             path: "packages/node-red-dataflow-{{pkgName}}/dataflow-{{nodeName}}/dataflow-{{nodeName}}-decl.ts",
             templateFile: ".template/node-red/ren/decl.ts"
+        }, {
+            type: "add",
+            path: "packages/node-red-dataflow-{{pkgName}}/test/dataflow-{{nodeName}}.test.ts",
+            templateFile: ".template/node-red/ren/main.test.ts"
         }]
 
     plop.setGenerator("create:nodered", {

@@ -23,6 +23,9 @@
     "displayName": "Dataflow NodeRED"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/sinon": "^10.0.12",
+    "@types/std-mocks": "^1.0.1",
     "@types/node-red-node-test-helper": "^0.2.2",
     "node-red-node-test-helper": "^0.3.0"
   },

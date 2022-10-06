@@ -9,7 +9,7 @@
     }
   },
   "scripts": {
-    "test": "true",
+    "test": "yarn ts-mocha -p ./tsconfig.json test/**/*.test.ts",
     "build": "yarn build:ts && yarn build:html",
     "build:ts": "yarn tsc -p ./tsconfig.json",
     "build:html": "yarn plop --plopfile ../../.plopfile.js create:nodered:html",
@@ -21,20 +21,22 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "eslint-import-resolver-typescript": "^3.5.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsdoc": "^30.7.13",
-    "eslint-plugin-mocha": "^8.2.0",
-    "eslint-plugin-old-c-programmer": "^1.0.1",
-    "mocha": "^10.0.0",
+    "@types/chai": "^4.3.1",
+    "@types/sinon": "^10.0.12",
+    "@types/std-mocks": "^1.0.1",
+    "@types/node-red-node-test-helper": "^0.2.2",
     "node-red": "^3.0.1",
-    "node-red-node-test-helper": "^0.2.7"
+    "node-red-node-test-helper": "^0.3.0"
+  },
+  "peerDependencies": {
+    "node-red": "^3.0.1"
   },
   "dependencies": {
-    "@dataflow-designer/dataflow-file": "^0.4.3",
-    "@dataflow-designer/dataflow-nodered": "^0.4.3"
-  },
-  "gitHead": "a1b95fa7ac31f9b68f1a26ed49907d9e9a2d87fd"
+    "@dataflow-designer/dataflow-nodered": "*",
+    "@dataflow-designer/dataflow-file": "*"
+  }
 }

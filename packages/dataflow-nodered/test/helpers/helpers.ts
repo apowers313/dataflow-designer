@@ -1,6 +1,8 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import * as NodeRed from "node-red";
-import {Chunk, Component, Sink, Source, SourceMethods, ThroughMethods, helpers as coreHelpers} from "@dataflow-designer/dataflow-core";
+import {Component, Sink, helpers as coreHelpers} from "@dataflow-designer/dataflow-core";
+import type {MonkeyPatchNode} from "../../lib/types";
+import {assert} from "chai";
 import helper from "node-red-node-test-helper";
 import {nodeFactoryCreator} from "../../index";
 import {spy} from "sinon";
@@ -43,4 +45,22 @@ export function testNodeFactoryCreator(inputCb: TestInputCb) {
         }
         RED.nodes.registerType("test-node", testNode);
     };
+}
+
+export function assertNodeSameish(n1: NodeRed.Node, n2: NodeRed.Node): void {
+    assert.strictEqual(n1.name, n2.name);
+    assert.strictEqual(n1.id, n2.id);
+    assert.strictEqual(n1.type, n2.type);
+    assert.deepEqual((n1 as MonkeyPatchNode).wires, (n2 as MonkeyPatchNode).wires);
+}
+
+export function assertNodeArrayIncludes(nodeArray: Array<NodeRed.Node>, n: NodeRed.Node): void {
+    for (let i = 0; i < nodeArray.length; i++) {
+        if (nodeArray[i].id === n.id) {
+            assertNodeSameish(nodeArray[i], n);
+            return;
+        }
+    }
+
+    assert.fail("no matching node found");
 }
